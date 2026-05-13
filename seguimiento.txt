@@ -3,3 +3,4 @@ Durante este primer día, hemos aprovechado para trabajar en los diferentes aspe
 divido en varios subproyectos, en el que hemos diseccionado las partes más importantes: App, HTML y BD
 BD: estructura del modelo relacional, definición de atributos y relaciones, esquema conceptual
 Backend: He creado la estructura de carpetas para trabajar usando Flask(Python) en el Backend, y he empezado a crear las funciones login y registrar_cliente y he rellenado el db_helper.py.
+Html: Estructura basica base de la pagina principal con apartados de "sobre nosotros"(aun sin crear) y feedback. Tambien, en el navegador de la pagina opciones de pagina inicio, productos, carrito y opcion de login (aun en desarrollo).
