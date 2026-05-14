@@ -43,6 +43,8 @@ A continuación, explicamos las relaciones de cada tabla, además de la muestra 
 
 Aquí dejo una imagen visual esquemática de la base de datos:
 
+![Esquema de la base](https://github.com/aaronbgrg-dot/AXA-assembly-/blob/5f2c71e1adad6caea8a561404cf7cb22f8b89e5b/Imagen-Esquema-BD.png)
+
 
 
 
