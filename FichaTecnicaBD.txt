@@ -1,0 +1,181 @@
+# En este documento, vamos a explicar los entresijos de nuestra base de datos MOBILIARIO.
+Nuestra base de datos sirve para gestionar diferentes secciones de una tienda. Nos hemos enfocado en:
+- Venta de muebles
+- Diseño personalizado
+- Comercio electrónico
+- Gestión de pedidos
+- Servicios adicionales
+- Puntos de entrega y recogidas
+
+Tenemos un total de 13 tablas. A continuación, una breve descripción sobre cada una de ellas:
++ Usuario: Gestión de la página web mediante roles.
++ Departamento: Áreas internas de secciones de trabajo de la empresa.
++ Trabajador: Los empleados de la empresa.
++ Proveedor: Empresas colaboradoras con nosotras y que nos proporcionan los materiales y productos correspondientes.
++ Mueble: Los productos a disposición del cliente.
++ Pedido: Cuantificador de pedidos por parte del cliente.
++ Detalle_pedido: Los productos seleccionados dentro de un mismo pedido. 
++ Diseño_personalizado: La función de proporcionar al cliente un sistema de personalización de productos.
++ Servicio: Servicios adicionales, especialmente enfocado al transporte. 
++ Pedido_servicio: Tabla intermedia entre servicio y pedido.
++ Oferta: Muestra de ofertas temporales aplicadas a algunos productos en venta de la página web.
++ Mueble_oferta: La relación entre el mueble y la oferta.
++ Cita: Registros de petición de entrega de producto y ubicación del mismo.
+
+A continuación, explicamos las relaciones de cada tabla, además de la muestra visual:
++ Usuario:
+* Un usuario solo puede pertenecer a un trabajador. Un trabajador no puede tener más de un usuario (1:1)
+* Un usuario puede hacer más de un pedido. Un pedido solo puede ser realizado por un usuario. (1:N)
+* Un usuario puede pedir más de un diseño personalizado pero este solo puede ser pedido por un usuario. (1:N)
+* Un usuario puede pedir varias citas pero cada cita solo puede ser pedida por un usuario. (1:N)
++ Departamento:
+* Un trabajador solo puede pertenecer a un departamento y en cada departamento puede haber más de un trabajador. (1:N)
++ Proveedor:
+* Un proveedor puede dar varios muebles pero un mueble solo puede ser entregado por un proveedor. (1:N)
++ Mueble:
+* Un mueble puede estar en más de un producto seleccionado, pero el producto solo puede contener ese mueble una vez. (1:N)
+* Un mueble puede pedirse para más de un diseño pero ese diseño solo puede contener ese mueble una vez. (1:N)
+* Un mueble puede tener varias ofertas y esa oferta puede tener varios muebles. (N:M)
++ Pedido:
+* Puede haber más de un pedido en la cantidad total pero esa cantidad solo corresponde a un pedido total. (1:N)
+* En un pedido, puede haber más de un servicio escogido y un servicio puede acaparar más de un pedido. (N:M)
+* Una cita puede contener varios pedidos, pero un pedido solo puede estar en una cita concreta. (1:N)
+
+Aquí dejo una imagen visual esquemática de la base de datos:
+
+
+
+
+
+
+┌────────────────────┐
+│      USUARIO       │
+├────────────────────┤
+│ id_usuario (PK)    │
+│ nombre             │
+│ apellidos          │
+│ email              │
+│ contraseña         │
+│ telefono           │
+│ rol                │
+│ fecha_registro     │
+└────────────────────┘
+          │
+          ├──────────────┐
+          │              │
+          │              │
+          ▼              ▼
+
+┌────────────────────┐      ┌────────────────────┐
+│    TRABAJADOR      │      │     INMUEBLE       │
+├────────────────────┤      ├────────────────────┤
+│ id_trabajador(PK)  │      │ id_inmueble (PK)   │
+│ id_usuario (FK)    │      │ id_usuario (FK)    │
+│ id_departamentoFK  │      │ direccion          │
+│ puesto             │      │ ciudad             │
+│ salario            │      │ tipo               │
+│ fecha_contratacion │      │ precio             │
+└────────────────────┘      │ metros_cuadrados   │
+          │                 │ habitaciones       │
+          │                 │ baños              │
+          ▼                 │ estado             │
+┌────────────────────┐      └────────────────────┘
+│    DEPARTAMENTO    │                  │
+├────────────────────┤                  │
+│ id_departamentoPK  │                  │
+│ nombre             │                  │
+│ descripcion        │                  │
+└────────────────────┘                  │
+                                        │
+                      ┌─────────────────┴────────────────┐
+                      │                                  │
+                      ▼                                  ▼
+
+          ┌────────────────────┐          ┌────────────────────┐
+          │ INMUEBLE_SERVICIO  │          │  INMUEBLE_OFERTA   │
+          ├────────────────────┤          ├────────────────────┤
+          │ id_inmueble (FK)   │          │ id_inmueble (FK)   │
+          │ id_servicio (FK)   │          │ id_oferta (FK)     │
+          └────────────────────┘          └────────────────────┘
+                      │                                  │
+                      │                                  │
+                      ▼                                  ▼
+
+          ┌────────────────────┐          ┌────────────────────┐
+          │      SERVICIO      │          │      OFERTA        │
+          ├────────────────────┤          ├────────────────────┤
+          │ id_servicio (PK)   │          │ id_oferta (PK)     │
+          │ nombre             │          │ titulo             │
+          │ descripcion        │          │ descripcion        │
+          │ precio             │          │ descuento          │
+          │ disponibilidad     │          │ fecha_inicio       │
+          └────────────────────┘          │ fecha_fin          │
+                                          └────────────────────┘
+┌────────────────────┐
+│     PROVEEDOR      │
+├────────────────────┤
+│ id_proveedor (PK)  │
+│ nombre_empresa     │
+│ telefono           │
+│ email              │
+│ direccion          │
+│ ciudad             │
+└────────────────────┘
+          │
+     ┌────┴─────┐
+     │          │
+     ▼          ▼
+
+┌────────────────────┐      ┌────────────────────┐
+│      MUEBLE        │      │    HERRAMIENTA     │
+├────────────────────┤      ├────────────────────┤
+│ id_mueble (PK)     │      │ id_herramientaPK   │
+│ id_proveedor (FK)  │      │ id_proveedor (FK)  │
+│ nombre             │      │ nombre             │
+│ categoria          │      │ tipo               │
+│ precio             │      │ estado             │
+│ stock              │      │ precio             │
+│ material           │      │ stock              │
+└────────────────────┘      └────────────────────┘
+          │                          │
+          └──────────┬───────────────┘
+                     │
+                     ▼
+
+           ┌────────────────────┐
+           │  SECCION_COMPRA    │
+           ├────────────────────┤
+           │ id_seccion (PK)    │
+           │ id_compra (FK)     │
+           │ id_mueble (FK)     │
+           │ id_herramientaFK   │
+           │ cantidad           │
+           │ precio_unitario    │
+           │ subtotal           │
+           └────────────────────┘
+                     │
+                     ▼
+
+           ┌────────────────────┐
+           │      COMPRA        │
+           ├────────────────────┤
+           │ id_compra (PK)     │
+           │ id_proveedor (FK)  │
+           │ id_trabajadorFK    │
+           │ fecha_compra       │
+           │ total              │
+           │ metodo_pago        │
+           └────────────────────┘
+
+
+┌────────────────────┐
+│       CITA         │
+├────────────────────┤
+│ id_cita (PK)       │
+│ id_usuario (FK)    │
+│ id_inmueble (FK)   │
+│ fecha              │
+│ estado             │
+└────────────────────┘
+
+
