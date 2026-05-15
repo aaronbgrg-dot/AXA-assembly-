@@ -3,6 +3,7 @@ import mysql.connector
 import db_helper
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+from dotenv import load_dotenv
 
 
 load_dotenv()
@@ -13,11 +14,11 @@ app.secret_key = os.getenv("secret_key")
 
 @app.route("/")
 def home():
-    return redirect(url_for("pagina_principal"))
+    return redirect(url_for("index"))
 
 @app.route("/Pagina_Principal")
-def pagina_principal():
-    return render_template("pagina_principal.html")
+def index():
+    return render_template("index.html")
 
 @app.route("/login", methods = ["GET","POST"])
 def login():
@@ -25,8 +26,8 @@ def login():
     mensaje = ""
 
     if request.method == "POST":
-        usuario_entrada = request.form.get("###")
-        contrasena_entrada = request.form.get("###")
+        usuario_entrada = request.form.get("Nom_usuario")
+        contrasena_entrada = request.form.get("Contrase_usuario")
 
         conexion, cursor = db_helper.get_base_datos()
 
@@ -36,17 +37,17 @@ def login():
         cursor.execute(sSQL, [usuario_entrada])
         usuario = cursor.fetchone()
 
-        if check_password_hash(usuario["contrasena"], contrasena_entrada):
-            session ["id_usuario"] = usuario ["id_usuario"]
-            session ["usuario"] = usuario ["usuario"]
-            return redirect(url_for("###"))
-        else:
-            mensaje = "Has introducido mal o el usuario o la contraseña!!"
-
         cursor.close()
         conexion.close()
 
-    return render_template("login.html", mensaje=mensaje)
+        if usuario and check_password_hash(usuario["contrasena"], contrasena_entrada):
+            session ["id_usuario"] = usuario ["id_usuario"]
+            session ["usuario"] = usuario ["usuario"]
+            return redirect(url_for("index"))
+        else:
+            mensaje = "Has introducido mal o el usuario o la contraseña!!"
+
+    return render_template("login.html", mensaje = mensaje)
 
 @app.route("/registrar_cliente", methods = ["GET","POST"])
 def registrar_cliente():
@@ -55,8 +56,8 @@ def registrar_cliente():
     mensaje = ""
 
     if request.method == "POST":
-        usuario_entrada = request.form.get("###")
-        contrasena_entrada = request.form.get("###")
+        usuario_entrada = request.form.get("Nom_usuario")
+        contrasena_entrada = request.form.get("Contrase_usuario")
 
         contrasena_segura = generate_password_hash(contrasena_entrada)
 
@@ -65,6 +66,8 @@ def registrar_cliente():
         contiene_numero = any(varchar.isdigit() for varchar in contrasena_entrada)
         contiene_simbolo = any(varchar in simbolos_contrasena for varchar in contrasena_entrada)
 
+        cursor.close()
+        conexion.close()
 
         if len(contrasena_entrada) < 8: 
             mensaje = "La contraseña debe tener al menos 8 caracteres."
@@ -81,11 +84,8 @@ def registrar_cliente():
             values(%s,%s,%s)"""            
             cursor.execute(sSQL,(usuario_entrada, contrasena_segura, "cliente"))
 
-        cursor.close()
-        conexion.close()
-
-        return redirect(url_for("###"))
-    return render_template("###.html")
+        return redirect(url_for("index"))
+    return render_template("Registro.html")
 
 
 @app.route("/ordenar_por_precio", methods = ["GET", "POST"])
@@ -151,7 +151,7 @@ def filtrar_por_seccion():
         cursor.close()
         conexion.close()
         return render_template("###.html", muebles = muebles)
-    return render_template("###.html")
+    return render_template("index.html")
 
 
 @app.route("/añadir_muebles", methods = ["GET", "POST"])
@@ -165,10 +165,13 @@ def añadir_muebles():
         categoria_mueble_nuevo = request.form.get("categoria_nueva")
         cantidad_mueble_nuevo = request.form.get("stock")
         material_mueble_nuevo = request.form.get("material_mueble_nuevo")
-        descripción_mueble_nuevo = request.form.get("imagen_nueva")
+        descripcion_mueble_nuevo = request.form.get("imagen_nueva")
         altura_mueble_nuevo = request.form.get("altura_nuevo")
         anchura_mueble_nuevo = request.form.get("anchura_nueva")
         profundidad_mueble_nuevo = request.form.get("profundidad_nueva")
+        color_mueble_nuevo = request.form.get("color_nuevo")
+        precio_estimado_mueble_nuevo = request.form.get("precio_estimado_nuevo")
+        estado_mueble_nuevo = request.form.get("estado_nuevo")
 
         conexion, cursor = db_helper.get_base_datos()
 
@@ -176,8 +179,10 @@ def añadir_muebles():
         values(%s, %s, %s, %s, %s) """
         cursor.execute(sSQL, (nombre_mueble_nuevo, categoria_mueble_nuevo, precio_mueble_nuevo, cantidad_mueble_nuevo, material_mueble_nuevo))
 
-        sSQL = """ insert into diseño_personalizado(ancho, alto, profundidad, color, material, descripcion, precio_estimado, estado) values(%s, %s, %s, %s, %s, %s, %s, %s)
-"""
+        sSQL = """ insert into diseño_personalizado(ancho, alto, profundidad, color, material, descripcion, precio_estimado, estado)
+        values(%s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        cursor.execute(sSQL(anchura_mueble_nuevo, altura_mueble_nuevo, profundidad_mueble_nuevo, color_mueble_nuevo, material_mueble_nuevo, descripcion_mueble_nuevo, precio_estimado_mueble_nuevo, estado_mueble_nuevo))
 
         cursor.close()
         conexion.close()
@@ -185,8 +190,6 @@ def añadir_muebles():
         mensaje = "Muebles añadidos con exito."
         return render_template ("###.html", mensaje = mensaje)
     return render_template("###.html")
-
-
 
 
 @app.route("/logout", methods =["GET", "POST"])
