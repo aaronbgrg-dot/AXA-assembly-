@@ -34,7 +34,7 @@ def login():
         sSQL = """select id_usuario, usuario, contrasena, rol 
         from usuario 
         where usuario = %s"""
-        cursor.execute(sSQL, [usuario_entrada])
+        cursor.execute(sSQL, (usuario_entrada,))
         usuario = cursor.fetchone()
 
         cursor.close()
@@ -66,8 +66,7 @@ def registrar_cliente():
         contiene_numero = any(varchar.isdigit() for varchar in contrasena_entrada)
         contiene_simbolo = any(varchar in simbolos_contrasena for varchar in contrasena_entrada)
 
-        cursor.close()
-        conexion.close()
+        
 
         if len(contrasena_entrada) < 8: 
             mensaje = "La contraseña debe tener al menos 8 caracteres."
@@ -84,7 +83,10 @@ def registrar_cliente():
             values(%s,%s,%s)"""            
             cursor.execute(sSQL,(usuario_entrada, contrasena_segura, "cliente"))
 
-        return redirect(url_for("index"))
+            cursor.close()
+            conexion.close()
+            
+            return redirect(url_for("index"))
     return render_template("Registro.html")
 
 
@@ -110,25 +112,33 @@ def ordenar_por_precio():
 
 @app.route("/filtrar_por_precio", methods = ["GET", "POST"])
 def filtrar_por_precio():
+    mensaje = ""
     if request.method == "POST":
-        precio_min = request.form.get("Valor min introducido por el usuario") 
-        precio_max = request.form.get("valor max introducido por usuario")
+        
+        if precio_min and precio_max:
+            precio_min = request.form.get("Valor min introducido por el usuario") 
+            precio_max = request.form.get("valor max introducido por usuario")
 
-        conexion, cursor = db_helper.get_base_datos()
+            conexion, cursor = db_helper.get_base_datos()
 
-        sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
-        dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
-        from mueble m
-        left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
-        where m.precio between %s and %s"""
-        cursor.execute(sSQL, (precio_min, precio_max))
+            sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
+            dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
+            from mueble m
+            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
+            where m.precio between %s and %s"""
+            cursor.execute(sSQL,(precio_min, precio_max))
 
-        muebles = cursor.fetchall()
+            muebles = cursor.fetchall()
 
-        cursor.close()
-        conexion.close()
-        return render_template("###.html", muebles = muebles)
-    return render_template("###.html")
+            cursor.close()
+            conexion.close()
+
+            return render_template("###.html", muebles = muebles)
+
+        else:
+            mensaje = "Necesito que digas entre que precios quieres filtrar"
+            
+    return render_template("###.html", muebles = muebles, mensaje = mensaje)
 
 @app.route("/filtrar_por_seccion", methods = ["GET", "POST"])
 def filtrar_por_seccion():
@@ -144,7 +154,7 @@ def filtrar_por_seccion():
         from mueble m
         left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
         where m.categoria = %s"""
-        cursor.execute(sSQL, [seccion_seleccionada])
+        cursor.execute(sSQL, (seccion_seleccionada,))
 
         muebles = cursor.fetchall()
     
@@ -179,16 +189,64 @@ def añadir_muebles():
         values(%s, %s, %s, %s, %s) """
         cursor.execute(sSQL, (nombre_mueble_nuevo, categoria_mueble_nuevo, precio_mueble_nuevo, cantidad_mueble_nuevo, material_mueble_nuevo))
 
-        sSQL = """ insert into diseño_personalizado(ancho, alto, profundidad, color, material, descripcion, precio_estimado, estado)
-        values(%s, %s, %s, %s, %s, %s, %s, %s)
+        id_mueble_subido = cursor.lastrowid
+
+        sSQL = """ insert into diseño_personalizado(id_mueble, ancho, alto, profundidad, color, material, descripcion, precio_estimado, estado)
+        values(%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-        cursor.execute(sSQL(anchura_mueble_nuevo, altura_mueble_nuevo, profundidad_mueble_nuevo, color_mueble_nuevo, material_mueble_nuevo, descripcion_mueble_nuevo, precio_estimado_mueble_nuevo, estado_mueble_nuevo))
+        cursor.execute(sSQL, (id_mueble_subido, anchura_mueble_nuevo, altura_mueble_nuevo, profundidad_mueble_nuevo, color_mueble_nuevo, material_mueble_nuevo, descripcion_mueble_nuevo, precio_estimado_mueble_nuevo, estado_mueble_nuevo))
 
         cursor.close()
         conexion.close()
 
         mensaje = "Muebles añadidos con exito."
         return render_template ("###.html", mensaje = mensaje)
+    return render_template("###.html")
+
+
+@app.route("/filtro_por_color", methods = ["GET", "POST"])
+def filtro_por_color():
+    if request.method == "POST":
+        color_seleccionado = request.form.get("color")
+
+        conexion, cursor = db_helper.get_base_datos()
+
+        sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
+            dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
+            from mueble m
+            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
+            where dp.color = %s
+        """
+        cursor.execute(sSQL, (color_seleccionado,))
+
+        cursor.close()
+        conexion.close()
+
+        return render_template("###.html")
+    return render_template("###.html")
+
+
+@app.route("/get_feedback", methods = ["GET", "POST"])
+def get_feedback():
+    if request.method == "POST":
+
+        nueva_valoración_estado = request.form.get("val_est")
+        nuevo_feedback = request.form.get("feedback")
+        nueva_resena = request.form.get("resena")
+
+        conexion, cursor = db_helper.get_base_datos()
+
+        sSQL = """insert into servicios(id_pedido, valoracion_estado, feedback, resena) 
+        values(%s, %s,%s,%s)
+        """
+        id_pedido_valorador = cursor.lastrowid
+
+        cursor.execute(sSQL, (id_pedido_valorador, nueva_valoración_estado, nuevo_feedback, nueva_resena))
+
+        cursor.close()
+        conexion.close()
+
+        return render_template("###.html")
     return render_template("###.html")
 
 
