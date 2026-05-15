@@ -2,11 +2,14 @@ from flask import Flask, url_for, render_template, redirect, session, request
 import mysql.connector
 import db_helper
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
+
+load_dotenv()
 
 app = Flask(__name__)
 
-
+app.secret_key = os.getenv("secret_key")
 
 @app.route("/")
 def home():
