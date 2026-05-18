@@ -39,7 +39,7 @@ Imágenes
 
 Es contenido estático (no cambia dinámicamente)
 
-💻 3. Ejecución en local
+Ejecución en local
 
 Para ejecutar el proyecto en local necesitamos:
 
@@ -96,4 +96,5 @@ Se sustituyen variables dinámicas
 
 Se devuelve HTML final al navegador
 
+La conexión entre Jinja y flask
 
