@@ -14,11 +14,8 @@ app.secret_key = os.getenv("secret_key")
 
 @app.route("/")
 def home():
-    return redirect(url_for("index"))
-
-@app.route("/Pagina_Principal")
-def index():
     return render_template("index.html")
+
 
 @app.route("/login", methods = ["GET","POST"])
 def login():
@@ -43,14 +40,14 @@ def login():
         if usuario and check_password_hash(usuario["contrasena"], contrasena_entrada):
             session ["id_usuario"] = usuario ["id_usuario"]
             session ["usuario"] = usuario ["usuario"]
-            return redirect(url_for("index"))
+            return redirect(url_for("home"))
         else:
             mensaje = "Has introducido mal o el usuario o la contraseña!!"
 
-    return render_template("login.html", mensaje = mensaje)
+    return render_template("Login.html", mensaje = mensaje)
 
-@app.route("/registrar_cliente", methods = ["GET","POST"])
-def registrar_cliente():
+@app.route("/registro", methods = ["GET","POST"])
+def registro():
 
     simbolos_contrasena = ["@", "¿", "¡", "_", "-"]
     mensaje = ""
@@ -173,8 +170,8 @@ def filtrar_por_seccion():
     return render_template("index.html")
 
 
-@app.route("/añadir_muebles", methods = ["GET", "POST"])
-def añadir_muebles():
+@app.route("/anadir_muebles", methods = ["GET", "POST"])
+def anadir_muebles():
 
     mensaje = ""
 
@@ -209,8 +206,8 @@ def añadir_muebles():
         conexion.close()
 
         mensaje = "Muebles añadidos con exito."
-        return render_template ("###.html", mensaje = mensaje)
-    return render_template("###.html")
+        return render_template ("Form_crear_mueble.html.html", mensaje = mensaje)
+    return render_template("index.html")
 
 
 @app.route("/filtro_por_color", methods = ["GET", "POST"])
@@ -255,9 +252,12 @@ def get_feedback():
         cursor.close()
         conexion.close()
 
-        return render_template("###.html")
-    return render_template("###.html")
-
+        return render_template("index.html")
+    return render_template("index.html")
+    
+@app.route("/personalizar_muebles", methods = ["GET", "POST"])
+def personalizar_muebles():
+    return render_template("Form_crear_mueble.html")
 
 @app.route("/logout", methods =["GET", "POST"])
 def logout():

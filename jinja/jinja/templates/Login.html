@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axa-Login</title>
+    <link rel="stylesheet" href="/static/CSS/styles.css"> 
+</head>
+<body>
+    <header class="encabezado">
+        <nav class="navegador_secciones">
+            <nav class="nav-links">
+                
+                <!--    Enlace a pagina principal   -->
+                <a href="{{ url_for('home') }}">
+                    <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
+                </a>
+                <a href="#" class="Apartados">Productos</a>
+                <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+                <a href="#" class="Apartados">Carrito</a>
+                <!--    Dropdown del usuario    -->
+                <div class="dropdown">
+                    <img src="/static/imagenes/15081.png" 
+                        alt="Imagen_Log_in" 
+                        class="login" 
+                        onclick="Menu_login_registro()">
+
+                    <div id="menuLogin" class="dropdown-content">
+                        <!--Enlace a pagina login-->
+                        <a href="{{ url_for('login') }}">Login</a>
+                        <!--Enlace a pagina registro-->
+                        <a href="{{ url_for('registro') }}">Registrarse</a>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+    </header>
+        
+        <div class="contenedor" style="max-width: 50%;">
+            <form>
+            <h3>Inicio de sesion</h3><br>
+            <p>Usuario</p>
+            <input type="text" name="Nom_usuario" id="Nom_usuario">
+
+            <br><br><p>Contraseña</p>
+            <input type="text" name="Contrase_usuario" id="Contrase_usuario">
+
+            <button type="submit" id="btn_login">Iniciar sesion</button>
+            </form>
+        </div>
+        
+</body>
+
+<script>
+
+    function Menu_login_registro() {
+        const menu = document.getElementById("menuLogin");
+        //ayuda de la IA para saber como poner el dropdown solo cuando el usuario haga click en el icono
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+  // Cerrar el menú si se hace clic fuera
+  window.onclick = function(event) {
+        if (!event.target.matches('.login')) {
+            //Fin uso IA
+            document.getElementById("menuLogin").style.display = "none";
+        }
+    }
+</script>
+
+</html>
