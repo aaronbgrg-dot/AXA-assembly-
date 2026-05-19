@@ -37,7 +37,7 @@
     </header>
         
         <div class="contenedor" style="max-width: 50%;">
-            <form>
+            <form method="post" action="{{ url_for('login') }}">
             <h3>Inicio de sesion</h3><br>
             <p>Usuario</p>
             <input type="text" name="Nom_usuario" id="Nom_usuario">
@@ -45,27 +45,13 @@
             <br><br><p>Contraseña</p>
             <input type="text" name="Contrase_usuario" id="Contrase_usuario">
 
-            <button type="submit" id="btn_login">Iniciar sesion</button>
+            <br><br><button type="submit" id="btn_login">Iniciar sesion</button>
             </form>
         </div>
         
 </body>
 
-<script>
+<script src="../static/Script/Menu_usuario.js"></script>
 
-    function Menu_login_registro() {
-        const menu = document.getElementById("menuLogin");
-        //ayuda de la IA para saber como poner el dropdown solo cuando el usuario haga click en el icono
-        menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    }
-
-  // Cerrar el menú si se hace clic fuera
-  window.onclick = function(event) {
-        if (!event.target.matches('.login')) {
-            //Fin uso IA
-            document.getElementById("menuLogin").style.display = "none";
-        }
-    }
-</script>
 
 </html>
