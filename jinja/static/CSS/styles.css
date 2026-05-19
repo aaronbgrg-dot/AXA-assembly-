@@ -1,0 +1,249 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #f4f3E6;
+    font-family: Tahoma;
+    color: #5D0703;
+}
+
+button{
+    padding: 5px;
+    background-color: #f29481;
+    border: 3px solid #5D0703;
+    border-radius: 10%;
+}
+.encabezado{
+    background-color: #f8e8ca;/*f8d696*/
+    border-bottom: 5px solid #5D0703;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    margin-bottom: 50px;
+}
+
+.navegador_secciones{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;  /* ← centra logo, apartados y dropdown en la misma línea */
+    gap: 10px;
+    flex-wrap: wrap;
+    
+}
+
+.logo{
+  width: 100px;
+  height: auto;
+}
+
+.dropdown {
+    position: absolute;
+    right: 5%;
+    top: 5%;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 100px;
+    background-color: #eb814d;
+    min-width: 150px;
+    z-index: 1;
+    border: 4px solid #5D0703;
+    border-radius: 6px;
+  }
+
+.dropdown-content a {
+    color: #5D0703;
+    display: block;
+    padding: 10px 14px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f29481;
+  }
+
+.login{
+    width: 70px;
+    height: auto;
+    float: right;
+    background-color: #eb814d;
+    border-radius: 50%;
+}
+
+.Apartados{
+    background-color: #eb814d;
+    border: 4px solid #5D0703;
+    border-radius: 6px;
+    color: #5D0703;
+    margin-left: 50px;
+    padding: 10px;
+}
+
+.contenedor{
+    background-color: #eb814d;
+    margin: 10px;
+    padding: 30px;
+    border: 4px solid #5D0703;
+    flex: 1;
+
+}
+
+
+/* ── Layout principal ── */
+.layout-principal {
+    display: flex;
+    flex-direction: row; /* ← asegura que sea horizontal, no vertical */
+    align-items: flex-start;
+    gap: 30px;
+    padding: 0 40px;
+}
+
+.columna-contenido {
+    flex: 1;
+}
+
+/* ── Columna de anuncios ── */
+.columna-anuncios {
+    width: 300px;
+    position: sticky;
+    top: 20px;
+}
+
+.carrusel-anuncios {
+    background-color: #f8e8ca;
+    border: 4px solid #5D0703;
+    border-radius: 8px;
+    padding: 16px;
+    overflow: hidden;
+}
+
+.anuncio-titulo {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    color: #5D0703;
+}
+
+/* Cada anuncio oculto por defecto */
+.anuncio {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.anuncio.activo {
+    display: flex;
+}
+
+.anuncio img {
+    width: 100%;
+    border-radius: 6px;
+    border: 3px solid #5D0703;
+}
+
+.anuncio-desc {
+    font-size: 0.9rem;
+    text-align: center;
+    color: #5D0703;
+    font-weight: bold;
+}
+
+
+
+
+/* ════════════════════════════════════════════
+   MEDIA QUERIES — MÓVIL (max-width: 480px)
+   ════════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+    /* Encabezado compacto */
+    .encabezado {
+        padding: 10px 12px;
+        margin-bottom: 15px;
+    }
+
+    .logo {
+        width: 60px;
+        margin-left: 0;
+    }
+
+    
+
+    .Apartados {
+        font-size: 0.78rem;
+        padding: 6px 8px;
+        margin-left: 0;
+        margin: 5px;
+    }
+
+    .login {
+        width: 50px !important;
+        height: cente;
+    }
+
+    /* Contenedor con padding mínimo */
+    .contenedor {
+        padding: 14px;
+        margin: 6px 0;
+    }
+
+    /* Formulario a ancho completo */
+    .contenedor[style] {
+        width: 70% !important;
+        margin-left: 15% !important;
+    }   
+
+    /*.form-mueble {
+        width: 100%;
+        margin-left: 0;
+    } */
+
+    /* Inputs del formulario a ancho completo */
+    .Sections input,
+    .Sections select,
+    .Sections textarea {
+        max-width: 100%;
+        font-size: 0.9rem;
+    }
+
+    /* Textarea de feedback */
+    #Feedback {
+        width: 100% !important;
+        min-height: 120px;
+    }
+
+    /* Botones más fáciles de pulsar en táctil */
+    button {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    /* Formulario de login */
+    #Nom_usuario,
+    #Contrase_usuario {
+        width: 100%;
+        padding: 8px;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+    /* Textos generales */
+    h2 { font-size: 1.2rem; }
+    h3 { font-size: 1rem; }
+    p  { font-size: 0.9rem; }
+}

@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Mueble</title>
-    <link rel="stylesheet" href="..\Axa_assembly/PagWeb.css"> 
+    <link rel="stylesheet" href="/static/CSS/styles.css"> 
 </head>
-<body onload="Cargar_carrusel_Anuncios()">
+<body>
 
     <header class="encabezado">
         <nav class="navegador_secciones">
             <nav class="nav-links">
 
                 <!--    Enlace a pagina principal   -->
-                <a href="{ url_for('pagina_principal') }">
-                    <img src="..\Axa_assembly/Imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
+                <a href="{{ url_for('home') }}">
+                    <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
                 </a>
                 <a href="#" class="Apartados">Productos</a>
-                <a href="{ url_for('Mueble_personalizado') }" class="Apartados">Personalizacion Muebles</a>
+                <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
 
                 <a href="#" class="Apartados">Carrito</a>
                 <!--    Dropdown del usuario    -->
                 <div class="dropdown">
-                    <img src="..\Imagenes/15081.png" 
+                    <img src="/static/imagenes/15081.png" 
                         alt="Imagen_Log_in" 
                         class="login" 
                         onclick="Menu_login_registro()">
@@ -31,14 +31,14 @@
                         <!--Enlace a pagina login-->
                         <a href="{{ url_for('login') }}">Login</a>
                         <!--Enlace a pagina registro-->
-                        <a href="{{ url_for('resgitro') }}">Registrarse</a>
+                        <a href="{{ url_for('registro') }}">Registrarse</a>
                     </div>
                 </div>
             </nav>
         </nav>
     </header>
 
-    <div class="contenedor" style="width: 40%; margin-left: 20%;" >
+    <div class="contenedor" style="width: 60%; margin-left: 20%;" >
         <h2>Crear Mueble Personalizado</h2>
 
         <form action="" method="post">
@@ -103,6 +103,9 @@
 
 </body>
 
-<script src="../static/Script/Anuncios_Menu_usuario.js"></script>
+<script src="../static/Script/Carrusel_anuncios.js"></script>
+
+<script src="../static/Script/Menu_usuario.js"></script>
+
 
 </html>

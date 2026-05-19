@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axa_assembly_PaginaPrincipal</title>
+    <link rel="stylesheet" href="/static/CSS/styles.css"> 
+</head>
+<body onload="Cargar_carrusel_Anuncios()">
+
+    <header class="encabezado">
+        <nav class="navegador_secciones">
+            <nav class="nav-links">
+
+                <!--    Enlace a pagina principal   -->
+                <a href="{{ url_for('home') }}">
+                    <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
+                </a>
+                <a href="#" class="Apartados">Productos</a>
+                <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+                <a href="#" class="Apartados">Carrito</a>
+                <!--    Dropdown del usuario    -->
+                <div class="dropdown">
+                    <img src="/static/imagenes/15081.png" 
+                        alt="Imagen_Log_in" 
+                        class="login" 
+                        onclick="Menu_login_registro()">
+
+                    <div id="menuLogin" class="dropdown-content">
+                        <!--Enlace a pagina login-->
+                        <a href="{{ url_for('login') }}">Login</a>
+                        <!--Enlace a pagina registro-->
+                        <a href="{{ url_for('registro') }}">Registrarse</a>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+    </header>
+    
+    <div class="layout-principal">
+
+        <!-- Columna izquierda: contenido existente -->
+        <div class="columna-contenido">
+            <div class="contenedor">
+                <b><u>Sobre nosotros</u></b>
+                <p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                <p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+
+            </div>
+
+            <div class="contenedor">
+                <b><u>Feedback</u></b>
+                <p>Danos tu opinion sobre nuestros productos o problemas con la pagina para poder mejorar.</p>
+                <br><textarea name="Feedback" id="Feedback" style="min-height: 150px; max-height: 300px;   width: 80%;"></textarea>
+                <br><br><button onclick="Mandar_Feedback()">Enviar</button>
+            </div>
+        </div>
+    
+        <!-- Columna derecha: carrusel de anuncios -->
+        <div class="columna-anuncios">
+            <div class="carrusel-anuncios">
+                <p class="anuncio-titulo">Ofertas destacadas</p>
+
+                <div class="carrusel-track" id="carruselTrack">
+                    <!-- Anuncio 1 -->
+                    <div class="anuncio activo">
+                        <img src="" alt="Anuncio 1">
+                        <p class="anuncio-desc">¡Nuevo producto disponible!</p>
+                    </div>
+                    <!-- Anuncio 2 -->
+                    <div class="anuncio">
+                        <img src="" alt="Anuncio 2">
+                        <p class="anuncio-desc">Descuentos esta semana</p>
+                    </div>
+                    <!-- Anuncio 3 -->
+                    <div class="anuncio">
+                        <img src="" alt="Anuncio 3">
+                        <p class="anuncio-desc">Servicio premium disponible</p>
+                    </div>
+                    <!-- Anuncio 4 -->
+                    <div class="anuncio">
+                        <img src="" alt="Anuncio 4">
+                        <p class="anuncio-desc">¡No te lo pierdas!</p>
+                    </div>
+                </div>
+
+                <!-- Indicadores de puntos -->
+                <div class="carrusel-puntos" id="carruselPuntos"></div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script src="../static/Script/Carrusel_anuncios.js"></script>
+
+<script src="../static/Script/Menu_usuario.js"></script>
+
+<script>
+    function Mandar_Feedback() {
+        window.alert("Se he enviado su Feedback. Gracias por su opinión");
+        document.getElementById("Feedback").value = ""
+    }
+</script>
+
+</html>
