@@ -237,25 +237,24 @@ def filtro_por_color():
 def get_feedback():
     if request.method == "POST":
 
-        nueva_valoración_estado = request.form.get("val_est")
-        nuevo_feedback = request.form.get("feedback")
-        nueva_resena = request.form.get("resena")
+        id_usuario_sesion = session.get("id_usuario")
+        nuevo_feedback = request.form.get("Feedback")
+        # nueva_resena = request.form.get("resena")      solo si hace falta en la nueva base de datos
 
         conexion, cursor = db_helper.get_base_datos()
 
-        sSQL = """insert into servicios(id_pedido, valoracion_estado, feedback, resena) 
-        values(%s, %s,%s,%s)
+        sSQL = """insert into diseño_personalizado(id_usuario, id_mueble, ancho, alto, profundidad, color, material, descripcion, precio_estimado, estado) 
+        values(%s, 1, 2000, 1400, 1100, "naranja", "algodon", %s, 1299, "montado")
         """
         id_pedido_valorador = cursor.lastrowid
 
-        cursor.execute(sSQL, (id_pedido_valorador, nueva_valoración_estado, nuevo_feedback, nueva_resena))
+        cursor.execute(sSQL, (id_usuario_sesion, nuevo_feedback))
 
         cursor.close()
         conexion.close()
 
         return render_template("index.html")
     return render_template("index.html")
-
     
 @app.route("/personalizar_muebles", methods = ["GET", "POST"])
 def personalizar_muebles():
