@@ -256,6 +256,34 @@ def get_feedback():
         return render_template("index.html")
     return render_template("index.html")
     
+    
+@app.route("/anadir_al_carrito", methods = ["GET", "POST"])
+def anadir_al_carrito():
+    if request.method == "POST":
+        
+        id_usuario_actual = session.get("id_usuario")
+        mueble_anadido = request.form.get("nombre_mueble")
+        
+        conexion, cursor = db_helper.get_base_datos()
+        
+        sSQL = """insert into carrito(id_usuario, mueble, cantidad) values(%s, %s, 1) """
+        
+        cursor.execute(sSQL,(id_usuario_actual, mueble_anadido))
+        
+        cursor.close()
+        conexion.close()
+        
+        return redirect(url_for("###"))
+    return render_template("###.html")
+    
+    
+# @app.route("/ver_carrito", methods = ["GET", "POST"])
+# def ver_carrito():
+#     if request.method == "POST":
+        
+        
+    
+    
 @app.route("/personalizar_muebles", methods = ["GET", "POST"])
 def personalizar_muebles():
     return render_template("Form_crear_mueble.html")
