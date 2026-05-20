@@ -20,6 +20,11 @@
                 <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
                 <a href="#" class="Apartados">Carrito</a>
                 <!--    Dropdown del usuario    -->
+                {% if session.get("id_usuario") %}
+                
+                    Hola {{session.get("usuario")}}
+                    
+                {% else %}
                 <div class="dropdown">
                     <img src="/static/imagenes/15081.png" 
                         alt="Imagen_Log_in" 
@@ -33,6 +38,7 @@
                         <a href="{{ url_for('registro') }}">Registrarse</a>
                     </div>
                 </div>
+                {% endif %}
             </nav>
         </nav>
     </header>
@@ -45,13 +51,14 @@
                 <b><u>Sobre nosotros</u></b>
                 <p></p>
             </div>
-
+            {% if session.get("id_usuario") %}
             <div class="contenedor">
                 <b><u>Feedback</u></b>
                 <p>Danos tu opinion sobre nuestros productos o problemas con la pagina para poder mejorar.</p>
                 <br><textarea name="Feedback" id="Feedback" style="height: 300px; width: 80%;"></textarea>
                 <br><br><button onclick="Mandar_Feedback()">Enviar</button>
             </div>
+            {% endif %}
         </div>
     
         <!-- Columna derecha: carrusel de anuncios -->

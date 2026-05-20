@@ -25,7 +25,9 @@ def login():
         
         conexion, cursor = db_helper.get_base_datos()
         
-        sSQL = """select id_usuario, nombre, contrasena, rol from usuario where nombre = %s"""
+        sSQL = """select id_usuario, nombre, contrasena, rol 
+        from usuario 
+        where nombre = %s"""
         
         cursor.execute(sSQL, (usuario_entrada,))
         
@@ -253,6 +255,7 @@ def get_feedback():
 
         return render_template("index.html")
     return render_template("index.html")
+
     
 @app.route("/personalizar_muebles", methods = ["GET", "POST"])
 def personalizar_muebles():
