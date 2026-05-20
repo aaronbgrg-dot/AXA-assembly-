@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/CSS/styles.css">
+</head>
+<body onload="Cargar_carrusel_Anuncios()">
+
+    <header class="encabezado">
+        <nav class="navegador_secciones">
+            <nav class="nav-links">
+
+                <!--    Enlace a pagina principal   -->
+                <a href="{{ url_for('home') }}">
+                    <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
+                </a>
+                <a href="{{ url_for('pag_productos') }}" class="Apartados">Productos</a>
+                <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+                <a href="#" class="Apartados">Carrito</a>
+                <!--    Dropdown del usuario    -->
+                <div class="dropdown">
+                    <img src="/static/imagenes/15081.png" 
+                        alt="Imagen_Log_in" 
+                        class="login" 
+                        onclick="Menu_login_registro()">
+
+                    <div id="menuLogin" class="dropdown-content">
+                        <!--Enlace a pagina login-->
+                        <a href="{{ url_for('login') }}">Login</a>
+                        <!--Enlace a pagina registro-->
+                        <a href="{{ url_for('registro') }}">Registrarse</a>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+    </header>
+
+    <div class="layout-principal">
+
+        <div class="contenedor-productos">
+            <!-- Bucle productos -->
+            {% for producto in productos %}
+            <div class="tarjeta-producto">
+                <img src="{{ producto.ruta_imagen }}" alt="{{ producto.nombre }}">
+
+                <h3>{{ producto.nombre }}</h3>
+                <p class="descripcion">{{ producto.descripcion }}</p>
+                <p class="precio">{{ producto.precio }} €</p>
+
+                <!-- Solo visible para empleados y administradores -->
+                {% if usuario.rol == 'empleado' or usuario.rol == 'administrador' %}
+                <p class="stock">Stock: {{ producto.stock }}</p>
+                {% endif %}
+
+                <a href="{{ url_for('ver_producto', id_mueble=producto.id_mueble) }}" 
+                class="boton-ver-mas">Ver más</a>
+
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="filtros">
+            <h3>Filtrar productos</h3>
+
+            <!-- Precio -->
+            <div class="filtro-grupo">
+                <label>Precio</label>
+                <div class="filtro-precio">
+                    <input type="number" id="precio-min" placeholder="Mín €" min="0">
+                    <input type="number" id="precio-max" placeholder="Máx €" min="0">
+                </div>
+            </div>
+
+            <!-- Color -->
+            <div class="filtro-grupo">
+                <label>Color</label>
+                <select id="filtro-color">
+                    <option value="">Todos</option>
+                    <option value="blanco">Blanco</option>
+                    <option value="negro">Negro</option>
+                    <option value="madera">Madera</option>
+                    <option value="gris">Gris</option>
+                </select>
+            </div>
+
+            <!-- Material -->
+            <div class="filtro-grupo">
+                <label>Material</label>
+                <select id="filtro-material">
+                    <option value="">Todos</option>
+                    <option value="madera">Madera</option>
+                    <option value="metal">Metal</option>
+                    <option value="plastico">Plástico</option>
+                    <option value="tela">Tela</option>
+                    <option value="cristal">Cristal</option>
+                </select>
+            </div>
+
+            <!-- Tipo de mueble -->
+            <div class="filtro-grupo">
+                <label>Sección</label>
+                <div class="filtro-checkboxes"> 
+                    <label><input type="radio" name="secciones" value="salon"> Salón</label>
+                    <label><input type="radio" name="secciones" value="cuartos"> Cuartos</label>
+                    <label><input type="radio" name="secciones" value="aseo"> Aseo</label>
+                    <label><input type="radio" name="secciones" value="cocina"> Cocina</label>
+                    <label><input type="radio" name="secciones" value="exterior"> Exterior</label>
+                    <label><input type="radio" name="secciones" value="trastero_garaje"> Trastero/Garaje</label>
+                </div>
+            </div>
+
+            <button onclick="aplicarFiltros()">Aplicar filtros</button>
+            <button onclick="limpiarFiltros()">Limpiar</button>
+        </div>
+
+    </div>
+</body>
+
+<script src="../static/Script/Carrusel_anuncios.js"></script>
+
+<script src="../static/Script/Menu_usuario.js"></script>
+
+<script>
+
+    function aplicarFiltros() {
+    const precioMin = document.getElementById('precio-min').value;
+    const precioMax = document.getElementById('precio-max').value;
+    const color = document.getElementById('filtro-color').value;
+    const material = document.getElementById('filtro-material').value;
+    const seccionSeleccionada = document.querySelector('input[name="seccion"]:checked').value;
+
+    //DALE UNA VUELTA 🗣️❗❗
+
+    // Recorre todas las tarjetas y muestra/oculta según filtros
+    document.querySelectorAll('.tarjeta-producto').forEach(tarjeta => {
+        const precio = parseFloat(tarjeta.dataset.precio);
+        const colorTarjeta = tarjeta.dataset.color;
+        const materialTarjeta = tarjeta.dataset.material;
+        const seccionTarjeta = tarjeta.dataset.seccion;
+
+        let visible = true;
+
+        if (precioMin && precio < parseFloat(precioMin)) visible = false;
+        if (precioMax && precio > parseFloat(precioMax)) visible = false;
+        if (color && colorTarjeta !== color) visible = false;
+        if (material && materialTarjeta !== material) visible = false;
+        if (seccionSeleccionada && seccionTarjeta !== seccionSeleccionada) visible = false;
+
+        tarjeta.style.display = visible ? 'flex' : 'none';
+    });
+}
+
+    function limpiarFiltros() {
+    document.getElementById('precio-min').value = '';
+    document.getElementById('precio-max').value = '';
+    document.getElementById('filtro-color').value = '';
+    document.getElementById('filtro-material').value = '';
+    document.querySelectorAll('.filtro-checkboxes input').forEach(cb => cb.checked = false);
+
+    // Muestra todas las tarjetas de nuevo
+    document.querySelectorAll('.tarjeta-producto').forEach(t => t.style.display = 'flex');
+    }
+
+</script>
+
+</html>

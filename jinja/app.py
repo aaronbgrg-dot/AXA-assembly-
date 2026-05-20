@@ -6,8 +6,6 @@ import os
 from dotenv import load_dotenv
 
 
-load_dotenv()
-
 app = Flask(__name__)
 
 app.secret_key = os.getenv("secret_key")
@@ -17,34 +15,37 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/login", methods = ["GET","POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-
     mensaje = ""
-
     if request.method == "POST":
+        
         usuario_entrada = request.form.get("Nom_usuario")
         contrasena_entrada = request.form.get("Contrase_usuario")
-
+        
         conexion, cursor = db_helper.get_base_datos()
-
-        sSQL = """select id_usuario, usuario, contrasena, rol 
+        
+        sSQL = """select id_usuario, nombre, contrasena, rol 
         from usuario 
-        where usuario = %s"""
+        where nombre = %s"""
+        
         cursor.execute(sSQL, (usuario_entrada,))
+        
         usuario = cursor.fetchone()
-
+        
         cursor.close()
         conexion.close()
-
+        
         if usuario and check_password_hash(usuario["contrasena"], contrasena_entrada):
-            session ["id_usuario"] = usuario ["id_usuario"]
-            session ["usuario"] = usuario ["usuario"]
+            session["id_usuario"] = usuario["id_usuario"]
+            session["usuario"] = usuario["nombre"]
+            
             return redirect(url_for("home"))
+            
         else:
-            mensaje = "Has introducido mal o el usuario o la contraseña!!"
-
-    return render_template("Login.html", mensaje = mensaje)
+            mensaje = "Has introducido mal o el usuario o la contrasena!!"
+            
+    return render_template("Login.html", mensaje=mensaje)
 
 @app.route("/registro", methods = ["GET","POST"])
 def registro():
@@ -55,8 +56,6 @@ def registro():
     if request.method == "POST":
         usuario_entrada = request.form.get("Nom_usuario")
         contrasena_entrada = request.form.get("Contrase_usuario")
-
-        contrasena_segura = generate_password_hash(contrasena_entrada)
 
         conexion, cursor = db_helper.get_base_datos()
 
@@ -76,7 +75,9 @@ def registro():
             return render_template("###.html", mensaje = mensaje) 
 
         else:
-            sSQL = """insert into usuario (usuario, contrasena, rol) 
+            contrasena_segura = generate_password_hash(contrasena_entrada)
+            
+            sSQL = """insert into usuario (nombre, contrasena, rol) 
             values(%s,%s,%s)"""            
             cursor.execute(sSQL,(usuario_entrada, contrasena_segura, "cliente"))
 
@@ -258,11 +259,23 @@ def get_feedback():
 @app.route("/personalizar_muebles", methods = ["GET", "POST"])
 def personalizar_muebles():
     return render_template("Form_crear_mueble.html")
+    
+
+@app.route("/hashear", methods = ["GET", "POST"])
+def hashear():
+    hash = generate_password_hash("1234")
+    return hash
+
 
 @app.route("/logout", methods =["GET", "POST"])
 def logout():
     session.clear()
     return redirect(url_for("login"))
+
+@app.route("/pag_productos", methods =["GET", "POST"])
+def pag_productos():
+    session.clear()
+    return render_template("Productos.html")
 
 
 if __name__ == "__main__":

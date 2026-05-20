@@ -99,6 +99,21 @@ button{
 
 }
 
+.filtros{
+    background-color: antiquewhite;
+    border: 5px solid #5D0703;
+    padding: 20px;
+    max-width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 
 /* ── Layout principal ── */
 .layout-principal {
@@ -159,6 +174,13 @@ button{
     text-align: center;
     color: #5D0703;
     font-weight: bold;
+}
+
+.contenedor-productos {
+    display: flex;
+    flex-wrap: wrap;    /* si hay muchos productos, salta a la siguiente fila */
+    gap: 20px;
+    flex: 1;
 }
 
 
