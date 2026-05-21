@@ -47,6 +47,8 @@ def login():
             mensaje = "Has introducido mal o el usuario o la contrasena!!"
             
     return render_template("Login.html", mensaje=mensaje)
+    
+    
 
 @app.route("/registro", methods = ["GET","POST"])
 def registro():
@@ -89,14 +91,18 @@ def registro():
             mensaje = "El numero de telefono debe tener 9 digitos"
             return render_template("Registro.html", mensaje = mensaje)
             
-            
         else:
             contrasena_segura = generate_password_hash(contrasena_entrada)
             
             sSQL = """insert into usuario (nombre, apellido, email, contrasena, telefono, rol, fecha_registro) 
             values(%s, %s, %s, %s, %s, %s, curdate())"""            
             cursor.execute(sSQL, (usuario_entrada, apellido_entrada, email_entrada, contrasena_segura, telefono_entrada, "cliente"))
-
+            
+            id_usuario_registrado = cursor.lastrowid
+            
+            session["id_usuario"] = id_usuario_registrado
+            session["usuario"] = usuario_entrada
+            
             cursor.close()
             conexion.close()
             
@@ -112,7 +118,6 @@ def comprobar_telefono(telefono_cliente):
     else:
         return False
     
-
 
 def comprobar_email(email_cliente):
     # Esta expresión regular comprueba: texto + @ + texto + . + extensión
