@@ -4,6 +4,7 @@ import db_helper
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from dotenv import load_dotenv
+import re
 
 
 app = Flask(__name__)
@@ -54,8 +55,12 @@ def registro():
     mensaje = ""
 
     if request.method == "POST":
-        usuario_entrada = request.form.get("Nom_usuario")
-        contrasena_entrada = request.form.get("Contrase_usuario")
+        usuario_entrada = request.form.get("Nom_cliente")
+        apellido_entrada = request.form.get("apellido_cliente")
+        email_entrada = request.form.get("email_cliente")
+        contrasena_entrada = request.form.get("Contrase_cliente")
+        telefono_entrada = request.form.get("telefono_cliente")
+        
 
         conexion, cursor = db_helper.get_base_datos()
 
@@ -63,29 +68,60 @@ def registro():
         contiene_simbolo = any(varchar in simbolos_contrasena for varchar in contrasena_entrada)
 
         
-
         if len(contrasena_entrada) < 8: 
             mensaje = "La contraseña debe tener al menos 8 caracteres."
-            return render_template("###.html", mensaje = mensaje)
+            return render_template("Registro.html", mensaje = mensaje)
         elif not contiene_numero:
             mensaje = "La contraseña debe contener al menos 1 digito"
-            return render_template("###.html", mensaje = mensaje)
+            return render_template("Registro.html", mensaje = mensaje)
         elif not contiene_simbolo:
             mensaje = "La contraseña debe contener uno de estos simbolos: @, ¿, ¡, _, -"
-            return render_template("###.html", mensaje = mensaje) 
-
+            return render_template("Registro.html", mensaje = mensaje)
+            
+            
+        elif not comprobar_email(email_entrada):
+            if not comprobar_telefono(telefono_entrada):
+                mensaje = "El correo no es correcto y el numero de telefono debe tener 9 digitos"
+            return render_template("Registro.html", mensaje = mensaje)
+            
+            
+        elif not comprobar_telefono(telefono_entrada):
+            mensaje = "El numero de telefono debe tener 9 digitos"
+            return render_template("Registro.html", mensaje = mensaje)
+            
+            
         else:
             contrasena_segura = generate_password_hash(contrasena_entrada)
             
-            sSQL = """insert into usuario (nombre, contrasena, rol) 
-            values(%s,%s,%s)"""            
-            cursor.execute(sSQL,(usuario_entrada, contrasena_segura, "cliente"))
+            sSQL = """insert into usuario (nombre, apellido, email, contrasena, telefono, rol, fecha_registro) 
+            values(%s, %s, %s, %s, %s, %s, curdate())"""            
+            cursor.execute(sSQL, (usuario_entrada, apellido_entrada, email_entrada, contrasena_segura, telefono_entrada, "cliente"))
 
             cursor.close()
             conexion.close()
             
-            return redirect(url_for("index"))
-    return render_template("Registro.html")
+            return redirect(url_for("home"))
+    return render_template("Registro.html", mensaje = mensaje)
+    
+
+
+def comprobar_telefono(telefono_cliente):
+    
+    if telefono_cliente and len(telefono_cliente) == 9 and telefono_cliente.isdigit():
+        return True
+    else:
+        return False
+    
+
+
+def comprobar_email(email_cliente):
+    # Esta expresión regular comprueba: texto + @ + texto + . + extensión
+    patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    if re.match(patron, email_cliente):
+        return True
+    return False
+    
+        
 
 
 @app.route("/ordenar_por_precio", methods = ["GET", "POST"])
@@ -293,6 +329,10 @@ def personalizar_muebles():
 def hashear():
     hash = generate_password_hash("1234")
     return hash
+    
+@app.route("/productos", methods = ["GET", "POST"])
+def pagina_productos():
+    return render_template("Productos.html")
 
 
 @app.route("/logout", methods =["GET", "POST"])

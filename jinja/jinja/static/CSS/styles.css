@@ -12,10 +12,13 @@ body{
 
 button{
     padding: 5px;
+    margin-top: 10px;
+    margin-right: 5px;
     background-color: #f29481;
     border: 3px solid #5D0703;
     border-radius: 10%;
 }
+
 .encabezado{
     background-color: #f8e8ca;/*f8d696*/
     border-bottom: 5px solid #5D0703;
@@ -30,18 +33,29 @@ button{
 .navegador_secciones{
     display: flex;
     align-items: center;
-    gap: 20px;
 }
 
 .nav-links {
     display: flex;
     align-items: center;  /* ← centra logo, apartados y dropdown en la misma línea */
-    gap: 10px;
+    gap: 5px;
+    flex-wrap: wrap;
+    gap: 100px;
+}
+
+.Apartados{
+    background-color: #eb814d;
+    border: 4px solid #5D0703;
+    border-radius: 6px;
+    color: #5D0703;
+    padding: 10px;
+    flex-wrap: wrap;
 }
 
 .logo{
   width: 100px;
   height: auto;
+  margin-right: 100px;
 }
 
 .dropdown {
@@ -59,7 +73,7 @@ button{
     z-index: 1;
     border: 4px solid #5D0703;
     border-radius: 6px;
-  }
+}
 
 .dropdown-content a {
     color: #5D0703;
@@ -69,7 +83,7 @@ button{
 
 .dropdown-content a:hover {
     background-color: #f29481;
-  }
+}
 
 .login{
     width: 70px;
@@ -77,16 +91,6 @@ button{
     float: right;
     background-color: #eb814d;
     border-radius: 50%;
-}
-
-.Apartados{
-    background-color: #eb814d;
-    border: 4px solid #5D0703;
-    border-radius: 6px;
-    color: #5D0703;
-
-    margin-left: 50px;
-    padding: 10px;
 }
 
 .contenedor{
@@ -98,26 +102,31 @@ button{
 
 }
 
+.filtros{
+    background-color: antiquewhite;
+    border: 5px solid #5D0703;
+    padding: 20px;
+    max-width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
 
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
 
-
-
-
-
-
-
-
-/* ── Layout principal ── */
 .layout-principal {
     display: flex;
-    flex-direction: row; /* ← asegura que sea horizontal, no vertical */
     align-items: flex-start;
-    gap: 30px;
+    gap: 20px;
     padding: 0 40px;
 }
 
-.columna-contenido {
-    flex: 1;
+#ver_producto_completo {
+    max-width: 60ch;
 }
 
 /* ── Columna de anuncios ── */
@@ -141,7 +150,6 @@ button{
     margin-bottom: 12px;
     font-size: 1rem;
     color: #5D0703;
-    text-decoration: underline;
 }
 
 /* Cada anuncio oculto por defecto */
@@ -168,3 +176,12 @@ button{
     color: #5D0703;
     font-weight: bold;
 }
+
+.contenedor-productos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex: 1;
+}
+
+

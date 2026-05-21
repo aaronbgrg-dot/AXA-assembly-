@@ -16,9 +16,10 @@
                 <a href="{{ url_for('home') }}">
                     <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
                 </a>
-                <a href="#" class="Apartados">Productos</a>
+                <a href="{{ url_for('pagina_productos') }}" class="Apartados">Productos</a>
                 <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
                 <a href="#" class="Apartados">Carrito</a>
+
                 <!--    Dropdown del usuario    -->
                 <div class="dropdown">
                     <img src="/static/imagenes/15081.png" 
@@ -38,15 +39,30 @@
     </header>
         
         <div class="contenedor" style="max-width: 50%;">
-            <form method="post" action="{{ url_for('login') }}">
-            <h3>Inicio de sesion</h3><br>
-            <p>Usuario</p>
-            <input type="text" name="Nom_usuario" id="Nom_usuario">
+            <form action="{{url_for('registro')}}" method="post">
+                <h3>Registrarse</h3><br>
+                    <p>Nombre</p>
+                    <input type="text" name="Nom_cliente" id="Nom_cliente">
+                    
+                    <p>Apellido</p>
+                    <input type="text" name="apellido_cliente" id="apellido_cliente">
+                    
+                    <p>Email</p>
+                    <input type="email" name="email_cliente" id="email_cliente">
+                    
+                     <p>Telefono</p>
+                    <input type="text" name="telefono_cliente" id="telefono_cliente">
 
-            <br><br><p>Contraseña</p>
-            <input type="text" name="Contrase_usuario" id="Contrase_usuario">
+                    <br><br><p>Contraseña</p>
+                    <input type="text" name="Contrase_cliente" id="Contrase_cliente">
 
-            <br><br><button type="submit" id="btn_login">Iniciar sesion</button>
+                <br><br><button type="submit" id="btn_registro">Registrarse</button>
+                    <br>
+                    <div>{% if mensaje %}
+                        {{mensaje}}
+                        {% endif %}
+                    </div>
+                    
             </form>
         </div>
         
