@@ -233,7 +233,7 @@ def anadir_muebles():
 
         conexion, cursor = db_helper.get_base_datos()
 
-        sSQL = """insert into mueble (nombre, categoria, precio, stock, material) 
+        sSQL = """insert into mueble (tipo_mueble, color,  material) 
         values(%s, %s, %s, %s, %s) """
         cursor.execute(sSQL, (nombre_mueble_nuevo, categoria_mueble_nuevo, precio_mueble_nuevo, cantidad_mueble_nuevo, material_mueble_nuevo))
 
