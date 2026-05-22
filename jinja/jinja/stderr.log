@@ -938,3 +938,600 @@ Traceback (most recent call last):
                ^^^^^^^^
   File "<frozen codecs>", line 322, in decode
 UnicodeDecodeError: 'utf-8' codec can't decode byte 0x8f in position 3023: invalid start byte
+[2026-05-22 10:14:24,392] ERROR in app: Exception on /personalizar_muebles [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 330, in personalizar_muebles
+    return render_template("Form_crear_mueble.html")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/axa/public_html/jinja/templates/Form_crear_mueble.html", line 53, in top-level template code
+    <form action="{{url_for('')}}" method="post">
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/werkzeug/routing/map.py", line 901, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint ''. Did you mean 'static' instead?
+[2026-05-22 10:20:10,478] ERROR in app: Exception on /personalizar_muebles [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 330, in personalizar_muebles
+    return render_template("Form_crear_mueble.html")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/axa/public_html/jinja/templates/Form_crear_mueble.html", line 53, in top-level template code
+    <form action="{{url_for('')}}" method="post">
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/werkzeug/routing/map.py", line 901, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint ''. Did you mean 'static' instead?
+[2026-05-22 11:43:21,267] ERROR in app: Exception on /personalizar_muebles [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 330, in personalizar_muebles
+    return render_template("Form_crear_mueble.html")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/axa/public_html/jinja/templates/Form_crear_mueble.html", line 53, in top-level template code
+    <form action="{{url_for('')}}" method="post">
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/werkzeug/routing/map.py", line 901, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint ''. Did you mean 'static' instead?
+[2026-05-22 11:47:29,757] ERROR in app: Exception on /personalizar_muebles [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 330, in personalizar_muebles
+    return render_template("Form_crear_mueble.html")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/axa/public_html/jinja/templates/Form_crear_mueble.html", line 53, in top-level template code
+    <form action="{{url_for('')}}" method="post">
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/werkzeug/routing/map.py", line 901, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint ''. Did you mean 'static' instead?
+[2026-05-22 12:08:06,443] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'dp.stock' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 347, in pagina_productos
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'dp.stock' in 'SELECT'
+[2026-05-22 12:08:28,631] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'dp.stock' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 347, in pagina_productos
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'dp.stock' in 'SELECT'
+[2026-05-22 12:08:31,913] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'dp.stock' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 347, in pagina_productos
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'dp.stock' in 'SELECT'
+[2026-05-22 12:08:35,429] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'dp.stock' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 347, in pagina_productos
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'dp.stock' in 'SELECT'
+[2026-05-22 12:14:30,807] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'dp.stock' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 347, in pagina_productos
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'dp.stock' in 'SELECT'
+[2026-05-22 12:20:48,166] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'dp.stock' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 347, in pagina_productos
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'dp.stock' in 'SELECT'
+[2026-05-22 12:22:05,636] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'dp.stock' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 347, in pagina_productos
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'dp.stock' in 'SELECT'
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 340
+    if request method == "POST":
+               ^^^^^^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 340
+    if request method == "POST":
+               ^^^^^^
+SyntaxError: invalid syntax
+[UID:1488][261378] Child process with pid: 261385 was killed by signal: 15, core dumped: no
+[2026-05-22 12:45:51,386] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 16, in home
+    return render_template("index.html")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/axa/public_html/jinja/templates/index.html", line 21, in top-level template code
+    <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/werkzeug/routing/map.py", line 901, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'personalizar_muebles'. Did you mean 'anadir_muebles' instead?
+[2026-05-22 12:47:14,478] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 16, in home
+    return render_template("index.html")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/axa/public_html/jinja/templates/index.html", line 21, in top-level template code
+    <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/werkzeug/routing/map.py", line 901, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'personalizar_muebles'. Did you mean 'anadir_muebles' instead?
+[2026-05-22 12:48:50,487] ERROR in app: Exception on /personalizar_muebles [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 260, in personalizar_muebles
+    return render_template("Form_crear_mueble.html")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/axa/public_html/jinja/templates/Form_crear_mueble.html", line 53, in top-level template code
+    <form action="{{url_for('')}}" method="post">
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/werkzeug/routing/map.py", line 901, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint ''. Did you mean 'static' instead?
+[2026-05-22 12:55:13,453] ERROR in app: Exception on /personalizar_muebles [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 246, in personalizar_muebles
+    id_mueble_catalogo = id_mueble[0]
+                         ~~~~~~~~~^^^
+KeyError: 0
+[2026-05-22 13:00:56,342] ERROR in app: Exception on /personalizar_muebles [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 246, in personalizar_muebles
+    id_mueble_catalogo = id_mueble("id_mueble", )
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'dict' object is not callable
+[2026-05-22 13:10:34,078] ERROR in app: Exception on /personalizar_muebles [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Cannot add or update a child row: a foreign key constraint fails (`axa_mobiliario`.`dise\xf1o_personalizado`, CONSTRAINT `dise\xf1o_personalizado_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 251, in personalizar_muebles
+    cursor.execute(sSQL, (id_mueble_catalogo, anchura_mueble, altura_mueble, profundidad_mueble, color_mueble, material_mueble, descripcion_mueble, precio_estimado_mueble, estado_mueble))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.IntegrityError: 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`axa_mobiliario`.`dise\xf1o_personalizado`, CONSTRAINT `dise\xf1o_personalizado_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`))
+[2026-05-22 13:12:42,814] ERROR in app: Exception on /personalizar_muebles [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Cannot add or update a child row: a foreign key constraint fails (`axa_mobiliario`.`dise\xf1o_personalizado`, CONSTRAINT `dise\xf1o_personalizado_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 251, in personalizar_muebles
+    cursor.execute(sSQL, (id_mueble_catalogo, anchura_mueble, altura_mueble, profundidad_mueble, color_mueble, material_mueble, descripcion_mueble, precio_estimado_mueble, estado_mueble))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.IntegrityError: 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`axa_mobiliario`.`dise\xf1o_personalizado`, CONSTRAINT `dise\xf1o_personalizado_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`))

@@ -50,13 +50,26 @@
     <div class="contenedor" style="width: 60%; margin-left: 20%;" >
         <h2>Crear Mueble Personalizado</h2>
 
-        <form action="{{url_for('')}}" method="post">
+        <form action="{{url_for('personalizar_muebles')}}" method="post">
             <div class="Sections">
 
                 <!-- Tipo de mueble -->
                 <label for="tipo_mueble">Tipo de mueble:</label><br>
-                <input type="text" id="tipo_mueble" name="tipo_mueble"
-                placeholder="Ej: Mesa, Silla, Armario" required><br><br>
+                <select id="tipo_mueble" name="tipo_mueble">
+                    <option value="Armario">Armario</option>
+                    <option value="Sofa">Sofa</option>
+                    <option value="Mesa">Mesa</option>
+                    <option value="Sillas">Sillas</option>
+                </select><br><br>
+                
+                <!-- Sección del hogar -->
+                <label for="seccion_hogar">Sección del hogar para el que quieres el mueble:</label><br>
+                <select id="seccion_hogar" name="seccion_hogar">
+                    <option value="Salon">Sala de estar</option>
+                    <option value="Aseo">Aseo</option>
+                    <option value="Cocina">Cocina</option>
+                    <option value="Dormitorio">Dormitorio</option>
+                </select><br><br>
 
                 <!-- Color del mueble-->
                 <label for="color">Color:</label><br>
@@ -80,8 +93,13 @@
 
                 <!-- Material -->
                 <label for="material">Material:</label><br>
-                <input type="text" id="material" name="material"               
-                placeholder="Ej: Madera, Cristal" required><br><br>
+                <select id="material" name="material">
+                    <option value="Sintetico">Sintetico</option>
+                    <option value="Algodon">Algodon</option>
+                    <option value="Cuero">Cuero</option>
+                    <option value="Madera">Madera</option>
+                    <option value="Inox">Acero Inoxidable</option>
+                </select><br><br>
 
                 <!-- Descripción -->
                 <label for="descripcion">Descripción:</label><br>
@@ -91,8 +109,7 @@
                 <!-- Precio estimado -->
                 <label for="precio_estimado">Precio estimado (€):</label><br>
                 <input type="number" id="precio_estimado" name="precio_estimado"
-                
-                min="1" step="0.01" required><br><br>
+                 min="1" step="0.01" required><br><br>
 
                 <!-- Estado -->
                 <label for="estado">Estado:</label><br>
@@ -105,7 +122,10 @@
 
             <button type="submit" >
                 Guardar Mueble
-            </button>
+            </button><br><br>
+            {% if mensaje %}
+            <h3>{{mensaje}}</h3>
+            {% endif %}
 
         </form>
     </div>

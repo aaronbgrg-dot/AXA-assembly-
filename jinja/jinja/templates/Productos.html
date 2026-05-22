@@ -22,25 +22,27 @@
 
             </nav>
                 <!--    Dropdown del usuario    -->
-                {% if session.get("id_usuario") %}
-                
-                    Hola {{session.get("usuario")}}
-                    
-                {% else %}
                 <div class="dropdown">
                     <img src="/static/imagenes/15081.png" 
-                        alt="Imagen_Log_in" 
-                        class="login" 
-                        onclick="Menu_login_registro()">
-
-                    <div id="menuLogin" class="dropdown-content">
-                        <!--Enlace a pagina login-->
-                        <a href="{{ url_for('login') }}">Login</a>
-                        <!--Enlace a pagina registro-->
-                        <a href="{{ url_for('registro') }}">Registrarse</a>
-                    </div>
+                    alt="Imagen_Log_in" 
+                    class="login" 
+                    onclick="Menu_login_registro()">
+                        
+                    {% if session.get("id_usuario") %}
+                        <div id="menuLogin" class="dropdown-content">
+                            <p>Hola {{session.get("usuario")}}</p><br>
+                            <a href="{{url_for('logout')}}">Cerrar sesion</a>
+                        </div>
+                    
+                    {% else %}
+                        <div id="menuLogin" class="dropdown-content">
+                            <!--Enlace a pagina login-->
+                            <a href="{{ url_for('login') }}">Login</a>
+                            <!--Enlace a pagina registro-->
+                            <a href="{{ url_for('registro') }}">Registrarse</a>
+                        </div>
+                    {% endif %}
                 </div>
-                {% endif %}
         </nav>
     </header>
 

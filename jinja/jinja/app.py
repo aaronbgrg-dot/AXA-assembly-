@@ -212,44 +212,53 @@ def filtrar_por_seccion():
     return render_template("index.html")
 
 
-@app.route("/anadir_muebles", methods = ["GET", "POST"])
-def anadir_muebles():
+@app.route("/personalizar_muebles", methods = ["GET", "POST"])
+def personalizar_muebles():
 
     mensaje = ""
 
     if request.method == "POST":
-        nombre_mueble_nuevo = request.form.get("nombre_nuevo")
-        precio_mueble_nuevo = request.form.get("precio_nuevo")
-        categoria_mueble_nuevo = request.form.get("categoria_nueva")
-        cantidad_mueble_nuevo = request.form.get("stock")
-        material_mueble_nuevo = request.form.get("material_mueble_nuevo")
-        descripcion_mueble_nuevo = request.form.get("imagen_nueva")
-        altura_mueble_nuevo = request.form.get("altura_nuevo")
-        anchura_mueble_nuevo = request.form.get("anchura_nueva")
-        profundidad_mueble_nuevo = request.form.get("profundidad_nueva")
-        color_mueble_nuevo = request.form.get("color_nuevo")
-        precio_estimado_mueble_nuevo = request.form.get("precio_estimado_nuevo")
-        estado_mueble_nuevo = request.form.get("estado_nuevo")
+        tipo_mueble = request.form.get("tipo_mueble")          
+        seccion_hogar = request.form.get("seccion_hogar")      
+        color_mueble = request.form.get("color")
+        anchura_mueble = request.form.get("ancho")
+        altura_mueble = request.form.get("alto")
+        profundidad_mueble = request.form.get("profundidad")
+        material_mueble = request.form.get("material")
+        descripcion_mueble = request.form.get("descripcion_mueble")
+        precio_estimado_mueble = request.form.get("precio_estimado")
+        estado_mueble = request.form.get("estado")
 
         conexion, cursor = db_helper.get_base_datos()
 
-        sSQL = """insert into mueble (tipo_mueble, color,  material) 
-        values(%s, %s, %s, %s, %s) """
-        cursor.execute(sSQL, (nombre_mueble_nuevo, categoria_mueble_nuevo, precio_mueble_nuevo, cantidad_mueble_nuevo, material_mueble_nuevo))
-
-        id_mueble_subido = cursor.lastrowid
-
-        sSQL = """ insert into diseño_personalizado(id_mueble, ancho, alto, profundidad, color, material, descripcion, precio_estimado, estado)
-        values(%s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """
-        cursor.execute(sSQL, (id_mueble_subido, anchura_mueble_nuevo, altura_mueble_nuevo, profundidad_mueble_nuevo, color_mueble_nuevo, material_mueble_nuevo, descripcion_mueble_nuevo, precio_estimado_mueble_nuevo, estado_mueble_nuevo))
-
+        sSQL = """select id_mueble
+        from mueble 
+        WHERE nombre = %s AND categoria = %s AND material = %s"""
+        
+        cursor.execute(sSQL, (tipo_mueble, seccion_hogar, material_mueble))
+        id_mueble = cursor.fetchone()
+        
+        if id_mueble is None:
+            mensaje = "Error: El mueble base seleccionado no existe en nuestro catalogo."
+        
+        else:
+           
+            id_mueble_catalogo = id_mueble["id_mueble"]
+            id_usuario_sesion = session.get("id_usuario")
+    
+            sSQL = """ insert into diseño_personalizado(id_usuario, id_mueble, ancho, alto, profundidad, color, material, descripcion, precio_estimado, estado)
+            values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute(sSQL, (id_usuario_sesion, id_mueble_catalogo, anchura_mueble, altura_mueble, profundidad_mueble, color_mueble, material_mueble, descripcion_mueble, precio_estimado_mueble, estado_mueble))
+            
+            mensaje = "Solicitud enviada con exito."
+    
         cursor.close()
         conexion.close()
-
-        mensaje = "Muebles añadidos con exito."
-        return render_template ("Form_crear_mueble.html.html", mensaje = mensaje)
-    return render_template("index.html")
+    
+        
+        return render_template ("Form_crear_mueble.html", mensaje = mensaje)
+    return render_template("Form_crear_mueble.html")
 
 
 @app.route("/filtro_por_color", methods = ["GET", "POST"])
@@ -322,13 +331,6 @@ def anadir_al_carrito():
 # def ver_carrito():
 #     if request.method == "POST":
         
-        
-    
-    
-@app.route("/personalizar_muebles", methods = ["GET", "POST"])
-def personalizar_muebles():
-    return render_template("Form_crear_mueble.html")
-    
 
 @app.route("/hashear", methods = ["GET", "POST"])
 def hashear():
