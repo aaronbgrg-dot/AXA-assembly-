@@ -219,13 +219,33 @@ def anadir_al_carrito():
         cursor.close()
         conexion.close()
         
-        return redirect(url_for("###"))
-    return render_template("###.html")
+        return render_template("Productos.html")
+    return render_template("Productos.html")
     
     
-# @app.route("/ver_carrito", methods = ["GET", "POST"])
-# def ver_carrito():
-#     if request.method == "POST":
+@app.route("/ver_carrito", methods = ["GET", "POST"])
+def ver_carrito():
+    if request.method == "POST":
+        
+        mueble_seleccionado = request.form.get("id_mueble")
+        
+        connexion, cursor = db_helper.get_base_datos
+        
+        sSQL = """select m.nombre, m.precio, dp.descripcion 
+        from mueble m
+        left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
+        where m.id_mueble = %s"""
+        
+        cursor.execute(sSQL, (mueble_seleccionado,))
+        mueble = cursor.fetchone()
+        
+        cursor.close()
+        conexion.close()
+        
+        return render_template("Productos.html")
+    return render_template("Productos.html")
+        
+        
         
 
 
@@ -363,8 +383,35 @@ def filtrar_por_precio():
             mensaje = "Introduce numeros por favor"
 
     else:
-        mensaje = "Necesito que digas entre que precios quieres filtrar"
         
+        conexion, cursor = db_helper.get_base_datos()
+        
+        if not precio_min:
+            cursor.execute("select min(precio) as minimo from mueble")
+            resultado_min = cursor.fetchone()
+            precio_min_numero = float(resultado_min["minimo"])
+        else:
+            precio_min_numero = float(precio_min)
+            
+        if not precio_max:
+            cursor.execute("select max(precio) as maximo from mueble")
+            resultado_max = cursor.fetchone()
+            precio_max_numero = float(resultado_max["maximo"])
+        else:
+            precio_max_numero = float(precio_max)
+            
+        sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
+        dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
+        from mueble m
+        left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
+        where m.precio between %s and %s"""
+        
+        cursor.execute(sSQL,(precio_min_numero, precio_max_numero))
+        muebles = cursor.fetchall()
+            
+        cursor.close()
+        conexion.close()
+            
     return muebles, mensaje
     
     
