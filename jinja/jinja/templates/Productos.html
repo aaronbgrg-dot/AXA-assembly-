@@ -49,22 +49,23 @@
     <div class="layout-principal">
 
         <div class="filtros">
+            <form action="{{url_for('pagina_productos')}}" method="post">
             <h3><u>Filtrar productos</u></h3>
 
             <!-- Precio -->
             <div class="filtro-grupo">
                 <label><b>Precio</b></label> 
                 <br><div class="filtro-precio">
-                    <input type="number" id="precio-min" placeholder="Mín €" min="1" max="7000">
+                    <input type="number" id="precio-min" name="p_min" placeholder="Mín €" min="1" max="7000">
                     <p>─</p>
-                    <input type="number" id="precio-max" placeholder="Máx €" min="1" max="7000">
+                    <input type="number" id="precio-max" name="p_max" placeholder="Máx €" min="1" max="7000">
                 </div>
             </div>
 
             <!-- Color -->
             <div class="filtro-grupo">
                 <label><b>Color</b></label>
-                <select id="filtro-color">
+                <select id="filtro-color" name="color">
                     <option value="">Todos</option>
                     <option value="blanco">Blanco</option>
                     <option value="negro">Negro</option>
@@ -76,7 +77,7 @@
             <!-- Material -->
             <div class="filtro-grupo">
                 <label><b>Material</b></label>
-                <select id="filtro-material">
+                <select id="filtro-material" name="material">
                     <option value="">Todos</option>
                     <option value="madera">Madera</option>
                     <option value="metal">Metal</option>
@@ -99,38 +100,42 @@
                 </div>
             </div>
             
-            <button onclick="aplicarFiltros()">Aplicar filtros</button>
-            <button onclick="limpiarFiltros()">Limpiar</button>
+            <button onclick="aplicarFiltros()" type="submit" name="accion" >Aplicar filtros</button>
+            <button onclick="limpiarFiltros()" type="submit" >Limpiar</button>
+            </form>
         </div>
+        
+        {% if mensaje %}
+            <p>{{ mensaje }}</p>
+        {% endif %}
 
         <div class="contenedor-productos">
             <!-- Bucle productos -->
             {% for producto in productos %}
             <div class="tarjeta-producto">
-                <img src="{{ producto.ruta_imagen }}" alt="{{ producto.nombre }}">
-
-                <h3>{{ producto.nombre }}</h3>
-                <p class="precio">{{ producto.precio }} €</p>
-
-                <a href="{{ url_for('ver_producto', id_mueble=producto.id_mueble) }}" 
-                class="boton-ver-mas">Ver más</a>
-                <button id="abrir_producto_completo"></button>
-
-                <dialog id="ver_producto_completo">
-                    <h2>{{ producto.nombre }}</h2>
                     <img src="{{ producto.ruta_imagen }}" alt="{{ producto.nombre }}">
-
-                    <p class="descripcion">{{ producto.descripcion }}</p>
+    
+                    <h3>{{ producto.nombre }}</h3>
                     <p class="precio">{{ producto.precio }} €</p>
-
-                    <!-- El stock solo visible para empleados y administradores -->
-                    {% if usuario.rol == 'empleado' or usuario.rol == 'administrador' %}
-                        <p class="stock">Stock: {{ producto.stock }}</p>
-                    {% endif %}
-                    <button id="cerrar_ventana_producto">Cerrar</button>
-                    
-                </dialog>
-
+    
+                    <a href="{{ url_for('pagina_productos', id_mueble=producto.id_mueble) }}" 
+                    class="boton-ver-mas">Ver más</a>
+                    <button id="abrir_producto_completo"></button>
+    
+                    <dialog id="ver_producto_completo">
+                        <h2>{{ producto.nombre }}</h2>
+                        <img src="{{ producto.ruta_imagen }}" alt="{{ producto.nombre }}">
+    
+                        <p class="descripcion">{{ producto.descripcion }}</p>
+                        <p class="precio">{{ producto.precio }} €</p>
+    
+                        <!-- El stock solo visible para empleados y administradores -->
+                        {% if rol_usuario == 'empleado' or rol_usuario == 'administrador' %}
+                            <p class="stock">Stock: {{ producto.stock }}</p>
+                        {% endif %}
+                        <button id="cerrar_ventana_producto">Cerrar</button>
+                        
+                    </dialog>
             </div>
             {% endfor %}
         </div>
@@ -151,7 +156,7 @@
     const precioMax = document.getElementById('precio-max').value;
     const color = document.getElementById('filtro-color').value;
     const material = document.getElementById('filtro-material').value;
-    const seccionSeleccionada = document.querySelector('input[name="seccion"]:checked').value;
+    const seccionSeleccionada = document.querySelector('input[name="secciones"]:checked').value;
     }
 
     function limpiarFiltros() {

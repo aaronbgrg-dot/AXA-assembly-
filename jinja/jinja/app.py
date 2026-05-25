@@ -129,89 +129,6 @@ def comprobar_email(email_cliente):
         
 
 
-@app.route("/ordenar_por_precio", methods = ["GET", "POST"])
-def ordenar_por_precio():
-    
-    conexion, cursor = db_helper.get_base_datos()
-
-    sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
-    dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
-    from mueble m 
-    left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
-    order by m.precio asc"""
-
-    cursor.execute(sSQL)
-
-    muebles = cursor.fetchall()
-
-    cursor.close()
-    conexion.close()
-    return render_template("###.html", muebles = muebles)
-
-
-@app.route("/filtrar_por_precio", methods = ["GET", "POST"])
-def filtrar_por_precio():
-    mensaje = ""
-    muebles = []
-    if request.method == "POST":
-        
-        precio_min = request.form.get("Valor min introducido por el usuario") 
-        precio_max = request.form.get("valor max introducido por usuario")
-
-        if precio_min and precio_max:
-            if precio_min.isdigit() and precio_max.isdigit():
-
-                precio_min_numero = float(precio_min)
-                precio_max_numero = float(precio_max)
-
-                conexion, cursor = db_helper.get_base_datos()
-
-                sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
-                dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
-                from mueble m
-                left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
-                where m.precio between %s and %s"""
-                cursor.execute(sSQL,(precio_min_numero, precio_max_numero))
-
-                muebles = cursor.fetchall()
-
-                cursor.close()
-                conexion.close()
-
-                if not muebles:
-                    mensaje = "No hay muebles en el rango escogido" 
-            else:
-                mensaje = "Introduce numeros por favor"
-
-        else:
-            mensaje = "Necesito que digas entre que precios quieres filtrar"
-            
-    return render_template("###.html", muebles = muebles, mensaje = mensaje)
-
-@app.route("/filtrar_por_seccion", methods = ["GET", "POST"])
-def filtrar_por_seccion():
-
-    if request.method == "POST":
-        seccion_seleccionada = request.form.get("seccion")
-        
-
-        conexion, cursor = db_helper.get_base_datos()
-
-        sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
-        dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
-        from mueble m
-        left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
-        where m.categoria = %s"""
-        cursor.execute(sSQL, (seccion_seleccionada,))
-
-        muebles = cursor.fetchall()
-    
-        cursor.close()
-        conexion.close()
-        return render_template("###.html", muebles = muebles)
-    return render_template("index.html")
-
-
 @app.route("/personalizar_muebles", methods = ["GET", "POST"])
 def personalizar_muebles():
 
@@ -260,27 +177,6 @@ def personalizar_muebles():
         return render_template ("Form_crear_mueble.html", mensaje = mensaje)
     return render_template("Form_crear_mueble.html")
 
-
-@app.route("/filtro_por_color", methods = ["GET", "POST"])
-def filtro_por_color():
-    if request.method == "POST":
-        color_seleccionado = request.form.get("color")
-
-        conexion, cursor = db_helper.get_base_datos()
-
-        sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
-            dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
-            from mueble m
-            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
-            where dp.color = %s
-        """
-        cursor.execute(sSQL, (color_seleccionado,))
-
-        cursor.close()
-        conexion.close()
-
-        return render_template("###.html")
-    return render_template("###.html")
 
 
 @app.route("/get_feedback", methods = ["GET", "POST"])
@@ -332,14 +228,216 @@ def anadir_al_carrito():
 #     if request.method == "POST":
         
 
+
 @app.route("/hashear", methods = ["GET", "POST"])
 def hashear():
     hash = generate_password_hash("1234")
     return hash
     
+    
+    # QUEDA PENDIENTE UNIFICAR TODAS LAS FUNCIONES DE FILTRADO EN LA RUTA /productos
+    
+    
 @app.route("/productos", methods = ["GET", "POST"])
 def pagina_productos():
-    return render_template("Productos.html")
+    
+    rol_usuario = session.get("rol", "cliente")
+    
+    accion = request.form.get("accion")
+    
+    productos = []
+    mensaje = ""
+    
+    if request.method == "POST":
+        
+        p_min = request.form.get("p_min")
+        p_max = request.form.get("p_max")
+        color = request.form.get("color")
+        material = request.form.get("material")
+        seccion = request.form.get("secciones")
+        
+        if p_min or p_max:
+            productos, mensaje = filtrar_por_precio()
+            
+        elif seccion:
+            productos, mensaje = filtrar_por_seccion()
+            
+        elif color:
+            productos, mensaje = filtro_por_color()
+            
+        elif material:
+            productos, mensaje = filtro_por_material()
+            
+        else:
+            conexion, cursor = db_helper.get_base_datos()
+            
+            sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
+                dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
+                from mueble m
+                left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
+                """
+                
+            cursor.execute(sSQL)
+            productos = cursor.fetchall()
+            
+            cursor.close()
+            conexion.close()
+            
+        return render_template("Productos.html", productos = productos, mensaje = mensaje, rol_usuario = rol_usuario)
+    else:
+        
+        conexion, cursor = db_helper.get_base_datos()
+    
+    
+        sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
+            dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
+            from mueble m
+            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
+                """
+    
+        cursor.execute(sSQL)
+        productos = cursor.fetchall()
+        
+       
+        cursor.close()
+        conexion.close()
+    
+        # Obtener rol del usuario si está logueado (por defecto cliente)
+        rol_usuario = session.get("rol", "cliente")
+    
+        return render_template("Productos.html", productos = productos, rol_usuario = rol_usuario, mensaje = mensaje)
+        
+ 
+ 
+def ordenar_por_precio():
+    
+    conexion, cursor = db_helper.get_base_datos()
+
+    sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
+    dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
+    from mueble m 
+    left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
+    order by m.precio asc"""
+
+    cursor.execute(sSQL)
+
+    muebles = cursor.fetchall()
+
+    cursor.close()
+    conexion.close()
+    return muebles, ""
+    
+    
+
+def filtrar_por_precio():
+    
+    precio_min = request.form.get("p_min") 
+    precio_max = request.form.get("p_max")
+
+    mensaje = ""
+    muebles = []
+        
+    if precio_min and precio_max:
+        if precio_min.isdigit() and precio_max.isdigit():
+
+            precio_min_numero = float(precio_min)
+            precio_max_numero = float(precio_max)
+
+            conexion, cursor = db_helper.get_base_datos()
+
+            sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
+            dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
+            from mueble m
+            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
+            where m.precio between %s and %s"""
+            cursor.execute(sSQL,(precio_min_numero, precio_max_numero))
+
+            muebles = cursor.fetchall()
+
+            cursor.close()
+            conexion.close()
+
+            if not muebles:
+                mensaje = "No hay muebles en el rango escogido" 
+        else:
+            mensaje = "Introduce numeros por favor"
+
+    else:
+        mensaje = "Necesito que digas entre que precios quieres filtrar"
+        
+    return muebles, mensaje
+    
+    
+    
+def filtrar_por_seccion():
+
+    seccion_seleccionada = request.form.get("secciones")
+    
+
+    conexion, cursor = db_helper.get_base_datos()
+
+    sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
+    dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
+    from mueble m
+    left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
+    where m.categoria = %s"""
+    cursor.execute(sSQL, (seccion_seleccionada,))
+
+    muebles = cursor.fetchall()
+
+    cursor.close()
+    conexion.close()
+    return muebles, ""
+    
+    
+    
+    
+def filtro_por_color():
+
+    color_seleccionado = request.form.get("color")
+
+    conexion, cursor = db_helper.get_base_datos()
+
+    sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
+        dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
+        from mueble m
+        left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
+        where dp.color = %s
+    """
+    cursor.execute(sSQL, (color_seleccionado,))
+    
+    filtro_color = cursor.fetchall()
+
+    cursor.close()
+    conexion.close()
+    
+    return filtro_color, ""
+    
+
+
+def filtro_por_material():
+    material_seleccionado = request.form.get("material")
+    
+    conexion, cursor = db_helper.get_base_datos()
+    
+    sSQL = """select m.nombre, m.material, m.precio, dp.ancho,
+            dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
+            from mueble m
+            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
+            where m.material = %s"""
+    
+    cursor.execute(sSQL, (material_seleccionado, ))
+    
+    filtro_material = cursor.fetchall()
+    
+    cursor.close()
+    conexion.close()
+    
+    return filtro_material, ""
+    
+
+
+
 
 
 @app.route("/logout", methods =["GET", "POST"])

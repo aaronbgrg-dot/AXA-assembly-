@@ -1535,3 +1535,284 @@ Traceback (most recent call last):
   File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
     raise get_mysql_exception(
 mysql.connector.errors.IntegrityError: 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`axa_mobiliario`.`dise\xf1o_personalizado`, CONSTRAINT `dise\xf1o_personalizado_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`))
+[2026-05-22 13:50:36,100] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 360, in pagina_productos
+    return render_template("Productos.html", productos=productos, rol_usuario=rol_usuario)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/axa/public_html/jinja/templates/Productos.html", line 115, in top-level template code
+    <a href="{{ url_for('ver_producto', id_mueble=producto.id_mueble) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/werkzeug/routing/map.py", line 901, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'ver_producto' with values ['id_mueble']. Did you mean 'pagina_productos' instead?
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][2120831] Child process with pid: 2120841 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][2127340] Child process with pid: 2127343 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][2666873] Child process with pid: 2666878 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][2666873] Child process with pid: 2666881 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][2666873] Child process with pid: 2666882 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][2701871] Child process with pid: 2701877 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][2701871] Child process with pid: 2701878 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][2701871] Child process with pid: 2701879 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][3945370] Child process with pid: 3945376 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][4013524] Child process with pid: 4013564 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][904681] Child process with pid: 904690 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][960486] Child process with pid: 960489 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 265
+    def ordenar_por_precio():
+                             ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][960486] Child process with pid: 960491 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 254
+    return productos, mensaje = ordenar_por_precio()
+                              ^
+SyntaxError: invalid syntax
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 254
+    return productos, mensaje = ordenar_por_precio()
+                              ^
+SyntaxError: invalid syntax
+[UID:1488][1074561] Child process with pid: 1074572 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 254
+    return productos, mensaje = ordenar_por_precio()
+                              ^
+SyntaxError: invalid syntax
+[UID:1488][1074561] Child process with pid: 1074573 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 256
+    elif accion == "filtrar_por_precio":
+                                        ^
+IndentationError: unindent does not match any outer indentation level
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 256
+    elif accion == "filtrar_por_precio":
+                                        ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][1080280] Child process with pid: 1080288 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 256
+    elif accion == "filtrar_por_precio":
+                                        ^
+IndentationError: unindent does not match any outer indentation level
+[UID:1488][1080280] Child process with pid: 1080290 was killed by signal: 15, core dumped: no
+[2026-05-25 10:47:36,421] ERROR in app: Exception on /productos [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 262, in pagina_productos
+    elif acccion == "filtro_por_color":
+         ^^^^^^^
+NameError: name 'acccion' is not defined. Did you mean: 'accion'?
+[2026-05-25 10:50:25,759] ERROR in app: Exception on /productos [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 262, in pagina_productos
+    elif acccion == "filtro_por_color":
+         ^^^^^^^
+NameError: name 'acccion' is not defined. Did you mean: 'accion'?
