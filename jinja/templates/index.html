@@ -4,42 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Axa_assembly_PaginaPrincipal</title>
+    <link rel="icon" href="../static/imagenes/Logo_Axa_asb.png" type="image/x-icon">
+    <!-- BOXICONS CSS-->
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../static/CSS/cookies.css" />
     <link rel="stylesheet" href="/static/CSS/styles.css"> 
+
 </head>
 <body onload="Cargar_carrusel_Anuncios()">
 
     <header class="encabezado">
         <nav class="navegador_secciones">
+            <!--    Enlace a pagina principal   -->
+            <a href="{{ url_for('home') }}">
+                <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
+            </a>
             <nav class="nav-links">
-
-                <!--    Enlace a pagina principal   -->
-                <a href="{{ url_for('home') }}">
-                    <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
-                </a>
-                <a href="{{ url_for('pag_productos') }}" class="Apartados">Productos</a>
+                <a href="{{ url_for('pagina_productos') }}" class="Apartados">Productos</a>
                 <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
                 <a href="#" class="Apartados">Carrito</a>
-                <!--    Dropdown del usuario    -->
 
-                {% if session.get("id_usuario") %}
-                
-                    Hola {{session.get("usuario")}}
+            </nav>
+                <!--    Dropdown del usuario    -->
                     
-                {% else %}
                 <div class="dropdown">
-                    <img src="/static/imagenes/15081.png" 
+                        <img src="/static/imagenes/15081.png" 
                         alt="Imagen_Log_in" 
                         class="login" 
                         onclick="Menu_login_registro()">
-
-                    <div id="menuLogin" class="dropdown-content">
-                        <!--Enlace a pagina login-->
-                        <a href="{{ url_for('login') }}">Login</a>
-                        <!--Enlace a pagina registro-->
-                        <a href="{{ url_for('registro') }}">Registrarse</a>
-                    </div>
+                        
+                    {% if session.get("id_usuario") %}
+                        <div id="menuLogin" class="dropdown-content">
+                            <p>Hola {{session.get("usuario")}}</p><br>
+                            <a href="{{url_for('logout')}}">Cerrar sesion</a>
+                        </div>
+                    
+                    {% else %}
+                        <div id="menuLogin" class="dropdown-content">
+                            <!--Enlace a pagina login-->
+                            <a href="{{ url_for('login') }}">Login</a>
+                            <!--Enlace a pagina registro-->
+                            <a href="{{ url_for('registro') }}">Registrarse</a>
+                        </div>
+                    {% endif %}
                 </div>
-                {% endif %}
             </nav>
         </nav>
     </header>
@@ -47,7 +55,7 @@
     <div class="layout-principal">
 
         <!-- Columna izquierda: contenido existente -->
-        <div class="columna-contenido">
+        <div class="columna-contenido" style="flex: 1;">
             <div class="contenedor">
                 <b><u>Sobre nosotros</u></b>
                 <p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
@@ -55,12 +63,14 @@
 
             </div>
             {% if session.get("id_usuario") %}
-            <div class="contenedor">
-                <b><u>Feedback</u></b>
-                <p>Danos tu opinion sobre nuestros productos o problemas con la pagina para poder mejorar.</p>
-                <br><textarea name="Feedback" id="Feedback" style="min-height: 150px; max-height: 300px;   width: 80%;"></textarea>
-                <br><br><button onclick="Mandar_Feedback()">Enviar</button>
-            </div>
+            <form action = "{{url_for('get_feedback')}}" method = "POST">
+                <div class="contenedor">
+                    <b><u>Feedback</u></b>
+                    <p>Danos tu opinion sobre nuestros productos o problemas con la pagina para poder mejorar.</p>
+                    <br><textarea name="Feedback" id="Feedback" style="height: 300px; width: 80%;"></textarea>
+                    <br><br><button onclick="Mandar_Feedback()">Enviar</button>
+                </div>
+            </form>
             {% endif %}
         </div>
     
@@ -98,11 +108,29 @@
         </div>
 
     </div>
+
+    <div class="wrapper">
+        <header>
+            <i class="bx bx-cookie"></i>
+            <h2>Consentimiento de Cookies </h2>
+            </header>
+        <div class="data">
+            <p>Utilizamos cookies propias y de terceros para mejorar nuestros servicios. 
+            <a href="#">Leer más...</a></p>
+        </div>
+            <div class="botones">
+            <button class="button" id="Btn_aceptar">Acceptar</button>
+            <button class="button" id="Btn_rechazar">Rechazar</button>
+        </div>
+    </div>    
+
 </body>
 
 <script src="../static/Script/Carrusel_anuncios.js"></script>
 
 <script src="../static/Script/Menu_usuario.js"></script>
+
+<script src="../static/Script/cookies.js"></script>
 
 <script>
     function Mandar_Feedback() {

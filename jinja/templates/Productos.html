@@ -4,78 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="icon" href="../static/imagenes/Logo_Axa_asb.png" type="image/x-icon">
     <link rel="stylesheet" href="/static/CSS/styles.css">
 </head>
 <body onload="Cargar_carrusel_Anuncios()">
 
     <header class="encabezado">
         <nav class="navegador_secciones">
+            <!--    Enlace a pagina principal   -->
+            <a href="{{ url_for('home') }}">
+                <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
+            </a>
             <nav class="nav-links">
-
-                <!--    Enlace a pagina principal   -->
-                <a href="{{ url_for('home') }}">
-                    <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
-                </a>
-                <a href="{{ url_for('pag_productos') }}" class="Apartados">Productos</a>
+                <a href="{{ url_for('pagina_productos') }}" class="Apartados">Productos</a>
                 <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
                 <a href="#" class="Apartados">Carrito</a>
+
+            </nav>
                 <!--    Dropdown del usuario    -->
                 <div class="dropdown">
                     <img src="/static/imagenes/15081.png" 
-                        alt="Imagen_Log_in" 
-                        class="login" 
-                        onclick="Menu_login_registro()">
-
-                    <div id="menuLogin" class="dropdown-content">
-                        <!--Enlace a pagina login-->
-                        <a href="{{ url_for('login') }}">Login</a>
-                        <!--Enlace a pagina registro-->
-                        <a href="{{ url_for('registro') }}">Registrarse</a>
-                    </div>
+                    alt="Imagen_Log_in" 
+                    class="login" 
+                    onclick="Menu_login_registro()">
+                        
+                    {% if session.get("id_usuario") %}
+                        <div id="menuLogin" class="dropdown-content">
+                            <p>Hola {{session.get("usuario")}}</p><br>
+                            <a href="{{url_for('logout')}}">Cerrar sesion</a>
+                        </div>
+                    
+                    {% else %}
+                        <div id="menuLogin" class="dropdown-content">
+                            <!--Enlace a pagina login-->
+                            <a href="{{ url_for('login') }}">Login</a>
+                            <!--Enlace a pagina registro-->
+                            <a href="{{ url_for('registro') }}">Registrarse</a>
+                        </div>
+                    {% endif %}
                 </div>
-            </nav>
         </nav>
     </header>
 
     <div class="layout-principal">
 
-        <div class="contenedor-productos">
-            <!-- Bucle productos -->
-            {% for producto in productos %}
-            <div class="tarjeta-producto">
-                <img src="{{ producto.ruta_imagen }}" alt="{{ producto.nombre }}">
-
-                <h3>{{ producto.nombre }}</h3>
-                <p class="descripcion">{{ producto.descripcion }}</p>
-                <p class="precio">{{ producto.precio }} €</p>
-
-                <!-- Solo visible para empleados y administradores -->
-                {% if usuario.rol == 'empleado' or usuario.rol == 'administrador' %}
-                <p class="stock">Stock: {{ producto.stock }}</p>
-                {% endif %}
-
-                <a href="{{ url_for('ver_producto', id_mueble=producto.id_mueble) }}" 
-                class="boton-ver-mas">Ver más</a>
-
-            </div>
-            {% endfor %}
-        </div>
-
         <div class="filtros">
-            <h3>Filtrar productos</h3>
+            <h3><u>Filtrar productos</u></h3>
 
             <!-- Precio -->
             <div class="filtro-grupo">
-                <label>Precio</label>
-                <div class="filtro-precio">
-                    <input type="number" id="precio-min" placeholder="Mín €" min="0">
-                    <input type="number" id="precio-max" placeholder="Máx €" min="0">
+                <label><b>Precio</b></label> 
+                <br><div class="filtro-precio">
+                    <input type="number" id="precio-min" placeholder="Mín €" min="1" max="7000">
+                    <p>─</p>
+                    <input type="number" id="precio-max" placeholder="Máx €" min="1" max="7000">
                 </div>
             </div>
 
             <!-- Color -->
             <div class="filtro-grupo">
-                <label>Color</label>
+                <label><b>Color</b></label>
                 <select id="filtro-color">
                     <option value="">Todos</option>
                     <option value="blanco">Blanco</option>
@@ -87,7 +75,7 @@
 
             <!-- Material -->
             <div class="filtro-grupo">
-                <label>Material</label>
+                <label><b>Material</b></label>
                 <select id="filtro-material">
                     <option value="">Todos</option>
                     <option value="madera">Madera</option>
@@ -100,19 +88,51 @@
 
             <!-- Tipo de mueble -->
             <div class="filtro-grupo">
-                <label>Sección</label>
+                <label><b>Sección</b></label>
                 <div class="filtro-checkboxes"> 
-                    <label><input type="radio" name="secciones" value="salon"> Salón</label>
-                    <label><input type="radio" name="secciones" value="cuartos"> Cuartos</label>
-                    <label><input type="radio" name="secciones" value="aseo"> Aseo</label>
-                    <label><input type="radio" name="secciones" value="cocina"> Cocina</label>
-                    <label><input type="radio" name="secciones" value="exterior"> Exterior</label>
-                    <label><input type="radio" name="secciones" value="trastero_garaje"> Trastero/Garaje</label>
+                    <label>Salón <input type="radio" name="secciones" value="salon"></label>
+                    <label>Cuartos <input type="radio" name="secciones" value="cuartos"></label>
+                    <label>Aseo<input type="radio" name="secciones" value="aseo"></label>
+                    <label>Cocina <input type="radio" name="secciones" value="cocina"></label>
+                    <label>Exterior <input type="radio" name="secciones" value="exterior"></label>
+                    <label>Trastero/Garaje <input type="radio" name="secciones" value="trastero_garaje"></label>
                 </div>
             </div>
-
+            
             <button onclick="aplicarFiltros()">Aplicar filtros</button>
             <button onclick="limpiarFiltros()">Limpiar</button>
+        </div>
+
+        <div class="contenedor-productos">
+            <!-- Bucle productos -->
+            {% for producto in productos %}
+            <div class="tarjeta-producto">
+                <img src="{{ producto.ruta_imagen }}" alt="{{ producto.nombre }}">
+
+                <h3>{{ producto.nombre }}</h3>
+                <p class="precio">{{ producto.precio }} €</p>
+
+                <a href="{{ url_for('ver_producto', id_mueble=producto.id_mueble) }}" 
+                class="boton-ver-mas">Ver más</a>
+                <button id="abrir_producto_completo"></button>
+
+                <dialog id="ver_producto_completo">
+                    <h2>{{ producto.nombre }}</h2>
+                    <img src="{{ producto.ruta_imagen }}" alt="{{ producto.nombre }}">
+
+                    <p class="descripcion">{{ producto.descripcion }}</p>
+                    <p class="precio">{{ producto.precio }} €</p>
+
+                    <!-- El stock solo visible para empleados y administradores -->
+                    {% if usuario.rol == 'empleado' or usuario.rol == 'administrador' %}
+                        <p class="stock">Stock: {{ producto.stock }}</p>
+                    {% endif %}
+                    <button id="cerrar_ventana_producto">Cerrar</button>
+                    
+                </dialog>
+
+            </div>
+            {% endfor %}
         </div>
 
     </div>
@@ -122,6 +142,8 @@
 
 <script src="../static/Script/Menu_usuario.js"></script>
 
+<script src="../static/Script/Ventana_producto.js"></script>
+
 <script>
 
     function aplicarFiltros() {
@@ -129,28 +151,8 @@
     const precioMax = document.getElementById('precio-max').value;
     const color = document.getElementById('filtro-color').value;
     const material = document.getElementById('filtro-material').value;
-    const seccionSeleccionada = document.querySelector('input[name="seccion"]:checked').value;
-
-    //DALE UNA VUELTA 🗣️❗❗
-
-    // Recorre todas las tarjetas y muestra/oculta según filtros
-    document.querySelectorAll('.tarjeta-producto').forEach(tarjeta => {
-        const precio = parseFloat(tarjeta.dataset.precio);
-        const colorTarjeta = tarjeta.dataset.color;
-        const materialTarjeta = tarjeta.dataset.material;
-        const seccionTarjeta = tarjeta.dataset.seccion;
-
-        let visible = true;
-
-        if (precioMin && precio < parseFloat(precioMin)) visible = false;
-        if (precioMax && precio > parseFloat(precioMax)) visible = false;
-        if (color && colorTarjeta !== color) visible = false;
-        if (material && materialTarjeta !== material) visible = false;
-        if (seccionSeleccionada && seccionTarjeta !== seccionSeleccionada) visible = false;
-
-        tarjeta.style.display = visible ? 'flex' : 'none';
-    });
-}
+    const seccionSeleccionada = document.querySelector('input[name="secciones"]:checked').value;
+    }
 
     function limpiarFiltros() {
     document.getElementById('precio-min').value = '';
@@ -163,6 +165,15 @@
     document.querySelectorAll('.tarjeta-producto').forEach(t => t.style.display = 'flex');
     }
 
+    //Fuerza al usuario al escribir el maximo que sea solo hasta el numero establecido
+    const maxInput = document.getElementById("precio-max");
+
+    maxInput.addEventListener("input", () => {
+        const max = 7000;
+        if (maxInput.value > max) {
+            maxInput.value = max;
+        }
+    });
 </script>
 
 </html>

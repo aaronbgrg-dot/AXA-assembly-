@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Axa-Login</title>
+    <link rel="icon" href="../static/imagenes/Logo_Axa_asb.png" type="image/x-icon">
     <link rel="stylesheet" href="/static/CSS/styles.css"> 
 </head>
 <body>
     <header class="encabezado">
         <nav class="navegador_secciones">
+            <!--    Enlace a pagina principal   -->
+            <a href="{{ url_for('home') }}">
+                <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
+            </a>
             <nav class="nav-links">
-                
-                <!--    Enlace a pagina principal   -->
-                <a href="{{ url_for('home') }}">
-                    <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
-                </a>
-                <a href="{{ url_for('pag_productos') }}" class="Apartados">Productos</a>
+                <a href="{{ url_for('pagina_productos') }}" class="Apartados">Productos</a>
                 <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
                 <a href="#" class="Apartados">Carrito</a>
 
+            </nav>
                 <!--    Dropdown del usuario    -->
                 <div class="dropdown">
                     <img src="/static/imagenes/15081.png" 
@@ -33,12 +34,11 @@
                         <a href="{{ url_for('registro') }}">Registrarse</a>
                     </div>
                 </div>
-            </nav>
         </nav>
     </header>
         
         <div class="contenedor" style="max-width: 50%;">
-            <form>
+            <form method="post" action="{{ url_for('login') }}">
             <h3>Inicio de sesion</h3><br>
             <p>Usuario</p>
             <input type="text" name="Nom_usuario" id="Nom_usuario">

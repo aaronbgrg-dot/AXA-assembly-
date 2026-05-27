@@ -12,6 +12,8 @@ body{
 
 button{
     padding: 5px;
+    margin-top: 10px;
+    margin-right: 5px;
     background-color: #f29481;
     border: 3px solid #5D0703;
     border-radius: 10%;
@@ -30,20 +32,29 @@ button{
 .navegador_secciones{
     display: flex;
     align-items: center;
-    gap: 20px;
 }
 
 .nav-links {
     display: flex;
     align-items: center;  /* ← centra logo, apartados y dropdown en la misma línea */
-    gap: 10px;
+    gap: 5px;
     flex-wrap: wrap;
-    
+    gap: 100px;
+}
+
+.Apartados{
+    background-color: #eb814d;
+    border: 4px solid #5D0703;
+    border-radius: 6px;
+    color: #5D0703;
+    padding: 10px;
+    flex-wrap: wrap;
 }
 
 .logo{
   width: 100px;
   height: auto;
+  margin-right: 100px;
 }
 
 .dropdown {
@@ -61,7 +72,7 @@ button{
     z-index: 1;
     border: 4px solid #5D0703;
     border-radius: 6px;
-  }
+}
 
 .dropdown-content a {
     color: #5D0703;
@@ -71,7 +82,7 @@ button{
 
 .dropdown-content a:hover {
     background-color: #f29481;
-  }
+}
 
 .login{
     width: 70px;
@@ -81,21 +92,11 @@ button{
     border-radius: 50%;
 }
 
-.Apartados{
-    background-color: #eb814d;
-    border: 4px solid #5D0703;
-    border-radius: 6px;
-    color: #5D0703;
-    margin-left: 50px;
-    padding: 10px;
-}
-
 .contenedor{
     background-color: #eb814d;
     margin: 10px;
     padding: 30px;
     border: 4px solid #5D0703;
-    flex: 1;
 
 }
 
@@ -106,6 +107,7 @@ button{
     max-width: 25%;
     display: flex;
     flex-wrap: wrap;
+    flex-shrink: 0;
 }
 
 .filtro-grupo {
@@ -114,18 +116,23 @@ button{
     gap: 6px;
 }
 
+.filtro-precio {
+    display: flex;
+    margin-right: 120px;
+    gap: 20px;
+}
 
-/* ── Layout principal ── */
+
+
 .layout-principal {
     display: flex;
-    flex-direction: row; /* ← asegura que sea horizontal, no vertical */
     align-items: flex-start;
-    gap: 30px;
+    gap: 20px;
     padding: 0 40px;
 }
 
-.columna-contenido {
-    flex: 1;
+#ver_producto_completo {
+    max-width: 60ch;
 }
 
 /* ── Columna de anuncios ── */
@@ -178,7 +185,7 @@ button{
 
 .contenedor-productos {
     display: flex;
-    flex-wrap: wrap;    /* si hay muchos productos, salta a la siguiente fila */
+    flex-wrap: wrap;
     gap: 20px;
     flex: 1;
 }
@@ -200,15 +207,19 @@ button{
     .logo {
         width: 60px;
         margin-left: 0;
+        margin-right: 0;
     }
 
-    
+    .nav-links{
+        gap: 5px;
+    }
 
     .Apartados {
         font-size: 0.78rem;
         padding: 6px 8px;
         margin-left: 0;
         margin: 5px;
+        flex-wrap: wrap;
     }
 
     .login {

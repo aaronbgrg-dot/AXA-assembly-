@@ -54,8 +54,12 @@ def registro():
     mensaje = ""
 
     if request.method == "POST":
-        usuario_entrada = request.form.get("Nom_usuario")
-        contrasena_entrada = request.form.get("Contrase_usuario")
+        usuario_entrada = request.form.get("Nom_cliente")
+        apellido_entrada = request.form.get("apellido_cliente")
+        email_entrada = request.form.get("email_cliente")
+        contrasena_entrada = request.form.get("Contrase_cliente")
+        telefono_entrada = request.form.get("telefono_cliente")
+        
 
         conexion, cursor = db_helper.get_base_datos()
 
@@ -63,29 +67,62 @@ def registro():
         contiene_simbolo = any(varchar in simbolos_contrasena for varchar in contrasena_entrada)
 
         
-
         if len(contrasena_entrada) < 8: 
             mensaje = "La contraseña debe tener al menos 8 caracteres."
-            return render_template("###.html", mensaje = mensaje)
+            return render_template("Registro.html", mensaje = mensaje)
         elif not contiene_numero:
             mensaje = "La contraseña debe contener al menos 1 digito"
-            return render_template("###.html", mensaje = mensaje)
+            return render_template("Registro.html", mensaje = mensaje)
         elif not contiene_simbolo:
             mensaje = "La contraseña debe contener uno de estos simbolos: @, ¿, ¡, _, -"
-            return render_template("###.html", mensaje = mensaje) 
-
+            return render_template("Registro.html", mensaje = mensaje)
+            
+            
+        elif not comprobar_email(email_entrada):
+            if not comprobar_telefono(telefono_entrada):
+                mensaje = "El correo no es correcto y el numero de telefono debe tener 9 digitos"
+            return render_template("Registro.html", mensaje = mensaje)
+            
+            
+        elif not comprobar_telefono(telefono_entrada):
+            mensaje = "El numero de telefono debe tener 9 digitos"
+            return render_template("Registro.html", mensaje = mensaje)
+            
+            
         else:
             contrasena_segura = generate_password_hash(contrasena_entrada)
             
-            sSQL = """insert into usuario (nombre, contrasena, rol) 
-            values(%s,%s,%s)"""            
-            cursor.execute(sSQL,(usuario_entrada, contrasena_segura, "cliente"))
+            sSQL = """insert into usuario (nombre, apellido, email, contrasena, telefono, rol, fecha_registro) 
+            values(%s, %s, %s, %s, %s, %s, curdate())"""            
+            cursor.execute(sSQL, (usuario_entrada, apellido_entrada, email_entrada, contrasena_segura, telefono_entrada, "cliente"))
 
             cursor.close()
             conexion.close()
             
-            return redirect(url_for("index"))
-    return render_template("Registro.html")
+            return redirect(url_for("home"))
+    return render_template("Registro.html", mensaje = mensaje)
+    
+
+
+def comprobar_telefono(telefono_cliente):
+    
+    numero_para_comprobar = request.form.get(telefono_cliente)
+    
+    if len(numero_para_comprobar) == 9 and numero_para_comprobar.isdigit():
+        return True
+    else:
+        return False
+    
+
+
+def comprobar_email(email_cliente):
+    # Esta expresión regular comprueba: texto + @ + texto + . + extensión
+    patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    if re.match(patron, email_cliente):
+        return True
+    return False
+    
+        
 
 
 @app.route("/ordenar_por_precio", methods = ["GET", "POST"])
@@ -237,24 +274,52 @@ def filtro_por_color():
 def get_feedback():
     if request.method == "POST":
 
-        nueva_valoración_estado = request.form.get("val_est")
-        nuevo_feedback = request.form.get("feedback")
-        nueva_resena = request.form.get("resena")
+        id_usuario_sesion = session.get("id_usuario")
+        nuevo_feedback = request.form.get("Feedback")
+        # nueva_resena = request.form.get("resena")      solo si hace falta en la nueva base de datos
 
         conexion, cursor = db_helper.get_base_datos()
 
-        sSQL = """insert into servicios(id_pedido, valoracion_estado, feedback, resena) 
-        values(%s, %s,%s,%s)
+        sSQL = """insert into diseño_personalizado(id_usuario, id_mueble, ancho, alto, profundidad, color, material, descripcion, precio_estimado, estado) 
+        values(%s, 1, 2000, 1400, 1100, "naranja", "algodon", %s, 1299, "montado")
         """
         id_pedido_valorador = cursor.lastrowid
 
-        cursor.execute(sSQL, (id_pedido_valorador, nueva_valoración_estado, nuevo_feedback, nueva_resena))
+        cursor.execute(sSQL, (id_usuario_sesion, nuevo_feedback))
 
         cursor.close()
         conexion.close()
 
         return render_template("index.html")
     return render_template("index.html")
+    
+    
+@app.route("/anadir_al_carrito", methods = ["GET", "POST"])
+def anadir_al_carrito():
+    if request.method == "POST":
+        
+        id_usuario_actual = session.get("id_usuario")
+        mueble_anadido = request.form.get("nombre_mueble")
+        
+        conexion, cursor = db_helper.get_base_datos()
+        
+        sSQL = """insert into carrito(id_usuario, mueble, cantidad) values(%s, %s, 1) """
+        
+        cursor.execute(sSQL,(id_usuario_actual, mueble_anadido))
+        
+        cursor.close()
+        conexion.close()
+        
+        return redirect(url_for("###"))
+    return render_template("###.html")
+    
+    
+# @app.route("/ver_carrito", methods = ["GET", "POST"])
+# def ver_carrito():
+#     if request.method == "POST":
+        
+        
+    
     
 @app.route("/personalizar_muebles", methods = ["GET", "POST"])
 def personalizar_muebles():
@@ -265,18 +330,16 @@ def personalizar_muebles():
 def hashear():
     hash = generate_password_hash("1234")
     return hash
+    
+@app.route("/productos", methods = ["GET", "POST"])
+def pagina_productos():
+    return render_template("Productos.html")
 
 
 @app.route("/logout", methods =["GET", "POST"])
 def logout():
     session.clear()
     return redirect(url_for("login"))
-
-@app.route("/pag_productos", methods =["GET", "POST"])
-def pag_productos():
-    session.clear()
-    return render_template("Productos.html")
-
 
 if __name__ == "__main__":
     app.run(debug=True)

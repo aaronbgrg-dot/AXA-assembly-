@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axa-Login</title>
+    <link rel="icon" href="../static/imagenes/Logo_Axa_asb.png" type="image/x-icon">
+    <link rel="stylesheet" href="/static/CSS/styles.css"> 
+</head>
+<body>
+    <header class="encabezado">
+        <nav class="navegador_secciones">
+            <nav class="nav-links">
+                
+                <!--    Enlace a pagina principal   -->
+                <a href="{{ url_for('home') }}">
+                    <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
+                </a>
+                <a href="{{ url_for('pagina_productos') }}" class="Apartados">Productos</a>
+                <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+                <a href="#" class="Apartados">Carrito</a>
+
+                <!--    Dropdown del usuario    -->
+                <div class="dropdown">
+                    <img src="/static/imagenes/15081.png" 
+                        alt="Imagen_Log_in" 
+                        class="login" 
+                        onclick="Menu_login_registro()">
+
+                    <div id="menuLogin" class="dropdown-content">
+                        <!--Enlace a pagina login-->
+                        <a href="{{ url_for('login') }}">Login</a>
+                        <!--Enlace a pagina registro-->
+                        <a href="{{ url_for('registro') }}">Registrarse</a>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+    </header>
+        
+        <div class="contenedor" style="max-width: 50%;">
+            <form action="{{url_for('registro')}}" method="post" id="mi_formulario">
+                <h3>Registrarse</h3><br>
+                    <p>Nombre</p>
+                    <input type="text" name="Nom_cliente" id="Nom_cliente">
+                    
+                    <p>Apellido</p>
+                    <input type="text" name="apellido_cliente" id="apellido_cliente">
+                    
+                    <p>Email</p>
+                    <input type="email" name="email_cliente" id="email_cliente">
+                    
+                     <p>Telefono</p>
+                    <input type="text" name="telefono_cliente" id="telefono_cliente">
+
+                    <br><br><p>Contraseña</p>
+                    <input type="text" name="Contrase_cliente" id="Contrase_cliente">
+
+                <br><br><button type="submit" id="btn_registro">Registrarse</button>
+                    <br>
+                    <div id="texto_error">{% if mensaje %}
+                        {{mensaje}}
+                        {% endif %}
+                    </div>
+                    
+            </form>
+        </div>
+        
+</body>
+
+<script src="../static/Script/Menu_usuario.js"></script>
+
+<script>
+    
+    // Le decimos a la página: "Cuando el usuario intente enviar el formulario, haz esto primero"
+    document.getElementById('mi_formulario').addEventListener('submit', function(event) {
+        
+        // Guardamos lo que el usuario ha escrito en los inputs
+        const nombre = document.getElementById('Nom_cliente').value;
+        const apellido = document.getElementById('apellido_cliente').value;
+        const email = document.getElementById('email_cliente').value;
+        const telefono = document.getElementById('telefono_cliente').value;
+        const contrasena = document.getElementById('Contrase_cliente').value;
+        const div_error = document.getElementById('texto_error');
+
+        // Simbolos que tiene que tener la contrasena
+        const simbolos = ["@", "¿", "¡", "_", "-"];
+        
+        // Comprobamos si la contrasena tiene al menos uno de tus simbolos
+        let tieneSimbolo = false;
+        for (let i = 0; i < simbolos.length; i++) {
+            if (contrasena.includes(simbolos[i])) {
+                tieneSimbolo = true;
+            }
+        }
+        
+        // Comprobación de la contraseña si contiene algun numero
+        const numeros = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        let tieneNumero = false;
+        for (let i = 0; i < numeros.length; i++) {
+            if (contrasena.includes(numeros[i])) {
+                tieneNumero = true;
+            }
+        }
+        
+        // Comprobacion de email
+        const posicion_arroba = email.indexOf('@');
+        const posicion_ultimo_punto = email.lastIndexOf('.');
+        
+        let email_valido = true;
+
+        // Regla A: Debe tener arroba, y no puede estar al principio (posicion 0)
+        if (posicion_arroba < 1) {
+            email_valido = false;
+        }
+        // Regla B: Debe haber un punto y debe estar por lo menos 2 posiciones despues de la arroba (ej: a@b.c)
+        else if (posicion_ultimo_punto <= posicion_arroba + 1) {
+            email_valido = false;
+        }
+        // Regla C: Despues del ultimo punto deben quedar al menos 2 caracteres (para el .com, .es, etc.)
+        else if (email.length - 1 - posicion_ultimo_punto < 2) {
+            email_valido = false;
+        }
+
+        // AQUÍ EMPIEZAN LAS COMPROBACIONES 
+        
+        // Validar email
+        if (email_valido === false) {
+            event.preventDefault(); 
+            div_error.innerText = "Por favor, introduce un correo electronico valido (ejemplo@dominio.com).";
+            return; 
+        }
+        
+        // Validar el telefono (que tenga justo 9 letras/numeros y que no este vacio)
+        if (telefono.length !== 9) {
+            event.preventDefault(); // Frena el envío
+            div_error.innerText = "El número de teléfono debe tener exactamente 9 dígitos.";
+            return;
+        }
+
+        // Validar largo de contraseña
+        if (contrasena.length < 8) {
+            event.preventDefault(); // Frena el envio para que no se borre nada
+            div_error.innerText = "La contraseña debe tener al menos 8 caracteres.";
+            return; // Detiene el codigo aqui
+        }
+        
+        // Validar que la contraseña tenga al menos un numero
+        if (tieneNumero === false) {
+            event.preventDefault(); 
+            div_error.innerText = "La contraseña debe contener al menos 1 dígito.";
+            return;
+        }
+
+        // Validar que tenga un simbolo
+        if (tieneSimbolo === false) {
+            event.preventDefault(); // Frena el envio
+            div_error.innerText = "La contraseña debe contener uno de estos símbolos: @, ¿, ¡, _, -";
+            return;
+        }
+
+    });
+    
+</script>
+
+
+</html>
