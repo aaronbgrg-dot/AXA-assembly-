@@ -113,10 +113,19 @@
             <!-- Bucle productos -->
             {% for producto in productos %}
             <div class="tarjeta-producto">
-                    <img src="{{ producto.ruta_imagen }}" alt="{{ producto.nombre }}">
+                    <img src="{{ producto.url_imagen }}" alt="{{ producto.nombre }}">
     
                     <h3>{{ producto.nombre }}</h3>
-                    <p class="precio">{{ producto.precio }} €</p>
+                    {% if porcentaje > 0 %}
+                        <p class="precio" style="text-decoration: line-through; color: #888; font-size: 0.9em; margin-bottom: 2px;">
+                            {{ producto.precio }} €
+                        </p>
+                        <p class="precio-descuento" style="color: #27ae60; font-weight: bold; margin-top: 0;">
+                            {{ producto.precio_con_descuento }} € <span style="font-size: 0.8em;">(-{{ porcentaje }}%)</span>
+                        </p>
+                    {% else %}
+                        <p class="precio">{{ producto.precio }} €</p>
+                    {% endif %}
     
                     <a href="{{ url_for('pagina_productos', id_mueble=producto.id_mueble) }}" 
                     class="boton-ver-mas">Ver más</a>
@@ -124,15 +133,94 @@
     
                     <dialog id="ver_producto_completo">
                         <h2>{{ producto.nombre }}</h2>
-                        <img src="{{ producto.ruta_imagen }}" alt="{{ producto.nombre }}">
+                        <img src="{{ producto.url_imagen }}" alt="{{ producto.nombre }}">
     
                         <p class="descripcion">{{ producto.descripcion }}</p>
-                        <p class="precio">{{ producto.precio }} €</p>
+                        
+                        <p class="dimensiones-base">
+                        <b>Dimensiones Base:</b> 
+                        (Ancho) = {{ producto.ancho }} cm 
+                        (Alto) = {{ producto.alto }} cm  
+                        (Profundidad) = {{ producto.profundidad }} cm 
+                        </p>
+                        
+                        {% if porcentaje > 0 %}
+                            <p class="precio" style="text-decoration: line-through; color: #888; font-size: 0.9em; margin-bottom: 2px;">
+                                {{ producto.precio }} €
+                            </p>
+                            <p class="precio-descuento" style="color: #27ae60; font-weight: bold; margin-top: 0;">
+                                {{ producto.precio_con_descuento }} € <span style="font-size: 0.8em;">(-{{ porcentaje }}%)</span>
+                            </p>
+                        {% else %}
+                            <p class="precio">{{ producto.precio }} €</p>
+                        {% endif %}
     
                         <!-- El stock solo visible para empleados y administradores -->
                         {% if rol_usuario == 'empleado' or rol_usuario == 'administrador' %}
                             <p class="stock">Stock: {{ producto.stock }}</p>
                         {% endif %}
+                        
+                        {% if session.get('rol') == 'administrador' %}
+                        <div class="panel-edicion-admin" style="border: 2px dashed #e74c3c; padding: 15px; margin-top: 20px; background-color: #fdf2f2; text-align: left; border-radius: 6px;">
+                            <h3>Panel de Gestión de Catálogo (Admin)</h3>
+                            
+                            <form action="{{ url_for('editar_mueble', id_mueble=producto.id_mueble) }}" method="POST">
+                                <div>
+                                    <label>Nombre del Mueble:</label>
+                                    <input type="text" name="nombre" value="{{ producto.nombre }}">
+                                </div>
+
+                                <div>
+                                    <label>Precio Base (€):</label>
+                                    <input type="number" step="0.1" name="precio" value="{{ producto.precio }}">
+                                </div>
+
+                                <div>
+                                    <label>URL de la Imagen:</label>
+                                    <input type="text" name="url_imagen" value="{{ producto.url_imagen }}">
+                                </div>
+
+                                <div>
+                                    <div>
+                                        <label>Material:</label>
+                                        <input type="text" name="tipo_material" value="{{ producto.tipo_material }}">
+                                    </div>
+                                    <div>
+                                        <label>Color:</label>
+                                        <input type="text" name="color" value="{{ producto.color }}">
+                                    </div>
+                                    <div>
+                                        <label>Stock:</label>
+                                        <input type="number" name="stock" value="{{ producto.stock }}">
+                                    </div>
+                                </div>
+
+                                <fieldset style="border: 1px solid;">
+                                    <legend>Dimensiones Oficiales (cm)</legend>
+                                    <div>
+                                        <div>
+                                            <label>Ancho:</label>
+                                            <input type="number" step="0.1" name="ancho" value="{{ producto.ancho }}">
+                                        </div>
+                                        <div>
+                                            <label>Alto:</label>
+                                            <input type="number" step="0.1" name="alto" value="{{ producto.alto }}">
+                                        </div>
+                                        <div>
+                                            <label>Profundo:</label>
+                                            <input type="number" step="0.1" name="profundidad" value="{{ producto.profundidad }}">
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <button type="submit">
+                                    💾 Guardar Cambios en Base de Datos
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+                        
+                        <br>
                         <button id="cerrar_ventana_producto">Cerrar</button>
                         
                     </dialog>

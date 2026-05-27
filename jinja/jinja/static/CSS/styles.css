@@ -190,6 +190,55 @@ button{
     flex: 1;
 }
 
+/*FOOTER*/
+
+footer {
+        background-color: #eb814d;
+        border: 5px solid #5D0703;
+        color: whitesmoke;
+        padding: 20px 100px;
+        /*flex-direction: row;*/
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        
+    }
+
+    .footer_contenido{
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        flex-wrap: wrap;
+        width: 100%;
+        align-items: flex-start;
+    }
+    
+    .footer_contenido h3{
+        padding-bottom: 20px;
+    }
+
+    .columna_footer{
+        width: 30%;
+    }
+
+    .columna_footer ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);  /* Separar en 3 columnas - Ayuda de IA*/
+        gap: 10px;
+        padding: 0;
+    }
+
+    .columna_footer img{
+        max-width: 90px;
+        border-radius: 5px;
+    }
+
+    .pie{
+        width: 100%;
+        margin-top: center;
+        text-align: center;
+    }
+
 
 
 
@@ -280,3 +329,5 @@ button{
     h3 { font-size: 1rem; }
     p  { font-size: 0.9rem; }
 }
+
+

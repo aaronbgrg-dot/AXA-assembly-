@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Axa_assembly_PaginaPrincipal</title>
     <link rel="icon" href="../static/imagenes/Logo_Axa_asb.png" type="image/x-icon">
+    <!-- BOXICONS CSS-->
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/2193d055c9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/CSS/cookies.css" />
     <link rel="stylesheet" href="/static/CSS/styles.css"> 
 </head>
 <body onload="Cargar_carrusel_Anuncios()">
@@ -73,6 +77,14 @@
                 <p class="anuncio-titulo">Ofertas destacadas</p>
 
                 <div class="carrusel-track" id="carruselTrack">
+                    {% if oferta and oferta.imagen_anuncio %}
+                    <div class="anuncio activo">
+                        <img src="/static/imagenes/{{ oferta.imagen_anuncio }}" alt="Oferta Especial del Día">
+                        <p class="anuncio-desc">
+                            ¡OFERTA HOY ({{ oferta.descuento }}%): {{ oferta.descripcion_anuncio }}!
+                        </p>
+                    </div>
+                    {% endif %}
                     <!-- Anuncio 1 -->
                     <div class="anuncio activo">
                         <img src="" alt="Anuncio 1">
@@ -101,11 +113,60 @@
         </div>
 
     </div>
+    
+    <div class="wrapper">
+        <header>
+            <i class="bx bx-cookie"></i>
+            <h2>Consentimiento de Cookies </h2>
+            </header>
+        <div class="data">
+            <p>Utilizamos cookies propias y de terceros para mejorar nuestros servicios. 
+            <a href="#">Leer más...</a></p>
+        </div>
+            <div class="botones">
+            <button class="button" id="Btn_aceptar">Aceptar</button>
+            <button class="button" id="Btn_rechazar">Rechazar</button>
+        </div>
+    </div>    
+    
+    <footer>
+        <div class="footer_contenido">
+            <div class="columna_footer">
+                <u><h3>Proovedores: </h3></u>
+                <ul> 
+                    <li><img src="../static/imagenes/DHL_Logo.jpg" alt="Logo DHL"></li>
+                    <li><img src="../static/imagenes/Kartra-Review_logo.jpg" alt="Logo Kartra"/></li>
+                    <li><img src="../static/imagenes/Correos_logo.jpg" alt="Logo correos"/></li>
+                    <li><img src="../static/imagenes/Mollari_logo.jpg" alt="Logo Mollarri Garraioak"/></li>
+                    <li><img src="../static/imagenes/Leroy_Merlin_logo.png" alt="Logo Leroy Merlin"/></li>
+                    <li><img src="../static/imagenes/Equilan-logo.jpg" alt="Logo Equilan"/></li>
+                </ul>
+            </div>
+
+            <div class="columna_footer">
+                <u><h3>Contáctanos:</h3></u>
+                <p>Correo: a_assembly@gmail.com</p>
+                <p>Direccion: Berio Pasalekua 50 - San Sebastian/Donosti, Guipuzcoa - España</p>
+                
+            </div>
+
+            <div class="columna_footer">
+                <u><h3>Siguenos en:</h3></u>
+                <a href=""><i class="fa-brands fa-instagram" style="font-size: 60px; color: whitesmoke;"></i></a>
+
+            </div>
+            
+            <p class="pie">© 2026 Axa Assembly</p>
+        </div>
+    </footer>
+    
 </body>
 
 <script src="../static/Script/Carrusel_anuncios.js"></script>
 
 <script src="../static/Script/Menu_usuario.js"></script>
+
+<script src="../static/Script/cookies.js"></script>
 
 <script>
     function Mandar_Feedback() {

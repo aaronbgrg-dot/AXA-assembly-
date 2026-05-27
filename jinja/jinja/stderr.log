@@ -1945,3 +1945,151 @@ Traceback (most recent call last):
   File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/werkzeug/routing/map.py", line 901, in build
     raise BuildError(endpoint, values, method, self)
 werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'productos'. Did you mean 'pagina_productos' instead?
+[2026-05-25 14:20:12,596] ERROR in app: Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 37, in login
+    cursor.close()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 513, in close
+    self._connection.handle_unread_result()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 1121, in handle_unread_result
+    raise InternalError("Unread result found")
+mysql.connector.errors.InternalError: Unread result found
+[2026-05-25 14:21:45,913] ERROR in app: Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 37, in login
+    cursor.close()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 513, in close
+    self._connection.handle_unread_result()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 1121, in handle_unread_result
+    raise InternalError("Unread result found")
+mysql.connector.errors.InternalError: Unread result found
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 7, please increase LSAPI_CHILDREN.
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 8, please increase LSAPI_CHILDREN.
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 8, please increase LSAPI_CHILDREN.
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 8, please increase LSAPI_CHILDREN.
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 8, please increase LSAPI_CHILDREN.
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 8, please increase LSAPI_CHILDREN.
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 8, please increase LSAPI_CHILDREN.
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 8, please increase LSAPI_CHILDREN.
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 8, please increase LSAPI_CHILDREN.
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 8, please increase LSAPI_CHILDREN.
+[UID:1488][2859882] Reached max children process limit: 6, extra: 2, current: 8, busy: 8, please increase LSAPI_CHILDREN.
+[2026-05-26 12:31:34,223] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 374, in pagina_productos
+    return render_template("Productos.html", productos = productos, rol_usuario = rol_usuario, mensaje = mensaje)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/axa/public_html/jinja/templates/Productos.html", line 119, in top-level template code
+    {% if porcentaje > 0 %}
+jinja2.exceptions.UndefinedError: 'porcentaje' is undefined
+[2026-05-27 11:59:47,378] ERROR in app: Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'id_departamento' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 33, in login
+    cursor.execute(sSQL, (usuario_entrada,))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'id_departamento' in 'SELECT'
+[2026-05-27 12:12:10,715] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Table 'axa_mobiliario.ofertas' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 364, in pagina_productos
+    porcentaje = ofertas()
+                 ^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 441, in ofertas
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'axa_mobiliario.ofertas' doesn't exist
