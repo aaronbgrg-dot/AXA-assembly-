@@ -333,7 +333,7 @@ def hashear():
     
 @app.route("/productos", methods = ["GET", "POST"])
 def pagina_productos():
-    return render_template("Productos.html")
+    return render_template("Productos2.html")
 
 
 @app.route("/logout", methods =["GET", "POST"])

@@ -190,93 +190,51 @@ button{
     flex: 1;
 }
 
+/*FOOTER*/
 
-
-
-/* ════════════════════════════════════════════
-   MEDIA QUERIES — MÓVIL (max-width: 480px)
-   ════════════════════════════════════════════ */
-@media (max-width: 480px) {
-
-    /* Encabezado compacto */
-    .encabezado {
-        padding: 10px 12px;
-        margin-bottom: 15px;
+footer {
+        background-color: #eb814d;
+        border: 5px solid #5D0703;
+        color: whitesmoke;
+        padding: 20px 100px;
+        /*flex-direction: row;*/
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        
     }
 
-    .logo {
-        width: 60px;
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .nav-links{
-        gap: 5px;
-    }
-
-    .Apartados {
-        font-size: 0.78rem;
-        padding: 6px 8px;
-        margin-left: 0;
-        margin: 5px;
+    .footer_contenido{
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
         flex-wrap: wrap;
-    }
-
-    .login {
-        width: 50px !important;
-        height: cente;
-    }
-
-    /* Contenedor con padding mínimo */
-    .contenedor {
-        padding: 14px;
-        margin: 6px 0;
-    }
-
-    /* Formulario a ancho completo */
-    .contenedor[style] {
-        width: 70% !important;
-        margin-left: 15% !important;
-    }   
-
-    /*.form-mueble {
         width: 100%;
-        margin-left: 0;
-    } */
-
-    /* Inputs del formulario a ancho completo */
-    .Sections input,
-    .Sections select,
-    .Sections textarea {
-        max-width: 100%;
-        font-size: 0.9rem;
+        align-items: flex-start;
+    }
+    
+    .footer_contenido h3{
+        padding-bottom: 20px;
     }
 
-    /* Textarea de feedback */
-    #Feedback {
-        width: 100% !important;
-        min-height: 120px;
+    .columna_footer{
+        width: 30%;
     }
 
-    /* Botones más fáciles de pulsar en táctil */
-    button {
-        padding: 10px 16px;
-        font-size: 0.9rem;
+    .columna_footer ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);  /* Separar en 3 columnas - Ayuda de IA*/
+        gap: 10px;
+        padding: 0;
+    }
+
+    .columna_footer img{
+        max-width: 90px;
+        border-radius: 5px;
+    }
+
+    .pie{
         width: 100%;
-        border-radius: 8px;
+        margin-top: center;
+        text-align: center;
     }
-
-    /* Formulario de login */
-    #Nom_usuario,
-    #Contrase_usuario {
-        width: 100%;
-        padding: 8px;
-        font-size: 1rem;
-        box-sizing: border-box;
-    }
-
-    /* Textos generales */
-    h2 { font-size: 1.2rem; }
-    h3 { font-size: 1rem; }
-    p  { font-size: 0.9rem; }
-}
