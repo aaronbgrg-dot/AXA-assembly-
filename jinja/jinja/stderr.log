@@ -2093,3 +2093,889 @@ Traceback (most recent call last):
   File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
     raise get_mysql_exception(
 mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'axa_mobiliario.ofertas' doesn't exist
+[2026-05-27 14:25:24,618] ERROR in app: Exception on /registro [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 107, in registro
+    cursor.execute(sSQL, (usuario_entrada, apellido_entrada, nombre_usuario_entrada, email_entrada, telefono_entrada, contrasena_segura, genero_entrada, direccion_entrada, "cliente", departamento_empleado))
+                                                                                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'departamento_empleado' where it is not associated with a value
+[2026-05-27 14:26:10,911] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Table 'axa_mobiliario.ofertas' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 370, in pagina_productos
+    porcentaje = ofertas()
+                 ^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 445, in ofertas
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'axa_mobiliario.ofertas' doesn't exist
+[2026-05-28 08:44:43,601] ERROR in app: Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'id_departamento' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 33, in login
+    cursor.execute(sSQL, (usuario_entrada,))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'id_departamento' in 'SELECT'
+[2026-05-28 08:45:04,250] ERROR in app: Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'id_departamento' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 33, in login
+    cursor.execute(sSQL, (usuario_entrada,))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'id_departamento' in 'SELECT'
+[2026-05-28 09:10:44,646] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Table 'axa_mobiliario.ofertas' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 370, in pagina_productos
+    porcentaje = ofertas()
+                 ^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 445, in ofertas
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'axa_mobiliario.ofertas' doesn't exist
+[2026-05-28 09:16:33,951] ERROR in app: Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'id_departamento' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 33, in login
+    cursor.execute(sSQL, (usuario_entrada,))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'id_departamento' in 'SELECT'
+[2026-05-28 09:20:43,422] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Table 'axa_mobiliario.ofertas' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 371, in pagina_productos
+    porcentaje = ofertas()
+                 ^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 446, in ofertas
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'axa_mobiliario.ofertas' doesn't exist
+[2026-05-28 09:26:26,283] ERROR in app: Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'id_departamento' in 'SELECT'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 33, in login
+    cursor.execute(sSQL, (usuario_entrada,))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'id_departamento' in 'SELECT'
+[2026-05-28 09:29:44,454] ERROR in app: Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'username' in 'WHERE'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 33, in login
+    cursor.execute(sSQL, (usuario_entrada,))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'username' in 'WHERE'
+[2026-05-28 09:30:07,828] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Table 'axa_mobiliario.ofertas' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 372, in pagina_productos
+    porcentaje = ofertas()
+                 ^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 447, in ofertas
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'axa_mobiliario.ofertas' doesn't exist
+[2026-05-28 09:30:11,369] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Table 'axa_mobiliario.ofertas' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 372, in pagina_productos
+    porcentaje = ofertas()
+                 ^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 447, in ofertas
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'axa_mobiliario.ofertas' doesn't exist
+[2026-05-28 09:30:20,870] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Table 'axa_mobiliario.ofertas' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 372, in pagina_productos
+    porcentaje = ofertas()
+                 ^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 447, in ofertas
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'axa_mobiliario.ofertas' doesn't exist
+[2026-05-28 09:38:29,421] ERROR in app: Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'username' in 'WHERE'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 33, in login
+    cursor.execute(sSQL, (usuario_entrada,))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'username' in 'WHERE'
+[2026-05-28 09:39:11,837] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'dia_especial' in 'WHERE'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 372, in pagina_productos
+    porcentaje = ofertas()
+                 ^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 447, in ofertas
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'dia_especial' in 'WHERE'
+[2026-05-28 09:42:41,701] ERROR in app: Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'username' in 'WHERE'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 33, in login
+    cursor.execute(sSQL, (usuario_entrada,))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'username' in 'WHERE'
+[2026-05-28 09:42:54,914] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'dia_especial' in 'WHERE'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 372, in pagina_productos
+    porcentaje = ofertas()
+                 ^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 447, in ofertas
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'dia_especial' in 'WHERE'
+[2026-05-28 09:46:48,713] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'dia_especial' in 'WHERE'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 372, in pagina_productos
+    porcentaje = ofertas()
+                 ^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 447, in ofertas
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'dia_especial' in 'WHERE'
+[2026-05-28 09:48:32,518] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Table 'axa_base_mobiliario.dise\xf1o_personalizado' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 421, in pagina_productos
+    cursor.execute(sSQL)
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'axa_base_mobiliario.dise\xf1o_personalizado' doesn't exist
+[2026-05-28 11:11:13,193] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 425, in pagina_productos
+    producto["precio_con_descuento"] = round(precio_original * (1 - (porcentaje / 100)), 2)
+                                             ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for *: 'decimal.Decimal' and 'float'
+[2026-05-28 11:56:29,393] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 423, in pagina_productos
+    producto["precio_con_descuento"] = round(precio_original * (1 - (porcentaje / 100)), 2)
+                                             ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for *: 'decimal.Decimal' and 'float'
+[2026-05-28 12:00:49,562] ERROR in app: Exception on /personalizar_muebles [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'categoria' in 'WHERE'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 170, in personalizar_muebles
+    cursor.execute(sSQL, (tipo_mueble, seccion_hogar, material_mueble))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'categoria' in 'WHERE'
+[2026-05-28 12:40:04,952] ERROR in app: Exception on /personalizar_muebles [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'categoria' in 'WHERE'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 170, in personalizar_muebles
+    cursor.execute(sSQL, (tipo_mueble, seccion_hogar, material_mueble))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'categoria' in 'WHERE'
+[2026-05-28 12:49:56,301] ERROR in app: Exception on /personalizar_muebles [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 169, in personalizar_muebles
+    cursor.execute(sSQL, (tipo_mueble, anchura_mueble, altura_mueble, profundidad_mueble, descripcion_mueble, precio_estimado_mueble, material_mueble, color_mueble, seccion_hogar))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 333, in execute
+    stmt = RE_PY_PARAM.sub(psub, stmt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 113, in __call__
+    raise ProgrammingError(
+mysql.connector.errors.ProgrammingError: Not enough parameters for the SQL statement
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 177
+    sSQL = """ insert into mueble(nombre, ancho, alto, profundidad, descripcion, precio, url_imagen, tipo_material, color, stock, id_categoria, id_proveedor)
+IndentationError: unexpected indent
+Traceback (most recent call last):
+  File "/home/axa/public_html/jinja/passenger_wsgi.py", line 10, in <module>
+    from app import app as application
+  File "/home/axa/public_html/jinja/app.py", line 177
+    sSQL = """ insert into mueble(nombre, ancho, alto, profundidad, descripcion, precio, url_imagen, tipo_material, color, stock, id_categoria, id_proveedor)
+IndentationError: unexpected indent
+[UID:1488][2837116] Child process with pid: 2837150 was killed by signal: 15, core dumped: no
+[2026-05-28 13:01:52,701] ERROR in app: Exception on /personalizar_muebles [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 180, in personalizar_muebles
+    cursor.execute(sSQL, (tipo_mueble, anchura_mueble, altura_mueble, profundidad_mueble, descripcion_mueble, precio_estimado_mueble, material_mueble, color_mueble, id_categoria))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 333, in execute
+    stmt = RE_PY_PARAM.sub(psub, stmt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 113, in __call__
+    raise ProgrammingError(
+mysql.connector.errors.ProgrammingError: Not enough parameters for the SQL statement
+[2026-05-28 13:06:07,991] ERROR in app: Exception on /personalizar_muebles [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 180, in personalizar_muebles
+    cursor.execute(sSQL, (tipo_mueble, anchura_mueble, altura_mueble, profundidad_mueble, descripcion_mueble, precio_estimado_mueble, material_mueble, color_mueble, id_categoria))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 333, in execute
+    stmt = RE_PY_PARAM.sub(psub, stmt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 113, in __call__
+    raise ProgrammingError(
+mysql.connector.errors.ProgrammingError: Not enough parameters for the SQL statement
+[2026-05-28 13:10:28,950] ERROR in app: Exception on /personalizar_muebles [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Cannot add or update a child row: a foreign key constraint fails (`axa_base_mobiliario`.`mueble`, CONSTRAINT `mueble_ibfk_2` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 180, in personalizar_muebles
+    cursor.execute(sSQL, (tipo_mueble, anchura_mueble, altura_mueble, profundidad_mueble, descripcion_mueble, precio_estimado_mueble,  "", material_mueble, color_mueble, -1, id_categoria, -1))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.IntegrityError: 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`axa_base_mobiliario`.`mueble`, CONSTRAINT `mueble_ibfk_2` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`))
+[2026-05-28 13:23:58,609] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 422, in pagina_productos
+    producto["precio_con_descuento"] = round(precio_original * (1 - (porcentaje / 100)), 2)
+                                             ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for *: 'decimal.Decimal' and 'float'
+[2026-05-28 13:24:21,949] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 422, in pagina_productos
+    producto["precio_con_descuento"] = round(precio_original * (1 - (porcentaje / 100)), 2)
+                                             ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for *: 'decimal.Decimal' and 'float'
+[2026-05-28 13:28:43,552] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 422, in pagina_productos
+    producto["precio_con_descuento"] = round(precio_original * (1 - (porcentaje / 100)), 2)
+                                             ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for *: 'decimal.Decimal' and 'float'
+[2026-05-28 13:31:32,580] ERROR in app: Exception on /productos [GET]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 422, in pagina_productos
+    producto["precio_con_descuento"] = round(precio_original * (1 - (porcentaje / 100)), 2)
+                                             ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for *: 'decimal.Decimal' and 'float'
+[2026-05-28 13:33:48,155] ERROR in app: Exception on /productos [POST]
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 772, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Unknown column 'categoria' in 'WHERE'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 383, in pagina_productos
+    productos, mensaje = filtrar_por_seccion()
+                         ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/public_html/jinja/app.py", line 551, in filtrar_por_seccion
+    cursor.execute(sSQL, (seccion_seleccionada,))
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/cursor_cext.py", line 353, in execute
+    self._connection.cmd_query(
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/opentelemetry/context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/axa/virtualenv/public_html/jinja/3.12/lib64/python3.12/site-packages/mysql/connector/connection_cext.py", line 781, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1054 (42S22): Unknown column 'categoria' in 'WHERE'

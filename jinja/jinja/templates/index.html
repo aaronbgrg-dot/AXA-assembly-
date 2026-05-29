@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/2193d055c9.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../static/CSS/cookies.css" />
     <link rel="stylesheet" href="/static/CSS/styles.css"> 
+    <link rel="stylesheet" href="/static/CSS/MediaQueries.css"> 
 </head>
 <body onload="Cargar_carrusel_Anuncios()">
 
@@ -34,7 +35,7 @@
                         
                     {% if session.get("id_usuario") %}
                         <div id="menuLogin" class="dropdown-content">
-                            <p>Hola {{session.get("usuario")}}</p><br>
+                            <p style="content: 10px;">Hola {{session.get("usuario")}}</p><br>
                             <a href="{{url_for('logout')}}">Cerrar sesion</a>
                         </div>
                     

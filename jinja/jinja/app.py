@@ -26,9 +26,9 @@ def login():
         
         conexion, cursor = db_helper.get_base_datos()
         
-        sSQL = """select id_usuario, nombre, contrasena, rol, id_departamento 
+        sSQL = """select id_usuario, nombre, contrasena, rol
         from usuario 
-        where nombre = %s"""
+        where username = %s"""
         
         cursor.execute(sSQL, (usuario_entrada,))
         
@@ -41,6 +41,7 @@ def login():
             session["id_usuario"] = usuario["id_usuario"]
             session["usuario"] = usuario["nombre"]
             session["rol"] = usuario["rol"]
+            
             
             return redirect(url_for("home"))
             
@@ -95,10 +96,11 @@ def registro():
             
         else:
             
-            if session.get("rol") != "empleado":
-                id_departamento = None
-            else:
+            rol_actual = session.get("rol")
+            if rol_actual in ["empleado", "admin"]:
                 departamento_empleado = session.get("id_departamento")
+            else:
+                departamento_empleado = None
             
             contrasena_segura = generate_password_hash(contrasena_entrada)
             
@@ -160,29 +162,25 @@ def personalizar_muebles():
         estado_mueble = request.form.get("estado")
 
         conexion, cursor = db_helper.get_base_datos()
+        
+        sSQL = """SELECT id_categoria 
+        FROM categoria 
+        WHERE nombre = %s"""
+        cursor.execute(sSQL, (seccion_hogar,))
+        resultado_categoria = cursor.fetchone()
 
-        sSQL = """select id_mueble
-        from mueble 
-        WHERE nombre = %s AND categoria = %s AND material = %s"""
-        
-        cursor.execute(sSQL, (tipo_mueble, seccion_hogar, material_mueble))
-        id_mueble = cursor.fetchone()
-        
-        if id_mueble is None:
-            mensaje = "Error: El mueble base seleccionado no existe en nuestro catalogo."
-        
+        if resultado_categoria is None:
+            mensaje = "Error: La sección del hogar no existe."
         else:
-           
-            id_mueble_catalogo = id_mueble["id_mueble"]
-            id_usuario_sesion = session.get("id_usuario")
+            id_categoria = resultado_categoria["id_categoria"]
     
-            sSQL = """ insert into diseño_personalizado(id_usuario, id_mueble, ancho, alto, profundidad, color, material, descripcion, precio_estimado, estado)
-            values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            sSQL = """ insert into mueble(nombre, ancho, alto, profundidad, descripcion, precio, url_imagen, tipo_material, color, stock, id_categoria, id_proveedor)
+            values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(sSQL, (id_usuario_sesion, id_mueble_catalogo, anchura_mueble, altura_mueble, profundidad_mueble, color_mueble, material_mueble, descripcion_mueble, precio_estimado_mueble, estado_mueble))
+            cursor.execute(sSQL, (tipo_mueble, anchura_mueble, altura_mueble, profundidad_mueble, descripcion_mueble, precio_estimado_mueble,  "", material_mueble, color_mueble, -1, id_categoria, None))
             
             mensaje = "Solicitud enviada con exito."
-    
+        
         cursor.close()
         conexion.close()
     
@@ -201,7 +199,7 @@ def ver_pedidos():
         
     conexion, cursor = db_helper.get_base_datos()
     
-    sSQL="""select p.id_pedido, p.fecha_pedido, p.total, p.estado, m.id_mueble, m.nombre, m.imagen
+    sSQL="""select p.id_pedido, p.fecha_pedido, p.total, p.estado, m.id_mueble, m.nombre, m.url_imagen
     from pedido p
     left join mueble m on p.id_mueble = m.id_mueble
     where p.id_usuario = %s"""
@@ -248,101 +246,103 @@ def get_feedback():
     return redirect(url_for("ver_pedidos"))
     
     
-@app.route("/anadir_al_carrito", methods = ["GET", "POST"])
-def anadir_al_carrito():
+# @app.route("/anadir_al_carrito", methods = ["GET", "POST"])
+# def anadir_al_carrito():
     
-    if "id_usuario" not in session:
-        return redirect(url_for("login"))
+#     if "id_usuario" not in session:
+#         return redirect(url_for("login"))
     
-    if request.method == "POST":
+#     if request.method == "POST":
         
-        id_usuario_actual = session.get("id_usuario")
-        mueble_anadido = request.form.get("nombre_mueble")
+#         id_usuario_actual = session.get("id_usuario")
+#         mueble_anadido = request.form.get("nombre_mueble")
         
-        conexion, cursor = db_helper.get_base_datos()
+#         conexion, cursor = db_helper.get_base_datos()
         
-        sSQL = """select id_mueble, precio 
-        from mueble
-        where nombre = %s"""
+#         sSQL = """select id_mueble, precio 
+#         from mueble
+#         where nombre = %s"""
         
-        cursor.execute(sSQL, (mueble_anadido,))
-        mueble_seleccionado = cursor.fetchone()
+#         cursor.execute(sSQL, (mueble_anadido,))
+#         mueble_seleccionado = cursor.fetchone()
         
-        id_mueble = mueble_seleccionado["id_mueble"]
-        precio_unitario = mueble_seleccionado["precio"]
+#         id_mueble = mueble_seleccionado["id_mueble"]
+#         precio_unitario = mueble_seleccionado["precio"]
         
-        sSQL = """select id_carrito 
-        from carrito 
-        where id_usuario = %s and estado = 'activo'"""
+#         sSQL = """select id_carrito 
+#         from carrito 
+#         where id_usuario = %s and estado = 'activo'"""
         
-        cursor.execute(sSQL,(id_usuario_actual, ))
-        carrito_actual = cursor.fetchone()
+#         cursor.execute(sSQL,(id_usuario_actual, ))
+#         carrito_actual = cursor.fetchone()
         
-        if carrito_actual:
-            id_carrito_actual = carrito_actual["id_carrito"]
+#         if carrito_actual:
+#             id_carrito_actual = carrito_actual["id_carrito"]
             
-        else:
-            sSQL = """insert into carrito(id_usuario, fecha_creacion, estado)
-            values(%s, curdate(), 'activo')"""
-            cursor.execute(sSQL, (id_usuario_actual,))
+#         else:
+#             sSQL = """insert into carrito(id_usuario, fecha_creacion, estado)
+#             values(%s, curdate(), 'activo')"""
+#             cursor.execute(sSQL, (id_usuario_actual,))
             
-            id_carrito_actual = cursor.lastrowid
+#             id_carrito_actual = cursor.lastrowid
             
         
-        sSQL = """select cantidad 
-        from detalle_carrito
-        where id_mueble = %s and id_carrito = %s"""
+#         sSQL = """select cantidad 
+#         from detalle_carrito
+#         where id_mueble = %s and id_carrito = %s"""
         
-        cursor.execute(sSQL, (id_mueble, id_carrito_actual))
-        cantidad_existente = cursor.fetchone()
+#         cursor.execute(sSQL, (id_mueble, id_carrito_actual))
+#         cantidad_existente = cursor.fetchone()
         
-        if cantidad_existente:
-            cantidad_final = cantidad_existente["cantidad"] + 1
+#         if cantidad_existente:
+#             cantidad_final = cantidad_existente["cantidad"] + 1
             
-            sSQL = """update detalle_carrito 
-            set cantidad = %s 
-            where id_carrito = %s and id_mueble = %s"""
-            cursor.execute(sSQL, (cantidad_final, id_carrito_actual, id_mueble))
+#             sSQL = """update detalle_carrito 
+#             set cantidad = %s 
+#             where id_carrito = %s and id_mueble = %s"""
+#             cursor.execute(sSQL, (cantidad_final, id_carrito_actual, id_mueble))
         
-        else:
+#         else:
             
-            sSQL = """insert into detalle_carrito(id_carrito, id_mueble, cantidad, precio_unitario) values(%s, %s, 1, %s)"""
+#             sSQL = """insert into detalle_carrito(id_carrito, id_mueble, cantidad, precio_unitario) values(%s, %s, 1, %s)"""
             
-            cursor.execute(sSQL, (id_carrito_actual, id_mueble, precio_unitario))
+#             cursor.execute(sSQL, (id_carrito_actual, id_mueble, precio_unitario))
         
         
-        cursor.close()
-        conexion.close()
+#         cursor.close()
+#         conexion.close()
         
-        return redirect(url_for("pagina_productos"))
-    return redirect(url_for("pagina_productos"))
+#         return redirect(url_for("pagina_productos"))
+#     return redirect(url_for("pagina_productos"))
+
+
+# -----------------------------------------------------------------------
     
     
-@app.route("/ver_carrito", methods = ["GET", "POST"])
-def ver_carrito():
+# @app.route("/ver_carrito", methods = ["GET", "POST"])
+# def ver_carrito():
     
-    if "id_usuario" not in session:
-        return redirect(url_for("login"))
+#     if "id_usuario" not in session:
+#         return redirect(url_for("login"))
     
-    if request.method == "POST":
+#     if request.method == "POST":
         
-        mueble_seleccionado = request.form.get("id_mueble")
+#         mueble_seleccionado = request.form.get("id_mueble")
         
-        conexion, cursor = db_helper.get_base_datos()
+#         conexion, cursor = db_helper.get_base_datos()
         
-        sSQL = """select m.nombre, m.precio, dp.descripcion 
-        from mueble m
-        left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
-        where m.id_mueble = %s"""
+#         sSQL = """select nombre, precio, url_imagen 
+#         from mueble 
+#         where id_mueble = %s"""
         
-        cursor.execute(sSQL, (mueble_seleccionado,))
-        mueble = cursor.fetchone()
+#         cursor.execute(sSQL, (mueble_seleccionado,))
+#         mueble = cursor.fetchone()
         
-        cursor.close()
-        conexion.close()
+#         cursor.close()
+#         conexion.close()
         
-        return render_template("Productos.html")
-    return redirect(url_for("pagina_productos"))
+#         return render_template("Productos.html")
+#     return redirect(url_for("pagina_productos"))
         
         
         
@@ -353,8 +353,7 @@ def hashear():
     hash = generate_password_hash("1234")
     return hash
     
-    
-    # QUEDA PENDIENTE UNIFICAR TODAS LAS FUNCIONES DE FILTRADO EN LA RUTA /productos
+  
     
     
 @app.route("/productos", methods = ["GET", "POST"])
@@ -392,12 +391,9 @@ def pagina_productos():
         else:
             conexion, cursor = db_helper.get_base_datos()
             
-            sSQL = """select m.nombre, m.ancho, m.alto, m.profundidad, m.tipo_material, m.precio, m.url_imagen,
-            m.stock, m.id_mueble, dp.ancho, dp.alto, dp.profundidad, 
-            dp.color, dp.descripcion, dp.estado 
-            from mueble m
-            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
-            """
+            sSQL = """select id_mueble, nombre, ancho, alto, profundidad, descripcion, precio, url_imagen, tipo_material, color, stock, id_categoria, id_proveedor
+                from mueble 
+                """
                 
             cursor.execute(sSQL)
             productos = cursor.fetchall()
@@ -411,9 +407,8 @@ def pagina_productos():
         conexion, cursor = db_helper.get_base_datos()
     
     
-        sSQL = """select m.nombre, m.ancho, m.alto, m.profundidad, m.tipo_material, m.precio, m.url_imagen, m.stock, m.id_mueble, dp.ancho, dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado
-            from mueble m
-            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
+        sSQL = """select id_mueble, nombre, ancho, alto, profundidad, descripcion, precio, url_imagen, tipo_material, color, stock, id_categoria, id_proveedor
+            from mueble 
             """
     
         cursor.execute(sSQL)
@@ -423,7 +418,7 @@ def pagina_productos():
         conexion.close()
         
     for producto in productos:
-        precio_original = producto["precio"]
+        precio_original = float(producto["precio"])
         producto["precio_con_descuento"] = round(precio_original * (1 - (porcentaje / 100)), 2)
     
     
@@ -439,15 +434,15 @@ def ofertas():
     conexion, cursor = db_helper.get_base_datos()
     
     sSQL = """select descuento
-    from ofertas
-    where fecha = curdate()"""
+    from oferta
+    where dia_especial = curdate()"""
     
     cursor.execute(sSQL)
     oferta_del_dia = cursor.fetchone()
     
     if oferta_del_dia:
     
-        porcentaje = oferta_del_dia["descuento"]
+        porcentaje = float(oferta_del_dia["descuento"])
         
     else:
         porcentaje = 0
@@ -466,10 +461,9 @@ def ordenar_por_precio():
     
     conexion, cursor = db_helper.get_base_datos()
 
-    sSQL = """select m.id_mueble, m.nombre, m.ancho, m.alto, m.profundidad, m.tipo_material, m.url_imagen, m.precio, m.stock, dp.ancho, dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
-    from mueble m 
-    left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
-    order by m.precio asc"""
+    sSQL = """select *
+    from mueble 
+    order by precio asc"""
 
     cursor.execute(sSQL)
 
@@ -497,11 +491,9 @@ def filtrar_por_precio():
 
             conexion, cursor = db_helper.get_base_datos()
 
-            sSQL = """select m.id_mueble, m.nombre, m.ancho, m.alto, m.profundidad, m.tipo_material, m.url_imagen, m.precio, m.stock, dp.ancho,
-            dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
-            from mueble m
-            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
-            where m.precio between %s and %s"""
+            sSQL = """select *
+            from mueble 
+            where precio between %s and %s"""
             cursor.execute(sSQL,(precio_min_numero, precio_max_numero))
 
             muebles = cursor.fetchall()
@@ -532,9 +524,9 @@ def filtrar_por_precio():
         else:
             precio_max_numero = float(precio_max)
             
-        sSQL = """select m.id_mueble, m.nombre, m.ancho, m.alto, m.profundidad, m.tipo_material, m.url_imagen, m.stock, m.precio, dp.ancho, dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado from mueble m
-            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
-            where m.precio between %s and %s"""
+        sSQL = """select * 
+            from mueble 
+            where precio between %s and %s"""
         
         cursor.execute(sSQL,(precio_min_numero, precio_max_numero))
         muebles = cursor.fetchall()
@@ -553,10 +545,10 @@ def filtrar_por_seccion():
 
     conexion, cursor = db_helper.get_base_datos()
 
-    sSQL = """select m.id_mueble, m.nombre, m.ancho, m.alto, m.profundidad, m.tipo_material, m.url_imagen, m.precio, m.stock, dp.ancho,dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
-        from mueble m
-        left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
-        where m.categoria = %s"""
+    sSQL = """select * 
+            from mueble m
+            join categoria c on m.id_categoria = c.id_categoria
+            where c.nombre = %s"""
     cursor.execute(sSQL, (seccion_seleccionada,))
 
     muebles = cursor.fetchall()
@@ -574,10 +566,10 @@ def filtro_por_color():
 
     conexion, cursor = db_helper.get_base_datos()
 
-    sSQL = """select m.id_mueble, m.nombre, m.ancho, m.alto, m.profundidad, m.tipo_material, m.url_imagen, m.precio, m.stock, dp.ancho,dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
-        from mueble m
-        left join diseño_personalizado dp on m.id_mueble = dp.id_mueble
-        where dp.color = %s
+    sSQL = """select *
+        from mueble 
+        
+        where color = %s
     """
     cursor.execute(sSQL, (color_seleccionado,))
     
@@ -595,10 +587,9 @@ def filtro_por_material():
     
     conexion, cursor = db_helper.get_base_datos()
     
-    sSQL = """select m.id_mueble, m.nombre, m.ancho, m.alto, m.profundidad, m.tipo_material, m.url_imagen, m.precio, m.stock, dp.ancho, dp.alto, dp.profundidad, dp.color, dp.descripcion, dp.estado 
-            from mueble m
-            left join diseño_personalizado dp on m.id_mueble = dp.id_mueble 
-            where m.tipo_material = %s"""
+    sSQL = """select *
+            from mueble 
+            where tipo_material = %s"""
     
     cursor.execute(sSQL, (material_seleccionado, ))
     
@@ -613,13 +604,14 @@ def filtro_por_material():
     
 
 @app.route("/editar_mueble", methods=["GET","POST"])
-def editar_mueble(id_mueble):
+def editar_mueble():
     
     if "id_usuario" not in session or session.get("rol") != "administrador":
         return redirect(url_for("pagina_productos"))
 
     if request.method == "POST":
         
+        id_mueble_a_cambiar = request.form.get("id_mueble")
         nuevo_nombre = request.form.get("nombre")
         nuevo_precio = request.form.get("precio")
         nueva_imagen = request.form.get("url_imagen")
@@ -629,28 +621,17 @@ def editar_mueble(id_mueble):
         nuevo_ancho = request.form.get("ancho")
         nuevo_alto = request.form.get("alto")
         nueva_profundidad = request.form.get("profundidad")
+        nueva_descripcion = request.form.get("descripcion")
 
         conexion, cursor = db_helper.get_base_datos()
 
         sSQL = """
             UPDATE mueble 
-            SET nombre = %s, precio = %s, url_imagen = %s, tipo_material = %s, 
-                color = %s, stock = %s, ancho = %s, alto = %s, profundidad = %s
+            SET nombre = %s, ancho = %s, alto = %s, profundidad = %s, descripcion = %s, precio = %s, url_imagen = %s, tipo_material = %s, color = %s, stock = %s
             WHERE id_mueble = %s
         """
         
-        cursor.execute(sSQL, (
-            nuevo_nombre, 
-            float(nuevo_precio), 
-            nueva_imagen, 
-            nuevo_material, 
-            nuevo_color,
-            int(nuevo_stock), 
-            float(nuevo_ancho) if nuevo_ancho else None,
-            float(nuevo_alto) if nuevo_alto else None,
-            float(nueva_profundidad) if nueva_profundidad else None,
-            id_mueble
-        ))
+        cursor.execute(sSQL, (nuevo_nombre, float(nuevo_ancho) if nuevo_ancho else None,float(nuevo_alto) if nuevo_alto else None,float(nueva_profundidad) if nueva_profundidad else None, nueva_descripcion, float(nuevo_precio), nueva_imagen,  nuevo_material, nuevo_color, int(nuevo_stock), id_mueble_a_cambiar))
         
         cursor.close()
         conexion.close()

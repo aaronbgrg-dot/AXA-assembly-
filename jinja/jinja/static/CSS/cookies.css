@@ -2,9 +2,9 @@
 
 .wrapper{
     position: fixed;
-    bottom: 200px;
-    right: -400px;
-    max-width: 345px;
+    bottom: 300px;
+    right: -600px;
+    max-width: 595px;
     width: 100%;
     background: #fff;
     border-radius: 8px;
@@ -13,7 +13,7 @@
 }
 
 .wrapper.show{
-    right: 20px;
+    right: 500px;
 }
 
 .wrapper header {

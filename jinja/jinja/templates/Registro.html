@@ -59,9 +59,11 @@
                     <p>Dirección</p>
                     <input type="text" name="direccion_hogar" id="direccion_hogar">
                     
-                    <br><br><p>Género</p>
-                    <input type="radio" name="genero" id="genero" value="Hombre">
-                    <input type="radio" name="genero" id="genero" value="Mujer">
+                    <br><br><p>Género</p><br>
+                    <label>Hombre</label>
+                    <input type="radio" name="genero" id="genero" value="masculino">
+                    <label>Mujer</label>
+                    <input type="radio" name="genero" id="genero" value="femenino">
 
                     <br><br><p>Contraseña</p>
                     <input type="password" name="Contrase_cliente" id="Contrase_cliente">
@@ -91,6 +93,7 @@
         const email = document.getElementById('email_cliente').value;
         const telefono = document.getElementById('telefono_cliente').value;
         const contrasena = document.getElementById('Contrase_cliente').value;
+        const genero = document.querySelector('input[name="genero"]:checked');
         const div_error = document.getElementById('texto_error');
 
         // Simbolos que tiene que tener la contrasena
@@ -166,6 +169,13 @@
         if (tieneSimbolo === false) {
             event.preventDefault(); // Frena el envio
             div_error.innerText = "La contraseña debe contener uno de estos símbolos: @, ¿, ¡, _, -";
+            return;
+        }
+        
+        // Validar Genero
+        if (!genero) {
+            event.preventDefault();
+            div_error.innerText = "Por favor selecciona un género.";
             return;
         }
 

@@ -1,0 +1,43 @@
+    /*Secciones Productos*/
+    
+.Apartado_producto {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    column-gap: 100px;
+    margin: 0 70px;
+    justify-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+   
+}
+
+.Apartado_producto button{
+    width: 20ch;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 0;
+    
+}
+.Apartado_producto button p{
+    font-size: 30px;
+}
+
+.Apartado_producto button h3{
+    color: #5D0703;
+    font-family: 'Trebuchet MS';
+    text-decoration: underline;
+    font-size: 14px;  
+}
+
+.tarjeta-producto{
+    background-color: #eb814d;
+    border: 5px solid #5D0703;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.tarjeta-producto img{
+    width: 225px;
+    height: 230px;
+}

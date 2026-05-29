@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="icon" href="../static/imagenes/Logo_Axa_asb.png" type="image/x-icon">
     <link rel="stylesheet" href="/static/CSS/styles.css">
+    <link rel="stylesheet" href="/static/CSS/productos.css">
 </head>
 <body onload="Cargar_carrusel_Anuncios()">
 
@@ -45,6 +46,54 @@
                 </div>
         </nav>
     </header>
+    
+    <div class="Apartados" style="margin: 20px; border: 10px solid;">
+
+        <div class="Apartado_producto">
+            <form action="{{url_for('pagina_productos')}}" method="post" class="Apartado_producto" >
+                <button type="submit" name="secciones" value="Salon">
+                    <h3>SALON</h3><br><p>🛋️📺</p>
+                </button>
+          
+                <button type="submit" name="secciones" value="Cocina">
+                    <h3>COCINA</h3><br><p>🧑‍🍳🍳</p>
+                </button>
+    
+                <button type="submit" name="secciones" value="Comedor">
+                    <h3>COMEDOR</h3><br><p>🍽️🥗</p>
+                </button>
+    
+                <button type="submit" name="secciones" value="Dormitorio">
+                    <h3>DORMITORIO</h3><br><p>🛏️💤</p>
+                </button>
+        
+                <button id="Btn_Aseo" type="submit" name="secciones" value="Aseo">
+                    <h3>BAÑO</h3><br><p>🛀🫧</p>
+                </button>
+    
+                <button type="submit" name="secciones" value="Terraza">
+                    <h3>TERRAZA</h3><br><p>🏡🌿</p>
+                </button>
+    
+                <button type="submit" name="secciones" value="Jardin">
+                    <h3>JARDIN</h3><br><p>🪴🌳</p>
+                </button>
+            
+                <button type="submit" name="secciones" value="Recibidor">
+                    <h3>RECIBIDOR</h3><br><p>🚪🪞</p>
+                </button>
+        
+                <button type="submit" name="secciones" value="Lavanderia">
+                    <h3>LAVANDERIA</h3><br><p>🧼✨</p>
+                </button>
+         
+                <button type="submit" name="secciones" value="Oficina">
+                    <h3>OFICINA</h3><br><p>🖥️🖨️</p>
+                </button>
+            </form>
+        </div>
+
+    </div>
 
     <div class="layout-principal">
 
@@ -86,24 +135,11 @@
                     <option value="cristal">Cristal</option>
                 </select>
             </div>
-
-            <!-- Tipo de mueble -->
-            <div class="filtro-grupo">
-                <label><b>Sección</b></label>
-                <div class="filtro-checkboxes"> 
-                    <label>Salón <input type="radio" name="secciones" value="salon"></label>
-                    <label>Cuartos <input type="radio" name="secciones" value="cuartos"></label>
-                    <label>Aseo<input type="radio" name="secciones" value="aseo"></label>
-                    <label>Cocina <input type="radio" name="secciones" value="cocina"></label>
-                    <label>Exterior <input type="radio" name="secciones" value="exterior"></label>
-                    <label>Trastero/Garaje <input type="radio" name="secciones" value="trastero_garaje"></label>
-                </div>
-            </div>
             
             <button onclick="aplicarFiltros()" type="submit" name="accion" >Aplicar filtros</button>
             <button onclick="limpiarFiltros()" type="submit" >Limpiar</button>
             </form>
-        </div>
+        </div><br>
         
         {% if mensaje %}
             <p>{{ mensaje }}</p>
@@ -112,38 +148,11 @@
         <div class="contenedor-productos">
             <!-- Bucle productos -->
             {% for producto in productos %}
-            <div class="tarjeta-producto">
-                    <img src="{{ producto.url_imagen }}" alt="{{ producto.nombre }}">
-    
-                    <h3>{{ producto.nombre }}</h3>
-                    {% if porcentaje > 0 %}
-                        <p class="precio" style="text-decoration: line-through; color: #888; font-size: 0.9em; margin-bottom: 2px;">
-                            {{ producto.precio }} €
-                        </p>
-                        <p class="precio-descuento" style="color: #27ae60; font-weight: bold; margin-top: 0;">
-                            {{ producto.precio_con_descuento }} € <span style="font-size: 0.8em;">(-{{ porcentaje }}%)</span>
-                        </p>
-                    {% else %}
-                        <p class="precio">{{ producto.precio }} €</p>
-                    {% endif %}
-    
-                    <a href="{{ url_for('pagina_productos', id_mueble=producto.id_mueble) }}" 
-                    class="boton-ver-mas">Ver más</a>
-                    <button id="abrir_producto_completo"></button>
-    
-                    <dialog id="ver_producto_completo">
-                        <h2>{{ producto.nombre }}</h2>
+            {%if producto.url_imagen != "" and producto.stock != -1 and producto.id_proveedor != none %} 
+                <div class="tarjeta-producto">
                         <img src="{{ producto.url_imagen }}" alt="{{ producto.nombre }}">
-    
-                        <p class="descripcion">{{ producto.descripcion }}</p>
-                        
-                        <p class="dimensiones-base">
-                        <b>Dimensiones Base:</b> 
-                        (Ancho) = {{ producto.ancho }} cm 
-                        (Alto) = {{ producto.alto }} cm  
-                        (Profundidad) = {{ producto.profundidad }} cm 
-                        </p>
-                        
+        
+                        <h3>{{ producto.nombre }}</h3>
                         {% if porcentaje > 0 %}
                             <p class="precio" style="text-decoration: line-through; color: #888; font-size: 0.9em; margin-bottom: 2px;">
                                 {{ producto.precio }} €
@@ -154,77 +163,107 @@
                         {% else %}
                             <p class="precio">{{ producto.precio }} €</p>
                         {% endif %}
-    
-                        <!-- El stock solo visible para empleados y administradores -->
-                        {% if rol_usuario == 'empleado' or rol_usuario == 'administrador' %}
-                            <p class="stock">Stock: {{ producto.stock }}</p>
-                        {% endif %}
-                        
-                        {% if session.get('rol') == 'administrador' %}
-                        <div class="panel-edicion-admin" style="border: 2px dashed #e74c3c; padding: 15px; margin-top: 20px; background-color: #fdf2f2; text-align: left; border-radius: 6px;">
-                            <h3>Panel de Gestión de Catálogo (Admin)</h3>
+        
+                        <a href="{{ url_for('pagina_productos', id_mueble=producto.id_mueble) }}" 
+                        class="boton-ver-mas">Ver más</a>
+                        <button id="abrir_producto_completo"></button>
+        
+                        <dialog id="ver_producto_completo">
+                            <h2>{{ producto.nombre }}</h2>
+                            <img src="{{ producto.url_imagen }}" alt="{{ producto.nombre }}">
+        
+                            <p class="descripcion">{{ producto.descripcion }}</p>
                             
-                            <form action="{{ url_for('editar_mueble', id_mueble=producto.id_mueble) }}" method="POST">
-                                <div>
-                                    <label>Nombre del Mueble:</label>
-                                    <input type="text" name="nombre" value="{{ producto.nombre }}">
-                                </div>
-
-                                <div>
-                                    <label>Precio Base (€):</label>
-                                    <input type="number" step="0.1" name="precio" value="{{ producto.precio }}">
-                                </div>
-
-                                <div>
-                                    <label>URL de la Imagen:</label>
-                                    <input type="text" name="url_imagen" value="{{ producto.url_imagen }}">
-                                </div>
-
-                                <div>
+                            <p class="dimensiones-base">
+                            <b>Dimensiones Base:</b> 
+                            (Ancho) = {{ producto.ancho }} cm 
+                            (Alto) = {{ producto.alto }} cm  
+                            (Profundidad) = {{ producto.profundidad }} cm 
+                            </p>
+                            
+                            {% if porcentaje > 0 %}
+                                <p class="precio" style="text-decoration: line-through; color: #888; font-size: 0.9em; margin-bottom: 2px;">
+                                    {{ producto.precio }} €
+                                </p>
+                                <p class="precio-descuento" style="color: #27ae60; font-weight: bold; margin-top: 0;">
+                                    {{ producto.precio_con_descuento }} € <span style="font-size: 0.8em;">(-{{ porcentaje }}%)</span>
+                                </p>
+                            {% else %}
+                                <p class="precio">{{ producto.precio }} €</p>
+                            {% endif %}
+        
+                            <!-- El stock solo visible para empleados y administradores -->
+                            {% if rol_usuario == 'empleado' or rol_usuario == 'administrador' %}
+                                <p class="stock">Stock: {{ producto.stock }}</p>
+                            {% endif %}
+                            
+                            {% if session.get('rol') == 'administrador' %}
+                            <div class="panel-edicion-admin" style="border: 2px dashed #e74c3c; padding: 15px; margin-top: 20px; background-color: #fdf2f2; text-align: left; border-radius: 6px;">
+                                <h3>Panel de Gestión de Catálogo (Admin)</h3>
+                                
+                                <form action="{{ url_for('editar_mueble') }}" method="POST">
+                                    <input type="hidden" name="id_mueble" value="{{ producto.id_mueble }}">
                                     <div>
-                                        <label>Material:</label>
-                                        <input type="text" name="tipo_material" value="{{ producto.tipo_material }}">
+                                        <label>Nombre del Mueble:</label>
+                                        <input type="text" name="nombre" value="{{ producto.nombre }}">
                                     </div>
+    
                                     <div>
-                                        <label>Color:</label>
-                                        <input type="text" name="color" value="{{ producto.color }}">
+                                        <label>Precio Base (€):</label>
+                                        <input type="number" step="0.1" name="precio" value="{{ producto.precio }}">
                                     </div>
+    
                                     <div>
-                                        <label>Stock:</label>
-                                        <input type="number" name="stock" value="{{ producto.stock }}">
+                                        <label>URL de la Imagen:</label>
+                                        <input type="text" name="url_imagen" value="{{ producto.url_imagen }}">
                                     </div>
-                                </div>
-
-                                <fieldset style="border: 1px solid;">
-                                    <legend>Dimensiones Oficiales (cm)</legend>
+    
                                     <div>
                                         <div>
-                                            <label>Ancho:</label>
-                                            <input type="number" step="0.1" name="ancho" value="{{ producto.ancho }}">
+                                            <label>Material:</label>
+                                            <input type="text" name="tipo_material" value="{{ producto.tipo_material }}">
                                         </div>
                                         <div>
-                                            <label>Alto:</label>
-                                            <input type="number" step="0.1" name="alto" value="{{ producto.alto }}">
+                                            <label>Color:</label>
+                                            <input type="text" name="color" value="{{ producto.color }}">
                                         </div>
                                         <div>
-                                            <label>Profundo:</label>
-                                            <input type="number" step="0.1" name="profundidad" value="{{ producto.profundidad }}">
+                                            <label>Stock:</label>
+                                            <input type="number" name="stock" value="{{ producto.stock }}">
                                         </div>
                                     </div>
-                                </fieldset>
-
-                                <button type="submit">
-                                    💾 Guardar Cambios en Base de Datos
-                                </button>
-                            </form>
-                        </div>
-                    {% endif %}
-                        
-                        <br>
-                        <button id="cerrar_ventana_producto">Cerrar</button>
-                        
-                    </dialog>
-            </div>
+    
+                                    <fieldset style="border: 1px solid;">
+                                        <legend>Dimensiones Oficiales (cm)</legend>
+                                        <div>
+                                            <div>
+                                                <label>Ancho:</label>
+                                                <input type="number" step="0.1" name="ancho" value="{{ producto.ancho }}">
+                                            </div>
+                                            <div>
+                                                <label>Alto:</label>
+                                                <input type="number" step="0.1" name="alto" value="{{ producto.alto }}">
+                                            </div>
+                                            <div>
+                                                <label>Profundo:</label>
+                                                <input type="number" step="0.1" name="profundidad" value="{{ producto.profundidad }}">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+    
+                                    <button type="submit">
+                                        💾 Guardar Cambios en Base de Datos
+                                    </button>
+                                </form>
+                            </div>
+                        {% endif %}
+                            
+                            <br>
+                            <button id="cerrar_ventana_producto">Cerrar</button>
+                            
+                        </dialog>
+                </div>
+            {% endif %}
             {% endfor %}
         </div>
 
@@ -244,7 +283,8 @@
     const precioMax = document.getElementById('precio-max').value;
     const color = document.getElementById('filtro-color').value;
     const material = document.getElementById('filtro-material').value;
-    const seccionSeleccionada = document.querySelector('input[name="secciones"]:checked').value;
+    const seccionChecked = document.querySelector('input[name="secciones"]:checked');
+    const seccionSeleccionada = seccionChecked ? seccionChecked.value : '';
     }
 
     function limpiarFiltros() {
