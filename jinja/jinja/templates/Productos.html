@@ -47,10 +47,12 @@
         </nav>
     </header>
     
+    <form action="{{url_for('pagina_productos')}}" method="post">
+    
     <div class="Apartados" style="margin: 20px; border: 10px solid;">
 
         <div class="Apartado_producto">
-            <form action="{{url_for('pagina_productos')}}" method="post" class="Apartado_producto" >
+            
                 <button type="submit" name="secciones" value="Salon">
                     <h3>SALON</h3><br><p>🛋️📺</p>
                 </button>
@@ -90,7 +92,7 @@
                 <button type="submit" name="secciones" value="Oficina">
                     <h3>OFICINA</h3><br><p>🖥️🖨️</p>
                 </button>
-            </form>
+            
         </div>
 
     </div>
@@ -98,9 +100,11 @@
     <div class="layout-principal">
 
         <div class="filtros">
-            <form action="{{url_for('pagina_productos')}}" method="post">
+            
             <h3><u>Filtrar productos</u></h3>
-
+            <!--sirve para guardar la seccion del hogar-->
+            <input type="hidden" name="secciones" id="seccion-guardada" value="{{ request.form.get('secciones', '') }}">
+            
             <!-- Precio -->
             <div class="filtro-grupo">
                 <label><b>Precio</b></label> 
@@ -135,10 +139,19 @@
                     <option value="cristal">Cristal</option>
                 </select>
             </div>
+            <!-- Oredenar por precios-->
+            <div class="filtro-grupo">
+                <label><b>Ordenar por precio</b></label>
+                <select name="orden">
+                    <option value="">Sin orden</option>
+                    <option value="de_barato_a_caro">Menor a mayor</option>
+                    <option value="de_caro_a_barato">Mayor a menor</option>
+                </select>
+            </div>
             
             <button onclick="aplicarFiltros()" type="submit" name="accion" >Aplicar filtros</button>
             <button onclick="limpiarFiltros()" type="submit" >Limpiar</button>
-            </form>
+            
         </div><br>
         
         {% if mensaje %}
@@ -254,7 +267,6 @@
                                     <button type="submit">
                                         💾 Guardar Cambios en Base de Datos
                                     </button>
-                                </form>
                             </div>
                         {% endif %}
                             
@@ -265,9 +277,11 @@
                 </div>
             {% endif %}
             {% endfor %}
+           
         </div>
-
+            
     </div>
+    </form>
 </body>
 
 <script src="../static/Script/Carrusel_anuncios.js"></script>
@@ -279,6 +293,7 @@
 <script>
 
     function aplicarFiltros() {
+    const seccion_seleccionada = document.getElementById('seccion-guardada').value = '';
     const precioMin = document.getElementById('precio-min').value;
     const precioMax = document.getElementById('precio-max').value;
     const color = document.getElementById('filtro-color').value;
@@ -293,6 +308,9 @@
     document.getElementById('filtro-color').value = '';
     document.getElementById('filtro-material').value = '';
     document.querySelectorAll('.filtro-checkboxes input').forEach(cb => cb.checked = false);
+    
+    // sirve para limpiar las secciones 
+    document.querySelector('input[name="secciones"]').value = '';
 
     // Muestra todas las tarjetas de nuevo
     document.querySelectorAll('.tarjeta-producto').forEach(t => t.style.display = 'flex');

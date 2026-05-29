@@ -375,32 +375,9 @@ def pagina_productos():
         color = request.form.get("color")
         material = request.form.get("material")
         seccion = request.form.get("secciones")
+        orden = request.form.get("orden")
         
-        if p_min or p_max:
-            productos, mensaje = filtrar_por_precio()
-            
-        elif seccion:
-            productos, mensaje = filtrar_por_seccion()
-            
-        elif color:
-            productos, mensaje = filtro_por_color()
-            
-        elif material:
-            productos, mensaje = filtro_por_material()
-            
-        else:
-            conexion, cursor = db_helper.get_base_datos()
-            
-            sSQL = """select id_mueble, nombre, ancho, alto, profundidad, descripcion, precio, url_imagen, tipo_material, color, stock, id_categoria, id_proveedor
-                from mueble 
-                """
-                
-            cursor.execute(sSQL)
-            productos = cursor.fetchall()
-            
-            cursor.close()
-            conexion.close()
-            
+        productos, mensaje = filtros_combinados(seccion, p_min, p_max, color, material, orden)
         
     else:
         
@@ -453,152 +430,201 @@ def ofertas():
     
     return porcentaje
     
-        
-        
- 
- 
-def ordenar_por_precio():
+    
+    
+    
+def filtros_combinados(seccion, precio_min, precio_max, color, material, ordenar_por_precio = None):
     
     conexion, cursor = db_helper.get_base_datos()
-
-    sSQL = """select *
-    from mueble 
-    order by precio asc"""
-
-    cursor.execute(sSQL)
-
-    muebles = cursor.fetchall()
-
-    cursor.close()
-    conexion.close()
-    return muebles, ""
     
-    
-
-def filtrar_por_precio():
-    
-    precio_min = request.form.get("p_min") 
-    precio_max = request.form.get("p_max")
-
-    mensaje = ""
-    muebles = []
-        
-    if precio_min and precio_max:
-        if precio_min.isdigit() and precio_max.isdigit():
-
-            precio_min_numero = float(precio_min)
-            precio_max_numero = float(precio_max)
-
-            conexion, cursor = db_helper.get_base_datos()
-
-            sSQL = """select *
-            from mueble 
-            where precio between %s and %s"""
-            cursor.execute(sSQL,(precio_min_numero, precio_max_numero))
-
-            muebles = cursor.fetchall()
-
-            cursor.close()
-            conexion.close()
-
-            if not muebles:
-                mensaje = "No hay muebles en el rango escogido" 
-        else:
-            mensaje = "Introduce numeros por favor"
-
-    else:
-        
-        conexion, cursor = db_helper.get_base_datos()
-        
-        if not precio_min:
-            cursor.execute("select min(precio) as minimo from mueble")
-            resultado_min = cursor.fetchone()
-            precio_min_numero = float(resultado_min["minimo"])
-        else:
-            precio_min_numero = float(precio_min)
-            
-        if not precio_max:
-            cursor.execute("select max(precio) as maximo from mueble")
-            resultado_max = cursor.fetchone()
-            precio_max_numero = float(resultado_max["maximo"])
-        else:
-            precio_max_numero = float(precio_max)
-            
-        sSQL = """select * 
-            from mueble 
-            where precio between %s and %s"""
-        
-        cursor.execute(sSQL,(precio_min_numero, precio_max_numero))
-        muebles = cursor.fetchall()
-            
-        cursor.close()
-        conexion.close()
-            
-    return muebles, mensaje
-    
-    
-    
-def filtrar_por_seccion():
-
-    seccion_seleccionada = request.form.get("secciones")
-    
-
-    conexion, cursor = db_helper.get_base_datos()
-
-    sSQL = """select * 
+    sSQL = """select m.id_mueble, m.nombre, m.ancho, m.alto, m.profundidad, m.descripcion, m.precio, m.url_imagen, m.tipo_material, 
+          m.color, m.stock, m.id_categoria, m.id_proveedor,
+          c.nombre as nombre_categoria 
             from mueble m
-            join categoria c on m.id_categoria = c.id_categoria
-            where c.nombre = %s"""
-    cursor.execute(sSQL, (seccion_seleccionada,))
-
+            left join categoria c on m.id_categoria = c.id_categoria
+            where 1 = 1"""
+            
+    parametros_de_filtrado = []
+    
+    if seccion:
+        
+        sSQL += " and c.nombre = %s"
+        parametros_de_filtrado.append(seccion)
+        
+    if precio_min:
+        sSQL += " and m.precio >= %s"
+        parametros_de_filtrado.append(float(precio_min))
+        
+    if precio_max:
+        sSQL += " and m.precio <= %s"
+        parametros_de_filtrado.append(float(precio_max))
+        
+    if color:
+        sSQL += " and m.color = %s"
+        parametros_de_filtrado.append(color)
+    
+    if material:
+        sSQL += " and m.tipo_material = %s"
+        parametros_de_filtrado.append(material)
+    
+    if ordenar_por_precio == "de_barato_a_caro" :
+        sSQL += " order by m.precio asc"
+    elif ordenar_por_precio == "de_caro_a_barato":
+        sSQL += " order by m.recio desc"
+            
+    cursor.execute(sSQL, parametros_de_filtrado)
     muebles = cursor.fetchall()
-
+    
     cursor.close()
     conexion.close()
+    
     return muebles, ""
     
     
+ 
+ 
+# def ordenar_por_precio():
+    
+#     conexion, cursor = db_helper.get_base_datos()
+
+#     sSQL = """select *
+#     from mueble 
+#     order by precio asc"""
+
+#     cursor.execute(sSQL)
+
+#     muebles = cursor.fetchall()
+
+#     cursor.close()
+#     conexion.close()
+#     return muebles, ""
     
     
-def filtro_por_color():
 
-    color_seleccionado = request.form.get("color")
+# def filtrar_por_precio():
+    
+#     precio_min = request.form.get("p_min") 
+#     precio_max = request.form.get("p_max")
 
-    conexion, cursor = db_helper.get_base_datos()
-
-    sSQL = """select *
-        from mueble 
+#     mensaje = ""
+#     muebles = []
         
-        where color = %s
-    """
-    cursor.execute(sSQL, (color_seleccionado,))
-    
-    filtro_color = cursor.fetchall()
+#     if precio_min and precio_max:
+#         if precio_min.isdigit() and precio_max.isdigit():
 
-    cursor.close()
-    conexion.close()
+#             precio_min_numero = float(precio_min)
+#             precio_max_numero = float(precio_max)
+
+#             conexion, cursor = db_helper.get_base_datos()
+
+#             sSQL = """select *
+#             from mueble 
+#             where precio between %s and %s"""
+#             cursor.execute(sSQL,(precio_min_numero, precio_max_numero))
+
+#             muebles = cursor.fetchall()
+
+#             cursor.close()
+#             conexion.close()
+
+#             if not muebles:
+#                 mensaje = "No hay muebles en el rango escogido" 
+#         else:
+#             mensaje = "Introduce numeros por favor"
+
+#     else:
+        
+#         conexion, cursor = db_helper.get_base_datos()
+        
+#         if not precio_min:
+#             cursor.execute("select min(precio) as minimo from mueble")
+#             resultado_min = cursor.fetchone()
+#             precio_min_numero = float(resultado_min["minimo"])
+#         else:
+#             precio_min_numero = float(precio_min)
+            
+#         if not precio_max:
+#             cursor.execute("select max(precio) as maximo from mueble")
+#             resultado_max = cursor.fetchone()
+#             precio_max_numero = float(resultado_max["maximo"])
+#         else:
+#             precio_max_numero = float(precio_max)
+            
+#         sSQL = """select * 
+#             from mueble 
+#             where precio between %s and %s"""
+        
+#         cursor.execute(sSQL,(precio_min_numero, precio_max_numero))
+#         muebles = cursor.fetchall()
+            
+#         cursor.close()
+#         conexion.close()
+            
+#     return muebles, mensaje
     
-    return filtro_color, ""
+    
+    
+# def filtrar_por_seccion():
+
+#     seccion_seleccionada = request.form.get("secciones")
+    
+
+#     conexion, cursor = db_helper.get_base_datos()
+
+#     sSQL = """select * 
+#             from mueble m
+#             join categoria c on m.id_categoria = c.id_categoria
+#             where c.nombre = %s"""
+#     cursor.execute(sSQL, (seccion_seleccionada,))
+
+#     muebles = cursor.fetchall()
+
+#     cursor.close()
+#     conexion.close()
+#     return muebles, ""
+    
+    
+    
+    
+# def filtro_por_color():
+
+#     color_seleccionado = request.form.get("color")
+
+#     conexion, cursor = db_helper.get_base_datos()
+
+#     sSQL = """select *
+#         from mueble 
+        
+#         where color = %s
+#     """
+#     cursor.execute(sSQL, (color_seleccionado,))
+    
+#     filtro_color = cursor.fetchall()
+
+#     cursor.close()
+#     conexion.close()
+    
+#     return filtro_color, ""
     
 
 
-def filtro_por_material():
-    material_seleccionado = request.form.get("material")
+# def filtro_por_material():
+#     material_seleccionado = request.form.get("material")
     
-    conexion, cursor = db_helper.get_base_datos()
+#     conexion, cursor = db_helper.get_base_datos()
     
-    sSQL = """select *
-            from mueble 
-            where tipo_material = %s"""
+#     sSQL = """select *
+#             from mueble 
+#             where tipo_material = %s"""
     
-    cursor.execute(sSQL, (material_seleccionado, ))
+#     cursor.execute(sSQL, (material_seleccionado, ))
     
-    filtro_material = cursor.fetchall()
+#     filtro_material = cursor.fetchall()
     
-    cursor.close()
-    conexion.close()
+#     cursor.close()
+#     conexion.close()
     
-    return filtro_material, ""
+#     return filtro_material, ""
     
     
     
