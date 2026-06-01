@@ -13,7 +13,15 @@ app.secret_key = os.getenv("secret_key")
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    
+    oferta_actual = ofertas() 
+    
+    if oferta_actual:
+        porcentaje = float(oferta_actual["descuento"])
+    else:
+        porcentaje = 0
+    
+    return render_template("index.html", oferta = oferta_actual, porcentaje = porcentaje)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -213,39 +221,44 @@ def ver_pedidos():
     return render_template("Pedidos.html", pedidos_muebles_usuario = pedidos_muebles_usuario)
     
 
-
-
-@app.route("/get_feedback", methods = ["GET", "POST"])
+@app.route("/get_feedback", methods=["POST"])
 def get_feedback():
-    
+
     if "id_usuario" not in session:
         return redirect(url_for("login"))
-    
-    if request.method == "POST":
 
+    try:
         id_usuario_sesion = session.get("id_usuario")
         nuevo_feedback = request.form.get("Feedback")
         estrellas_mueble = request.form.get("estrellas")
-        id_mueble_feedback = request.form.get("id_mueble")
-        
-        
-        if nuevo_feedback and estrellas_mueble and id_mueble_feedback:
-            
-            conexion, cursor = db_helper.get_base_datos()
-    
-            sSQL = """insert into feedback(id_usuario, id_mueble, estrellas, comentario, fecha_feedback) 
-            values(%s, %s, %s, %s, curdate())
-            """
-            
-            cursor.execute(sSQL, (id_usuario_sesion, id_mueble_feedback, estrellas_mueble, nuevo_feedback))
-            
+
+        if not nuevo_feedback or not estrellas_mueble:
+            return redirect(url_for("home"))
+
+        try:
+            estrellas_mueble = int(estrellas_mueble)
+        except:
+            return redirect(url_for("home"))
+
+        conexion, cursor = db_helper.get_base_datos()
+
+        cursor.execute("""
+            INSERT INTO feedback (id_usuario, estrellas, comentario)
+            VALUES (%s, %s, %s)
+        """, (
+            id_usuario_sesion,
+            estrellas_mueble,
+            nuevo_feedback
+        ))
+
+        return redirect(url_for("home"))
+    finally:
+        try:
             cursor.close()
             conexion.close()
-
-        return redirect(url_for("ver_pedidos"))
-    return redirect(url_for("ver_pedidos"))
-    
-    
+        except:
+            pass
+        conexion.close()
 # @app.route("/anadir_al_carrito", methods = ["GET", "POST"])
 # def anadir_al_carrito():
     
@@ -366,7 +379,7 @@ def pagina_productos():
     productos = []
     mensaje = ""
     
-    porcentaje = ofertas()
+    oferta_actual = ofertas()
     
     if request.method == "POST":
         
@@ -393,6 +406,11 @@ def pagina_productos():
         
         cursor.close()
         conexion.close()
+    
+    if oferta_actual:
+        porcentaje = float(oferta_actual["descuento"])
+    else:
+        porcentaje = 0
         
     for producto in productos:
         precio_original = float(producto["precio"])
@@ -402,7 +420,7 @@ def pagina_productos():
     # Obtener rol del usuario si está logueado (por defecto cliente)
     rol_usuario = session.get("rol", "cliente")
 
-    return render_template("Productos.html", productos = productos, rol_usuario = rol_usuario, mensaje = mensaje, porcentaje = porcentaje)
+    return render_template("Productos.html", productos = productos, rol_usuario = rol_usuario, mensaje = mensaje, porcentaje = porcentaje, oferta = oferta_actual)
         
 
 
@@ -410,25 +428,25 @@ def ofertas():
     
     conexion, cursor = db_helper.get_base_datos()
     
-    sSQL = """select descuento
+    sSQL = """select descuento, dia_especial, url_descuento
     from oferta
-    where dia_especial = curdate()"""
+    where date(dia_especial) = curdate()"""
     
     cursor.execute(sSQL)
     oferta_del_dia = cursor.fetchone()
     
     if oferta_del_dia:
     
-        porcentaje = float(oferta_del_dia["descuento"])
+        resultado = oferta_del_dia
         
     else:
-        porcentaje = 0
+        resultado = None
         
         
     cursor.close()
     conexion.close()
     
-    return porcentaje
+    return resultado
     
     
     
@@ -470,7 +488,7 @@ def filtros_combinados(seccion, precio_min, precio_max, color, material, ordenar
     if ordenar_por_precio == "de_barato_a_caro" :
         sSQL += " order by m.precio asc"
     elif ordenar_por_precio == "de_caro_a_barato":
-        sSQL += " order by m.recio desc"
+        sSQL += " order by m.precio desc"
             
     cursor.execute(sSQL, parametros_de_filtrado)
     muebles = cursor.fetchall()
@@ -632,7 +650,7 @@ def filtros_combinados(seccion, precio_min, precio_max, color, material, ordenar
 @app.route("/editar_mueble", methods=["GET","POST"])
 def editar_mueble():
     
-    if "id_usuario" not in session or session.get("rol") != "administrador":
+    if "id_usuario" not in session or session.get("rol") != "admin":
         return redirect(url_for("pagina_productos"))
 
     if request.method == "POST":

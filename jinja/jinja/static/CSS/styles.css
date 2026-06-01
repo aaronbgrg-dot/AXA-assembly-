@@ -36,10 +36,9 @@ button{
 
 .nav-links {
     display: flex;
-    align-items: center;  /* ← centra logo, apartados y dropdown en la misma línea */
-    gap: 5px;
+    align-items: center;
+    gap: 40px;
     flex-wrap: wrap;
-    gap: 100px;
 }
 
 .Apartados{
@@ -54,11 +53,11 @@ button{
 .logo{
   width: 100px;
   height: auto;
-  margin-right: 100px;
+  margin-right: 50px;
 }
 
 .dropdown {
-    position: absolute;
+    position: fixed;
     right: 5%;
     top: 5%;
 }
@@ -194,14 +193,13 @@ button{
     flex: 1;
 }
 
-
 /*FOOTER*/
 
 footer {
         background-color: #eb814d;
         border: 5px solid #5D0703;
         color: whitesmoke;
-        padding: 20px 100px;
+        padding: 20px 50px;
         position: fixed;
         bottom: 0;
         left: 0;
@@ -211,37 +209,59 @@ footer {
 
     .footer_contenido{
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         text-align: center;
+        align-items: center;
         flex-wrap: wrap;
         width: 100%;
-        align-items: flex-start;
     }
     
     .footer_contenido h3{
         padding-bottom: 20px;
     }
 
-    .columna_footer{
-        width: 30%;
+.columna_footer{
+        width: 30ch;
+        overflow: auto;
+    }
+        
+.img_parocinadores{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);  /* Separar en 2 columnas - Ayuda de IA*/
+    gap: 20px;
     }
 
-    .columna_footer ul {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);  /* Separar en 3 columnas - Ayuda de IA*/
-        gap: 10px;
-        padding: 0;
-    }
 
-    .columna_footer img{
-        max-width: 90px;
-        border-radius: 5px;
-    }
+.columna_footer img{
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+        
+}
 
-    .pie{
-        width: 100%;
-        margin-top: center;
-        text-align: center;
-    }
+.pie{
+    width: 100%;
+    margin-top: center;
+    text-align: center;
+}
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 30px;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.rating input:checked ~ label {
+    color: gold;
+}
     
     

@@ -16,12 +16,14 @@
 
     <header class="encabezado">
         <nav class="navegador_secciones">
+            
+            
             <nav class="nav-links">
-
                 <!--    Enlace a pagina principal   -->
                 <a href="{{ url_for('home') }}">
                     <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
                 </a>
+                
                 <a href="{{ url_for('pagina_productos') }}" class="Apartados">Productos</a>
                 <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
                 <a href="#" class="Apartados">Carrito</a>
@@ -60,15 +62,44 @@
                 <b><u>Sobre nosotros</u></b>
                 <p></p>
             </div>
+                  
+            
             {% if session.get("id_usuario") %}
-            <form action = "{{url_for('get_feedback')}}" method = "POST">
-                <div class="contenedor">
-                    <b><u>Feedback</u></b>
-                    <p>Danos tu opinion sobre nuestros productos o problemas con la pagina para poder mejorar.</p>
-                    <br><textarea name="Feedback" id="Feedback" style="height: 300px; width: 80%;"></textarea>
-                    <br><br><button onclick="Mandar_Feedback()">Enviar</button>
+             
+            <div class="contenedor">
+                 <b><u>Reseña</u></b><br>
+                <div class="rating">  
+    
+       
+                    
+                    <form action = "{{url_for('get_feedback')}}" method = "POST> 
+                    
+                       
+                        
+                            <input type="radio" id="s5" name="estrellas" value="5">
+                            <label for="s5">★</label>
+        
+                             <input type="radio" id="s4" name="estrellas" value="4">
+                             <label for="s4">★</label>
+        
+                             <input type="radio" id="s3" name="estrellas" value="3">
+                             <label for="s3">★</label>
+        
+                            <input type="radio" id="s2" name="estrellas" value="2">
+                            <label for="s2">★</label>
+        
+                            <input type="radio" id="s1" name="estrellas" value="1">
+                            <label for="s1">★</label> 
+                            <br>
+            
+                        <b><u>Feedback</u></b>
+                        <p>Danos tu opinion sobre nuestros productos o problemas con la pagina para poder mejorar.</p>
+                        <br><textarea name="Feedback" id="Feedback" style="height: 300px; width: 80%;"></textarea>
+                        <br><button type = submit onclick="Mandar_Feedback()">Enviar</button>
+                        </form>
+                    </div>
                 </div>
-            </form>
+            
             {% endif %}
         </div>
     
@@ -78,16 +109,15 @@
                 <p class="anuncio-titulo">Ofertas destacadas</p>
 
                 <div class="carrusel-track" id="carruselTrack">
-                    {% if oferta and oferta.imagen_anuncio %}
-                    <div class="anuncio activo">
-                        <img src="/static/imagenes/{{ oferta.imagen_anuncio }}" alt="Oferta Especial del Día">
-                        <p class="anuncio-desc">
-                            ¡OFERTA HOY ({{ oferta.descuento }}%): {{ oferta.descripcion_anuncio }}!
-                        </p>
-                    </div>
+                    {% if oferta %}
+                        <div class="anuncio activo">
+                            <img src="/static/imagenes/{{ oferta.url_descuento }}" alt="dia_especial">
+                            <p class="anuncio-desc">¡OFERTA HOY ({{ porcentaje | int }}%): Disfruta de los mejores descuentos en toda la tienda!</p>
+                        </div>
                     {% endif %}
+                    
                     <!-- Anuncio 1 -->
-                    <div class="anuncio activo">
+                    <div class="anuncio {% if not oferta %}activo{% endif %}">
                         <img src="" alt="Anuncio 1">
                         <p class="anuncio-desc">¡Nuevo producto disponible!</p>
                     </div>
@@ -106,6 +136,8 @@
                         <img src="" alt="Anuncio 4">
                         <p class="anuncio-desc">¡No te lo pierdas!</p>
                     </div>
+                    
+                    
                 </div>
 
                 <!-- Indicadores de puntos -->
@@ -130,33 +162,30 @@
         </div>
     </div>    
     
-    
-    <div class="Espacio_footer" style="height: 200px;"> <br></div>
-    
     <footer>
         <div class="footer_contenido">
             <div class="columna_footer">
                 <u><h3>Proovedores: </h3></u>
-                <ul> 
-                    <li><img src="../static/imagenes/DHL_Logo.jpg" alt="Logo DHL"></li>
-                    <li><img src="../static/imagenes/Kartra-Review_logo.jpg" alt="Logo Kartra"/></li>
-                    <li><img src="../static/imagenes/Correos_logo.jpg" alt="Logo correos"/></li>
-                    <li><img src="../static/imagenes/Mollari_logo.jpg" alt="Logo Mollarri Garraioak"/></li>
-                    <li><img src="../static/imagenes/Leroy_Merlin_logo.png" alt="Logo Leroy Merlin"/></li>
-                    <li><img src="../static/imagenes/Equilan-logo.jpg" alt="Logo Equilan"/></li>
-                </ul>
+                <div class="img_parocinadores">
+                    <img src="../static/imagenes/DHL_Logo.jpg" alt="Logo DHL">
+                    <img src="../static/imagenes/Kartra-Review_logo.jpg" alt="Logo Kartra"/>
+                    <img src="../static/imagenes/Correos_logo.jpg" alt="Logo correos"/>
+                    <img src="../static/imagenes/Mollari_logo.jpg" alt="Logo Mollarri Garraioak"/>
+                    <img src="../static/imagenes/Leroy_Merlin_logo.jpg" alt="Logo Leroy Merlin"/>
+                    <img src="../static/imagenes/Equilan-logo.jpg" alt="Logo Equilan"/>
+                </div>
             </div>
 
             <div class="columna_footer">
                 <u><h3>Contáctanos:</h3></u>
-                <p><b>Correo:</b> a_assembly@gmail.com</p>
+                <p><b>Correo:</b> a_assembly@axassembly.com</p>
                 <p><b>Direccion:</b> Berio Pasalekua 50 - San Sebastian/Donosti, Guipuzcoa - España</p>
                 
             </div>
 
             <div class="columna_footer">
                 <u><h3>Siguenos en:</h3></u>
-                <a href=""><i class="fa-brands fa-instagram" style="font-size: 60px; color: whitesmoke;"></i></a>
+                <a href=""><i class="fa-brands fa-instagram" style="font-size: 50px; color: whitesmoke;"></i></a>
 
             </div>
             

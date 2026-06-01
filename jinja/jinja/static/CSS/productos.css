@@ -41,3 +41,37 @@
     width: 225px;
     height: 230px;
 }
+.dropdown-carrito{
+    position: relative;
+}
+
+.contenido-carrito{
+
+    display:none;
+
+    position:absolute;
+
+    right:0;
+
+    top:40px;
+
+    width:300px;
+
+    background:white;
+
+    border:1px solid #ccc;
+
+    padding:15px;
+
+    z-index:999;
+}
+
+.producto-carrito{
+
+    border-bottom:1px solid #ddd;
+
+    margin-bottom:10px;
+
+    padding-bottom:10px;
+
+}

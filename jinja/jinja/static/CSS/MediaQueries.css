@@ -5,32 +5,39 @@
 
     /* Encabezado compacto */
     .encabezado {
+        height: auto;
         padding: 10px 12px;
         margin-bottom: 15px;
     }
-
-    .logo {
-        width: 60px;
-        margin-left: 0;
-        margin-right: 0;
+    
+    .navegador_secciones {
+        width: 100%;
+        flex-wrap: wrap;
     }
 
     .nav-links{
-        gap: 5px;
+        width: 50%;
+        gap: 10px;
     }
 
     .Apartados {
         font-size: 0.78rem;
         padding: 6px 8px;
-        margin-left: 0;
         margin: 5px;
-        flex-wrap: wrap;
+        flex-wrap: none;
+    }
+    
+    .logo {
+        width: 60px;
+        margin-right: 0;
     }
 
     .login {
         width: 50px !important;
-        height: cente;
+        height: center;
+        margin-right: 10px;
     }
+    
 
     /* Contenedor con padding mínimo */
     .contenedor {
@@ -84,6 +91,62 @@
     h2 { font-size: 1.2rem; }
     h3 { font-size: 1rem; }
     p  { font-size: 0.9rem; }
+    
+    /*_________________________________________________________________*/
+    
+    
+    /* ── Layout principal ── */
+    .layout-principal {
+        flex-direction: row;
+        padding: 0 10px;
+        align-items: flex-start;
+    }
+    
+    /* ── Anuncios ── */
+    .columna-anuncios {
+        width: 150px;
+        position: sticky;
+        top: 20px;
+    }
+    
+    .Espacio_footer{
+        height: 10px;
+    }
+    
+    /* ── Footer ── */
+    footer {
+        position: static;
+        padding: 20px;
+    }
+    
+    .footer_contenido {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .columna_footer {
+        width: 100%;
+    }
+    
+    .columna_footer ul {
+        grid-template-columns: repeat(2, 1fr);  /* de 3 columnas a 2 */
+    }
+    
+    
+    /*_______________________________________________________________*/
+    
+    /* ── Secciones de productos ── */
+    .Apartado_producto {
+        column-gap: 5px;
+        margin: 0;
+    }
+    
+    .Apartado_producto button{
+        width: 50px;
+    }
+
 }
+
 
 

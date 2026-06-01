@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Axa-Login</title>
+     <!-- BOXICONS CSS-->
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/2193d055c9.js" crossorigin="anonymous"></script>
+    
     <link rel="icon" href="../static/imagenes/Logo_Axa_asb.png" type="image/x-icon">
     <link rel="stylesheet" href="/static/CSS/styles.css">
     <link rel="stylesheet" href="/static/CSS/MediaQueries.css"> 
@@ -11,13 +15,15 @@
 <body>
     <header class="encabezado">
         <nav class="navegador_secciones">
-            <nav class="nav-links">
-                
-                <!--    Enlace a pagina principal   -->
+            
+            <!--    Enlace a pagina principal   -->
                 <a href="{{ url_for('home') }}">
                     <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
                 </a>
-                <a href="#" class="Apartados">Productos</a>
+            <nav class="nav-links">
+                
+                
+                <a href="{{ url_for('pagina_productos')}}" class="Apartados">Productos</a>
                 <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
                 <a href="#" class="Apartados">Carrito</a>
                 <!--    Dropdown del usuario    -->
@@ -40,16 +46,48 @@
         
         <div class="contenedor" style="max-width: 50%;">
             <form method="post" action="{{ url_for('login') }}">
-            <h3>Inicio de sesion</h3><br>
-            <p>Usuario</p>
-            <input type="text" name="Nom_usuario" id="Nom_usuario">
-
-            <br><br><p>Contraseña</p>
-            <input type="password" name="Contrase_usuario" id="Contrase_usuario">
-
-            <br><br><button type="submit" id="btn_login">Iniciar sesion</button>
+                <h3>Inicio de sesion</h3><br>
+                <p>Usuario</p>
+                <input type="text" name="Nom_usuario" id="Nom_usuario">
+    
+                <br><br><p>Contraseña</p>
+                <input type="password" name="Contrase_usuario" id="Contrase_usuario">
+    
+                <br><br><button type="submit" id="btn_login">Iniciar sesion</button>
             </form>
         </div>
+    
+    <footer>
+        <div class="footer_contenido">
+            <div class="columna_footer">
+                <u><h3>Proovedores: </h3></u>
+                <div class="img_parocinadores">
+                    <img src="../static/imagenes/DHL_Logo.jpg" alt="Logo DHL">
+                    <img src="../static/imagenes/Kartra-Review_logo.jpg" alt="Logo Kartra"/>
+                    <img src="../static/imagenes/Correos_logo.jpg" alt="Logo correos"/>
+                    <img src="../static/imagenes/Mollari_logo.jpg" alt="Logo Mollarri Garraioak"/>
+                    <img src="../static/imagenes/Leroy_Merlin_logo.jpg" alt="Logo Leroy Merlin"/>
+                    <img src="../static/imagenes/Equilan-logo.jpg" alt="Logo Equilan"/>
+                </div>
+            </div>
+
+            <div class="columna_footer">
+                <u><h3>Contáctanos:</h3></u>
+                <p><b>Correo:</b> a_assembly@axassembly.com</p>
+                <p><b>Direccion:</b> Berio Pasalekua 50 - San Sebastian/Donosti, Guipuzcoa - España</p>
+                
+            </div>
+
+            <div class="columna_footer">
+                <u><h3>Siguenos en:</h3></u>
+                <a href=""><i class="fa-brands fa-instagram" style="font-size: 50px; color: whitesmoke;"></i></a>
+
+            </div>
+            
+            <p class="pie">2026 Axa Assembly</p>
+        </div>
+    </footer>
+    
         
 </body>
 

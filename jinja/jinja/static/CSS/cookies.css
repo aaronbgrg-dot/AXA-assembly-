@@ -3,9 +3,9 @@
 .wrapper{
     position: fixed;
     bottom: 300px;
-    right: -600px;
+    right: -1000px;
     max-width: 595px;
-    width: 100%;
+    max-width: 100%;
     background: #fff;
     border-radius: 8px;
     padding: 15px 25px 22px;
@@ -13,7 +13,7 @@
 }
 
 .wrapper.show{
-    right: 500px;
+    right: 30%;
 }
 
 .wrapper header {
