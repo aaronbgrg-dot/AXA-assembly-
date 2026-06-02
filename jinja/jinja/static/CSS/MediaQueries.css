@@ -2,6 +2,14 @@
    MEDIA QUERIES — MÓVIL (max-width: 480px)
    ════════════════════════════════════════════ */
 @media (max-width: 480px) {
+    
+    
+    /* ── Layout principal ── */
+    .layout-principal {
+        flex-direction: row;
+        padding: 0 10px;
+        align-items: flex-start;
+    }
 
     /* Encabezado compacto */
     .encabezado {
@@ -23,13 +31,16 @@
     .Apartados {
         font-size: 0.78rem;
         padding: 6px 8px;
-        margin: 5px;
-        flex-wrap: none;
     }
     
     .logo {
-        width: 60px;
-        margin-right: 0;
+        width: 70px;
+        height: auto;
+    }
+    
+    .dropdown {
+        width: 50px;
+        top: auto;
     }
 
     .login {
@@ -50,11 +61,6 @@
         width: 70% !important;
         margin-left: 15% !important;
     }   
-
-    /*.form-mueble {
-        width: 100%;
-        margin-left: 0;
-    } */
 
     /* Inputs del formulario a ancho completo */
     .Sections input,
@@ -91,16 +97,57 @@
     h2 { font-size: 1.2rem; }
     h3 { font-size: 1rem; }
     p  { font-size: 0.9rem; }
+
+    /*_______________________________________________________________*/
+    
+    /* ── Secciones de productos ── */
+    
+    .Apartado_producto {
+        margin: 0;
+        column-gap: 50px;
+    }
+    
+    .Apartado_producto button{
+        max-width: 100px;
+        padding: 6px;
+    }
+    
+    .Apartado_producto button h3 {
+        font-size: 11px;
+    }
+    
+    .Apartado_producto button p {
+        font-size: 20px;
+    }
+    
+    .contenedor-productos {
+        margin: 0;
+    }
+    
+    
+    
+    
+    
+
+    .tarjeta-producto {
+        width: 150px;
+        padding: 6px;
+        border-width: 3px;
+    }
+
+    .tarjeta-producto img {
+        width: 120px !important;
+        height: auto;
+    }
+
+    .tarjeta-producto h3 {
+        font-size: 0.9rem;
+    }
+    
+    
     
     /*_________________________________________________________________*/
     
-    
-    /* ── Layout principal ── */
-    .layout-principal {
-        flex-direction: row;
-        padding: 0 10px;
-        align-items: flex-start;
-    }
     
     /* ── Anuncios ── */
     .columna-anuncios {
@@ -127,23 +174,6 @@
     
     .columna_footer {
         width: 100%;
-    }
-    
-    .columna_footer ul {
-        grid-template-columns: repeat(2, 1fr);  /* de 3 columnas a 2 */
-    }
-    
-    
-    /*_______________________________________________________________*/
-    
-    /* ── Secciones de productos ── */
-    .Apartado_producto {
-        column-gap: 5px;
-        margin: 0;
-    }
-    
-    .Apartado_producto button{
-        width: 50px;
     }
 
 }

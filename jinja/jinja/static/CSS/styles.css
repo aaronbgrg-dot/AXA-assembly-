@@ -37,7 +37,7 @@ button{
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 30px;
     flex-wrap: wrap;
 }
 
@@ -48,16 +48,16 @@ button{
     color: #5D0703;
     padding: 10px;
     flex-wrap: wrap;
+    margin: 0 40px;
 }
 
 .logo{
   width: 100px;
   height: auto;
-  margin-right: 50px;
 }
 
 .dropdown {
-    position: fixed;
+    position: absolute;
     right: 5%;
     top: 5%;
 }
@@ -102,30 +102,6 @@ button{
     padding: 30px;
     border: 4px solid #5D0703;
 }
-
-.filtros{
-    background-color: antiquewhite;
-    border: 5px solid #5D0703;
-    padding: 20px;
-    max-width: 25%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-shrink: 0;
-}
-
-.filtro-grupo {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.filtro-precio {
-    display: flex;
-    margin-right: 120px;
-    gap: 20px;
-}
-
-
 
 .layout-principal {
     display: flex;
@@ -200,7 +176,7 @@ footer {
         border: 5px solid #5D0703;
         color: whitesmoke;
         padding: 20px 50px;
-        position: fixed;
+        position: static;
         bottom: 0;
         left: 0;
         width: 100%;

@@ -10,8 +10,8 @@
     <script src="https://kit.fontawesome.com/2193d055c9.js" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" href="/static/CSS/styles.css">
-    <link rel="stylesheet" href="/static/CSS/MediaQueries.css"> 
     <link rel="stylesheet" href="/static/CSS/productos.css">
+    <link rel="stylesheet" href="/static/CSS/MediaQueries.css"> 
     
 </head>
 <body> <header class="encabezado">
@@ -21,30 +21,33 @@
             </a>
             <nav class="nav-links">
                 <a href="{{ url_for('pagina_productos') }}" class="Apartados">Productos</a>
-                <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
-               <div class="dropdown-carrito">
+                {% if session.get('rol') == "admin" %}
+                    <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Añadir artículo nuevo</a>
+                {% else %}
+                    <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+                {% endif %}
+            <div class="dropdown-carrito">
+                <button type="button" class="Apartados" onclick="mostrarCarrito(event)">
+                  <span id="contador-carrito">🛒 0</span>
+                </button>
 
-    <a href="#" class="Apartados" onclick="mostrarCarrito()">
-        <span id="contador-carrito">🛒</span>
-    </a>
+             <div id="menuCarrito" class="contenido-carrito" style="display:none;">
+              <div id="productos-carrito">
+                 <p>Carrito vacío</p>
+              </div>
 
-    <div id="menuCarrito" class="contenido-carrito">
+             <hr>
 
-        <div id="productos-carrito">
+              <p>
+                  <strong>Total: </strong>
+                  <span id="total-carrito">0.00 €</span>
+              </p>
 
-            <p>Carrito vacío</p>
-
-        </div>
-
-        <hr>
-
-        <button onclick="window.location.href='/pedido'">
-            Finalizar pedido
-        </button>
-
-    </div>
-
-</div>
+                  <button onclick="window.location.href='/pedido'">
+                  Finalizar pedido
+                  </button>
+              </div>
+             </div>
 
             </nav>
                 <div class="dropdown">
@@ -118,10 +121,8 @@
         </div>
 
     </div>
-
-    <div class="layout-principal">
-
-        <div class="filtros">
+    
+    <div class="filtros">
             
             <h3><u>Filtrar productos</u></h3>
             <input type="hidden" name="secciones" id="seccion-guardada" value="{{ request.form.get('secciones', '') }}"><br>
@@ -197,12 +198,16 @@
             </div>
             <br>
             
-            <button onclick="aplicarFiltros()" type="submit" name="accion" >Aplicar filtros</button>
-            <button onclick="limpiarFiltros()" type="submit" >Limpiar</button>
+            <div class="filtro-grupo">
+                <button onclick="aplicarFiltros()" type="submit" name="accion" >Aplicar filtros</button>
+                <button onclick="limpiarFiltros()" type="submit" >Limpiar</button>
+            </div>
             
         </div><br>
     
     </form> 
+
+    <div class="layout-principal">
        
         {% if mensaje %}
             <p>{{ mensaje }}</p>
@@ -210,15 +215,19 @@
 
         <div class="contenedor-productos">
             {% for producto in productos %}
-            {%if producto.url_imagen != "" and producto.stock != -1 and producto.id_proveedor != none %} 
+            {%if producto.stock != -1 and producto.id_proveedor != none %} 
                 <div class="tarjeta-producto">
                         <img src="{{ producto.url_imagen }}" alt="{{ producto.nombre }}">
         
                         <h3>{{ producto.nombre }}</h3>
+                 
+                        
                         {% if porcentaje > 0 %}
                             <p class="precio" style="text-decoration: line-through; color: #888; font-size: 0.9em; margin-bottom: 2px;">
                                 {{ producto.precio }} €
                             </p>
+                     
+                           
                             <p class="precio-descuento" style="color: #27ae60; font-weight: bold; margin-top: 0;">
                                 {{ producto.precio_con_descuento }} € <span style="font-size: 0.8em;">(-{{ porcentaje }}%)</span>
                             </p>
@@ -226,20 +235,29 @@
                             <p class="precio">{{ producto.precio }} €</p>
                         {% endif %}
         
-                        {% if session.get("rol") == "admin" %}  
-                        <button
-                             type="button"
-                             onclick="agregarCarrito({{ producto.id_mueble }})">
-
-                             Añadir al carrito
-
+                       <form>     
+                        <button type="button"
+                                class="btn-carrito"
+                                data-id="{{ producto.id_mueble }}"
+                                data-nombre="{{ producto.nombre }}"
+                                data-precio="{{ producto.precio }}"
+                                onclick="agregarCarrito(this)">
+                                Añadir al carrito
                         </button>
-                             
-                            <button class="boton-abrir" type="button"> Editar</button>
-                        {% else %}
-                            <button class="boton-abrir" type="button">Ver más</button>
-                        {% endif %}
-        
+                       </form>
+                    {% if session.get("rol") == "admin" %}
+                        <button class="boton-abrir" type="button">Editar</button>
+                      
+                        <button type="submit" form="form-eliminar-{{ producto.id_mueble }}"
+                        onclick="return confirm('¿Estás seguro de que quieres eliminar este mueble?');">Eliminar</button>
+
+                        <form id="form-eliminar-{{ producto.id_mueble }}" action="{{ url_for('eliminar_articulo') }}" method="POST" style="display: none;">
+                            <input type="hidden" name="id_mueble" value="{{ producto.id_mueble }}">
+                        </form>
+                    {% else %}
+                      <button class="boton-abrir" type="button">Ver más</button>
+                    {% endif %}
+                      
                             <div id="vista-{{ producto.id_mueble }}" class="producto-detallado" style="display: none; border: 1px solid #ccc; padding: 15px; margin-top: 10px;">
                                 <h2>{{ producto.nombre }}</h2>
             
@@ -284,6 +302,8 @@
                                 <br>
                                 <button class="boton-cerrar" type="button">Cerrar</button>
                                 
+                                   
+                                
                             </div> 
                             {% if session.get("rol") == "admin" %}
                                 <form id="form-edit-{{ producto.id_mueble }}" action="{{ url_for('editar_mueble') }}" method="POST" style="display:none;"></form>
@@ -323,7 +343,7 @@
 
             <div class="columna_footer">
                 <u><h3>Siguenos en:</h3></u>
-                <a href=""><i class="fa-brands fa-instagram" style="font-size: 60px; color: whitesmoke;"></i></a>
+                <a href=""><i class="fa-brands fa-instagram" style="font-size: 35px; color: whitesmoke;"></i></a>
 
             </div>
             
@@ -338,133 +358,7 @@
 
 <script src="../static/Script/Ventana_producto.js"></script>
 
-<script>
-
-    function aplicarFiltros() {
-    const precioMin = document.getElementById('precio-min').value;
-    const precioMax = document.getElementById('precio-max').value;
-    const color = document.getElementById('filtro-color').value;
-    const material = document.getElementById('filtro-material').value;
-    
-    }
-
-    function limpiarFiltros() {
-    document.getElementById('precio-min').value = '';
-    document.getElementById('precio-max').value = '';
-    document.getElementById('filtro-color').value = '';
-    document.getElementById('filtro-material').value = '';
-    document.getElementById('seccion-guardada').value = '';
-
-    // Muestra todas las tarjetas de nuevo
-    document.querySelectorAll('.tarjeta-producto').forEach(t => t.style.display = 'flex');
-    }
-
-
-
-    //Fuerza al usuario al escribir el maximo que sea solo hasta el numero establecido
-    const maxInput = document.getElementById("precio-max");
-
-    maxInput.addEventListener("input", () => {
-        const max = 7000;
-        if (maxInput.value > max) {
-            maxInput.value = max;
-        }
-        
-    });
-    
-    
-    document.querySelectorAll('.boton-abrir').forEach(function(boton) {
-        boton.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const divOculto = boton.closest('.tarjeta-producto').querySelector('.producto-detallado');
-            if (divOculto) divOculto.style.display = 'block';
-        });
-    });
-
-    document.querySelectorAll('.boton-cerrar').forEach(function(boton) {
-        boton.addEventListener('click', function(e) {
-            e.preventDefault();
-            const divOculto = boton.closest('.producto-detallado');
-            if (divOculto) divOculto.style.display = 'none';
-        });
-    });
-
-function agregarCarrito(idMueble){
-
-    fetch("/agregar_carrito",{
-
-        method:"POST",
-
-        headers:{
-            "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-            id_mueble:idMueble
-        })
-
-    })
-
-    .then(response => response.json())
-
-    .then(data => {
-
-        document.getElementById("contador-carrito").innerText =
-            data.cantidad;
-
-        alert("Producto añadido al carrito");
-
-    });
-
-}
-function mostrarCarrito(){
-
-    fetch("/obtener_carrito")
-
-    .then(response => response.json())
-
-    .then(productos => {
-
-        let html = "";
-
-        productos.forEach(producto => {
-
-            html += `
-                <div class="producto-carrito">
-
-                    <strong>${producto.nombre}</strong>
-
-                    <br>
-
-                    ${producto.precio} €
-
-                </div>
-            `;
-
-        });
-
-        if(productos.length === 0){
-
-            html = "<p>Carrito vacío</p>";
-
-        }
-
-        document.getElementById("productos-carrito").innerHTML = html;
-
-        const menu =
-            document.getElementById("menuCarrito");
-
-        menu.style.display =
-            menu.style.display === "block"
-            ? "none"
-            : "block";
-
-    });
-
-}
-</script>
-    
+<script src="../static/Script/carrito.js"></script>
     
 </body>
 </html>

@@ -9,7 +9,11 @@
     justify-items: center;
     max-width: 100%;
     margin-bottom: 5px;
-   
+    overflow: auto;
+}
+
+.contenedor-productos{
+    margin-left: 50px;
 }
 
 .Apartado_producto button{
@@ -30,6 +34,31 @@
     font-size: 14px;  
 }
 
+/*_______________________________________________________________*/
+
+/*    FILTROS    */
+
+.filtros{
+    background-color: antiquewhite;
+    border: 5px solid #5D0703;
+    padding: 20px;
+    margin: 0 10%;
+    display: flex;
+    align-items: center;
+    max-width: 80%;
+    flex-wrap: wrap;
+}
+
+.filtro-grupo {
+    gap: 6px;
+}
+
+.filtro-precio {
+    display: flex;
+    margin-right: 120px;
+    gap: 20px;
+}
+
 .tarjeta-producto{
     background-color: #eb814d;
     border: 5px solid #5D0703;
@@ -41,6 +70,11 @@
     width: 225px;
     height: 230px;
 }
+
+/*_______________________________________________________________*/
+
+/*    CARRITO    */
+
 .dropdown-carrito{
     position: relative;
 }

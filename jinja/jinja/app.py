@@ -154,22 +154,34 @@ def personalizar_muebles():
     
     if "id_usuario" not in session:
         return redirect(url_for("login"))
-
+        
+        
+    administrador = session.get("rol") == "admin"
+    proveedores = []
     mensaje = ""
+    
+    conexion, cursor = db_helper.get_base_datos()
+    
+    if administrador:
+        
+        sSQL="""select id_proveedor, nombre from proveedor"""
+        
+        cursor.execute(sSQL)
+        proveedores = cursor.fetchall()
 
     if request.method == "POST":
         tipo_mueble = request.form.get("tipo_mueble")          
         seccion_hogar = request.form.get("seccion_hogar")      
         color_mueble = request.form.get("color")
-        anchura_mueble = request.form.get("ancho")
-        altura_mueble = request.form.get("alto")
-        profundidad_mueble = request.form.get("profundidad")
+        anchura_mueble = float(request.form.get("ancho"))
+        altura_mueble = float(request.form.get("alto"))
+        profundidad_mueble = float(request.form.get("profundidad"))
         material_mueble = request.form.get("material")
         descripcion_mueble = request.form.get("descripcion_mueble")
-        precio_estimado_mueble = request.form.get("precio_estimado")
+        precio_estimado_mueble = float(request.form.get("precio_estimado"))
         estado_mueble = request.form.get("estado")
 
-        conexion, cursor = db_helper.get_base_datos()
+        
         
         sSQL = """SELECT id_categoria 
         FROM categoria 
@@ -181,20 +193,36 @@ def personalizar_muebles():
             mensaje = "Error: La sección del hogar no existe."
         else:
             id_categoria = resultado_categoria["id_categoria"]
-    
-            sSQL = """ insert into mueble(nombre, ancho, alto, profundidad, descripcion, precio, url_imagen, tipo_material, color, stock, id_categoria, id_proveedor)
-            values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """
-            cursor.execute(sSQL, (tipo_mueble, anchura_mueble, altura_mueble, profundidad_mueble, descripcion_mueble, precio_estimado_mueble,  "", material_mueble, color_mueble, -1, id_categoria, None))
             
-            mensaje = "Solicitud enviada con exito."
+            if administrador:
+                id_proveedor_seleccionado = request.form.get("id_proveedor")
+                stock = int(request.form.get("stock", 10))
+                url_imagen = request.form.get("url_imagen")
+                
+                if url_imagen is None or url_imagen.strip() == "":
+                    url_imagen = "/static/imagenes/articulo_por_defecto.jpg"
+                
+                sSQL = """ insert into mueble(nombre, ancho, alto, profundidad, descripcion, precio, url_imagen, tipo_material, color, stock, id_categoria, id_proveedor)
+                values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                cursor.execute(sSQL, (tipo_mueble, anchura_mueble, altura_mueble, profundidad_mueble, descripcion_mueble, precio_estimado_mueble, url_imagen, material_mueble, color_mueble, stock, id_categoria, id_proveedor_seleccionado))
+                
+                mensaje = "Nuevo artículo añadido a la tienda con éxito."
+            else:
+    
+                sSQL = """ insert into mueble(nombre, ancho, alto, profundidad, descripcion, precio, url_imagen, tipo_material, color, stock, id_categoria, id_proveedor)
+                values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                cursor.execute(sSQL, (tipo_mueble, anchura_mueble, altura_mueble, profundidad_mueble, descripcion_mueble, precio_estimado_mueble,  "", material_mueble, color_mueble, -1, id_categoria, None))
+                
+                mensaje = "Solicitud enviada con exito."
         
-        cursor.close()
-        conexion.close()
+    cursor.close()
+    conexion.close()
     
         
-        return render_template ("Form_crear_mueble.html", mensaje = mensaje)
-    return render_template("Form_crear_mueble.html")
+    return render_template ("Form_crear_mueble.html", mensaje = mensaje, administrador = administrador, proveedores = proveedores)
+
     
 
 @app.route("/ver_pedidos", methods = ["GET", "POST"])
@@ -259,6 +287,8 @@ def get_feedback():
         except:
             pass
         conexion.close()
+        
+        
 # @app.route("/anadir_al_carrito", methods = ["GET", "POST"])
 # def anadir_al_carrito():
     
@@ -683,7 +713,30 @@ def editar_mueble():
     return redirect(url_for("pagina_productos"))
     
     
+  
+@app.route("/eliminar_articulo", methods=["GET", "POST"])
+def eliminar_articulo():
+ 
+    if "id_usuario" not in session or session.get("rol") != "admin":
+        return redirect(url_for("login"))
     
+    conexion, cursor = db_helper.get_base_datos()
+
+    id_mueble = request.form.get("id_mueble")
+
+    if id_mueble:
+        sSQL = """DELETE FROM mueble WHERE id_mueble = %s"""
+        cursor.execute(sSQL, (id_mueble,))
+
+    cursor.close()
+    conexion.close()
+
+
+    return redirect(url_for("pagina_productos"))
+
+    
+          
+          
         
 
 

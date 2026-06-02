@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido</title>
+
+    <!-- TU CSS -->
+    <link rel="stylesheet" href="/static/CSS/estilos.css">
+</head>
+
+<body>
+
+<h1>Finalizar pedido</h1>
+
+<form>
+
+    <input type="text" placeholder="Nombre">
+    <br><br>
+
+    <input type="text" placeholder="Dirección">
+    <br><br>
+
+    <input type="text" placeholder="Código Postal">
+    <br><br>
+
+    <label for="envio"><b>Tipo de envío:</b></label>
+    <br><br>
+
+    <select id="envio" name="envio" required>
+        <option value="" selected disabled>Seleccione un envío</option>
+        <option value="domicilio">Envío a domicilio</option>
+        <option value="tienda">Recogida en tienda</option>
+    </select>
+
+    <br><br><br>
+
+    <div class="campo-formulario">
+
+        <b>Método de pago</b>
+        <br><br>
+
+        <label class="card-pago">
+            <input type="radio" name="metodo_pago" value="kutxabank" required>
+            <img src="Proyecto/logos/kutxabank.png" class="logo-pago">
+            <span>Kutxabank</span>
+        </label>
+
+        <label class="card-pago">
+            <input type="radio" name="metodo_pago" value="laboral">
+            <img src="Proyecto/logos/laboralkutxa.png" class="logo-pago">
+            <span>Laboral Kutxa</span>
+        </label>
+
+        <label class="card-pago">
+            <input type="radio" name="metodo_pago" value="paypal">
+            <img src="Proyecto/logos/paypal.png" class="logo-pago">
+            <span>PayPal</span>
+        </label>
+
+        <label class="card-pago">
+            <input type="radio" name="metodo_pago" value="visa">
+            <img src="Proyecto/logos/visa.png" class="logo-pago">
+            <span>Visa</span>
+        </label>
+
+        <label class="card-pago">
+            <input type="radio" name="metodo_pago" value="gpay">
+            <img src="Proyecto/logos/gpay.png" class="logo-pago">
+            <span>Google Pay</span>
+        </label>
+
+        <label class="card-pago">
+            <input type="radio" name="metodo_pago" value="mastercard">
+            <img src="Proyecto/logos/mastercard.png" class="logo-pago">
+            <span>Mastercard</span>
+        </label>
+
+    </div>
+
+    <button type="submit">
+        Confirmar pedido
+    </button>
+
+</form>
+
+</body>
+</html>

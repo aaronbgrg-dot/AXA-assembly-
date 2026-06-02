@@ -25,7 +25,11 @@
                 </a>
                 
                 <a href="{{ url_for('pagina_productos') }}" class="Apartados">Productos</a>
-                <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+                {% if session.get('rol') == "admin" %}
+                    <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Añadir artículo nuevo</a>
+                {% else %}
+                    <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+                {% endif %}
                 <a href="#" class="Apartados">Carrito</a>
                 <!--    Dropdown del usuario    -->
                 
@@ -118,23 +122,45 @@
                     
                     <!-- Anuncio 1 -->
                     <div class="anuncio {% if not oferta %}activo{% endif %}">
-                        <img src="" alt="Anuncio 1">
-                        <p class="anuncio-desc">¡Nuevo producto disponible!</p>
+                        <a href="{{ url_for('pagina_productos') }}">
+                        <img src="/static/imagenes/Anuncio_salon.jpg" alt="Anuncio 1">
+                        </a>
+                        <p class="anuncio-desc">¡Nuevos productos disponibles!</p>
                     </div>
                     <!-- Anuncio 2 -->
                     <div class="anuncio">
-                        <img src="" alt="Anuncio 2">
-                        <p class="anuncio-desc">Descuentos esta semana</p>
+                        <a href="{{ url_for('pagina_productos') }}">
+                        <img src="/static/imagenes/Anuncio_dormitorio.jpg" alt="Anuncio 2">
+                        </a>
+                        <p class="anuncio-desc">Productos de calidad al mejor precio</p>
                     </div>
                     <!-- Anuncio 3 -->
                     <div class="anuncio">
-                        <img src="" alt="Anuncio 3">
+                        <a href="{{ url_for('pagina_productos') }}">
+                        <img src="/static/imagenes/Anuncio_terraza.jpg" alt="Anuncio 3">
+                        </a>
                         <p class="anuncio-desc">Servicio premium disponible</p>
                     </div>
                     <!-- Anuncio 4 -->
                     <div class="anuncio">
-                        <img src="" alt="Anuncio 4">
+                        <a href="{{ url_for('pagina_productos') }}">
+                        <img src="/static/imagenes/Anuncio_aseo.jpg" alt="Anuncio 4">
+                        </a>
                         <p class="anuncio-desc">¡No te lo pierdas!</p>
+                    </div>
+                    <!-- Anuncio 5 -->
+                    <div class="anuncio">
+                        <a href="{{ url_for('pagina_productos') }}">
+                        <img src="/static/imagenes/Anuncio_cocina.jpg" alt="Anuncio 5">
+                        </a>
+                        <p class="anuncio-desc">Conoce nuestros mejores diseños</p>
+                    </div>
+                    <!-- Anuncio 6 -->
+                    <div class="anuncio">
+                        <a href="{{ url_for('pagina_productos') }}">
+                        <img src="/static/imagenes/Anuncio_comedor.jpg" alt="Anuncio 6">
+                        </a>
+                        <p class="anuncio-desc">¡Aquí, el importante es el cliente!</p>
                     </div>
                     
                     
@@ -185,7 +211,7 @@
 
             <div class="columna_footer">
                 <u><h3>Siguenos en:</h3></u>
-                <a href=""><i class="fa-brands fa-instagram" style="font-size: 50px; color: whitesmoke;"></i></a>
+                <i class="fa-brands fa-instagram" style="font-size: 35px; color: whitesmoke;"></i>
 
             </div>
             

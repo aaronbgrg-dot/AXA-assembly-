@@ -22,7 +22,11 @@
                     <img src="/static/imagenes/Logo_Axa_asb.png" alt="Logo de empresa" class="logo">
                 </a>
                 <a href="{{url_for('pagina_productos')}}" class="Apartados">Productos</a>
-                <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+                {% if session.get('rol') == "admin" %}
+                    <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Añadir artículo nuevo</a>
+                {% else %}
+                    <a href="{{ url_for('personalizar_muebles') }}" class="Apartados">Personalizacion Muebles</a>
+                {% endif %}
 
                 <a href="#" class="Apartados">Carrito</a>
                 <!--    Dropdown del usuario    -->
@@ -52,7 +56,13 @@
     </header>
 
     <div class="contenedor" style="width: 60%; margin-left: 20%;" >
-        <h2>Crear Mueble Personalizado</h2>
+        <h2>
+            {% if administrador %}
+                Añadir Artículo a la Tienda ({{session.get("usuario")}})
+            {% else %}
+                Crear Mueble Personalizado
+            {% endif %}
+        </h2>
 
         <form action="{{url_for('personalizar_muebles')}}" method="post">
             <div class="Sections">
@@ -127,6 +137,26 @@
                     <option value="Nuevo">Nuevo</option>
                     <option value="Segunda mano">Segunda mano</option>
                 </select><br><br>
+                
+                {% if administrador %}
+                <div class="seccion-admin" style="background-color: #f9f9f9; padding: 15px; border-left: 4px solid #333; margin-bottom: 20px;">
+                    <h3>Datos de Inventario (Solo Admin)</h3>
+                    
+                    <label for="stock">Stock inicial:</label><br>
+                    <input type="number" id="stock" name="stock" min="0" value="10" required><br><br>
+
+                    <label for="url_imagen">URL de la imagen:</label><br>
+                    <input type="text" id="url_imagen" name="url_imagen" placeholder="Ej: mesa_roble.jpg"><br><br>
+
+                    <label for="id_proveedor">Proveedor Logístico Asociado:</label><br>
+                    <select id="id_proveedor" name="id_proveedor" required>
+                        <option value="" disabled selected>Elige el proveedor</option>
+                        {% for proveedor in proveedores %}
+                            <option value="{{ proveedor.id_proveedor }}">{{ proveedor.nombre }}</option>
+                        {% endfor %}
+                    </select><br>
+                </div>
+                {% endif %}
 
             </div>
 
@@ -163,7 +193,7 @@
 
             <div class="columna_footer">
                 <u><h3>Siguenos en:</h3></u>
-                <a href=""><i class="fa-brands fa-instagram" style="font-size: 60px; color: whitesmoke;"></i></a>
+                <a href=""><i class="fa-brands fa-instagram" style="font-size: 35px; color: whitesmoke;"></i></a>
 
             </div>
             
